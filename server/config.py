@@ -11,5 +11,5 @@ CORS(app) # disables CORS error to communicate with front end
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///mydatabase.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-# creates database instance, giving us access to the database above 
+# creates database instance
 db = SQLAlchemy(app)
