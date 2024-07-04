@@ -8,7 +8,7 @@ class Application(db.Model):
     # now, in python code, we can define the fields that we want the db to have
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(60), unique = False, nullable = False)
-    company = db.Column(db.String(60), unique = False, nullable = False)
+    name = db.Column(db.String(60), unique = False, nullable = False)
     open = db.Column(db.String(60), unique = False, nullable = True)
     close = db.Column(db.String(60), unique = False, nullable = False)
     link = db.Column(db.String(200), unique = True, nullable = True)
@@ -19,7 +19,7 @@ class Application(db.Model):
         return {
             "id": self.id,
             "status": self.status,
-            "company": self.company, 
+            "name": self.name, 
             "open": self.open,
             "close": self.close,
             "link": self.link,        
