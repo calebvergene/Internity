@@ -9,7 +9,7 @@ from models import Application
 
 # This is made to read the applications. If the front end requests
 # to see an application, this is what is sent. 
-@app.route("/applications", methods=["GET"])
+@app.route("/application", methods=["GET"])
 def get_applications():
     # need to take each application from the db and return it as a json
     applications = Application.query.all()
