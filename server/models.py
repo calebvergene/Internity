@@ -4,7 +4,7 @@
 from config import db
 
 # python class that inherits the characteristics of the SQL database
-class Contact(db.Model):
+class Application(db.Model):
     # now, in python code, we can define the fields that we want the db to have
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(60), unique = False, nullable = False)
