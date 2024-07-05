@@ -1,10 +1,12 @@
 import { useState } from "react";
 
-const ApplicationForm = () => {
-    const [name, setName] = useState("")
-    const [open, setOpen] = useState("")
-    const [close, setClose] = useState("")
-    const [link, setLink] = useState("")
+const ApplicationForm = ({existingApplication = {}, updateCallback}) => {
+    const [name, setName] = useState(existingApplication.name || "")
+    const [open, setOpen] = useState(existingApplication.open || "")
+    const [close, setClose] = useState(existingApplication.close || "")
+    const [link, setLink] = useState(existingApplication.link || "")
+
+    const updating = Object.entries(existingApplication).length !== 0
 
     const onSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault()
@@ -15,9 +17,9 @@ const ApplicationForm = () => {
             close, 
             link
         }
-        const url = "http://127.0.0.1:5000/create_application"
+        const url = "http://127.0.0.1:5000/" + (updating ? `update_application/${existingApplication.id}` : "create_application")
         const options = {
-            method: "POST",
+            method: updating ? "PATCH" : "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
             }
@@ -26,7 +28,7 @@ const ApplicationForm = () => {
             const data = await response.json()
             alert(data.message)
         } else {
-            // need to edit
+            updateCallback()
         }
     }
         return <form onSubmit={onSubmit}>
@@ -42,7 +44,7 @@ const ApplicationForm = () => {
             </div>
             <div>
                 <label htmlFor="open">Opens:</label>
-                <input type="text" id="open" value={open} onChange={(e) => setOpen(e.target.value)} />
+                <input type="text" id="open" value={open} onChange={(e) => setOpen(e.target.value)} className="border border-gray-400 rounded-md ml-2 mt-2 px-2 py-1"/>
             </div>
             <div>
                 <label htmlFor="close">Due:</label>
@@ -53,7 +55,7 @@ const ApplicationForm = () => {
                 <input type="text" id="link" value={link} onChange={(e) => setLink(e.target.value)} />
             </div>
         </div>
-        <button type="submit">Create Application</button>
+        <button type="submit">{updating ? "Update" : "Create"}</button>
     </form>
     }
 

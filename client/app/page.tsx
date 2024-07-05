@@ -6,6 +6,7 @@ import ApplicationForm from "./components/ApplicationForm";
 export default function Home() {
   const [applications, setApplications] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentApplication, setCurrentApplication] = useState({})
 
 
   useEffect(() => {
@@ -26,20 +27,32 @@ export default function Home() {
 
   const closeModal = () => {
     setIsModalOpen(false)
+    setCurrentApplication({})
   }
 
   const openCreateModal = () => {
     if (!isModalOpen) setIsModalOpen(true)
   }
 
+  const openEditModal = (application: any) => {
+    if (isModalOpen) return
+    setCurrentApplication(application)
+    setIsModalOpen(true)
+  }
+
+  const onUpdate = () => {
+    closeModal()
+    fetchApplications()
+  }
+
   return (
     <>
-      <ApplicationList applications={applications} />
+      <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
       <button onClick={openCreateModal}>Create New Application</button>
-      {isModalOpen && <div className="modal">
-        <div className="modal-content">
+      {isModalOpen && <div className="position: fixed z-1 left-0 top-0 w-full h-full overflow-auto bg-black/20">
+        <div className="bg-white m-4 p-4 w-4/5">
           <span className="close" onClick={closeModal}>&times;</span>
-          <ApplicationForm />
+          <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate}/>
         </div>
       </div>
       }
