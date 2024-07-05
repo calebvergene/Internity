@@ -1,9 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
 import ApplicationList from "./components/ApplicationList"
+import ApplicationForm from "./components/ApplicationForm";
 
 export default function Home() {
   const [applications, setApplications] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
 
   useEffect(() => {
     fetchApplications()
@@ -21,10 +24,25 @@ export default function Home() {
     console.log(data.applications)
   }
 
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const openCreateModal = () => {
+    if (!isModalOpen) setIsModalOpen(true)
+  }
 
   return (
     <>
-      <ApplicationList applications={applications}/>
+      <ApplicationList applications={applications} />
+      <button onClick={openCreateModal}>Create New Application</button>
+      {isModalOpen && <div className="modal">
+        <div className="modal-content">
+          <span className="close" onClick={closeModal}>&times;</span>
+          <ApplicationForm />
+        </div>
+      </div>
+      }
     </>
   );
 }

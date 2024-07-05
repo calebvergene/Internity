@@ -11,7 +11,7 @@ class Application(db.Model):
     name = db.Column(db.String(60), unique = False, nullable = False)
     open = db.Column(db.String(60), unique = False, nullable = True)
     close = db.Column(db.String(60), unique = False, nullable = False)
-    link = db.Column(db.String(200), unique = True, nullable = True)
+    link = db.Column(db.String(200), unique = False, nullable = True)
 
     # this method takes all of our fields, converts into python dict,
     # then coverts to json to pass from our api to our front end.
