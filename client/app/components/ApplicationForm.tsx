@@ -1,4 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DateField } from "@mui/x-date-pickers/DateField";
+import dayjs, { Dayjs } from "dayjs";
 
 interface Application {
   id?: number;
@@ -16,8 +20,8 @@ interface ApplicationFormProps {
 
 const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication = {}, updateCallback, closeModal }) => {
   const [name, setName] = useState(existingApplication.name || "");
-  const [open, setOpen] = useState(existingApplication.open || "");
-  const [close, setClose] = useState(existingApplication.close || "");
+  const [open, setOpen] = useState<Dayjs | null>(existingApplication.open ? dayjs(existingApplication.open) : null);
+  const [close, setClose] = useState<Dayjs | null>(existingApplication.close ? dayjs(existingApplication.close) : null);
   const [link, setLink] = useState(existingApplication.link || "");
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -28,8 +32,8 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
 
     const data = {
       name,
-      open,
-      close,
+      open: open ? open.format("MMMM DD, YYYY") : "",
+      close: close ? close.format("MMMM DD, YYYY") : "",
       link,
     };
     const url = `http://127.0.0.1:5000/${updating ? `update_application/${existingApplication.id}` : "create_application"}`;
@@ -64,51 +68,51 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div ref={formRef} className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
-        <div className="flex flex-col space-y-4">
-          <div className="flex flex-col">
-            <label htmlFor="name" className="mb-1">Name:</label>
+        <form onSubmit={onSubmit} className="flex flex-col space-y-4">
+        <div className="flex flex-col">
+            <label htmlFor="name" className="sr-only">Name:</label>
             <input
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="border border-gray-400 rounded-md px-2 py-1"
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Name"
+                className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
             />
+            </div>
+          <div className="flex flex-col">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateField
+                value={open}
+                onChange={(newValue) => setOpen(newValue)}
+                label="Application Opens"
+              />
+            </LocalizationProvider>
           </div>
           <div className="flex flex-col">
-            <label htmlFor="open" className="mb-1">Opens:</label>
-            <input
-              type="text"
-              id="open"
-              value={open}
-              onChange={(e) => setOpen(e.target.value)}
-              className="border border-gray-400 rounded-md px-2 py-1"
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateField
+                value={close}
+                onChange={(newValue) => setClose(newValue)}
+                label="Application Due"
+              />
+            </LocalizationProvider>
           </div>
           <div className="flex flex-col">
-            <label htmlFor="close" className="mb-1">Due:</label>
+            <label htmlFor="link" className="sr-only">Link:</label>
             <input
-              type="text"
-              id="close"
-              value={close}
-              onChange={(e) => setClose(e.target.value)}
-              className="border border-gray-400 rounded-md px-2 py-1"
+                type="text"
+                id="link"
+                value={link}
+                onChange={(e) => setLink(e.target.value)}
+                placeholder="Link"
+                className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
             />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="link" className="mb-1">Link:</label>
-            <input
-              type="text"
-              id="link"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              className="border border-gray-400 rounded-md px-2 py-1"
-            />
-          </div>
-          <button onClick={onSubmit} className="bg-green-500/10 border-transparent rounded-md py-2 px-3 text-green-600 flex justify-center hover:bg-green-500/20 hover:text-green-600 duration-300">
+        </div>
+          <button type="submit" className="bg-green-500/10 border-transparent rounded-md py-2 px-3 text-green-600 flex justify-center hover:bg-green-500/20 hover:text-green-600 duration-300">
             {updating ? "Update" : "Create"}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

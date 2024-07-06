@@ -34,7 +34,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
   };
 
   return (
-    <div className="flex my-8">
+    <div className="flex my-8 ml-4">
       <div className="w-3/5">
         <div className="overflow-y-auto max-h-[700px]">
           <table className="w-full border-collapse table-fixed">
