@@ -47,12 +47,14 @@ export default function Home() {
 
   return (
     <>
+      <div className="flex items-center mt-6 ml-6">
+        <button onClick={openCreateModal} className="bg-green-500/10 border-transparent rounded-md mt-2 py-2 px-3 text-green-600 flex justify-center place-content-center hover:bg-green-500/20 hover:text-green-600 duration-300">Create New Application</button>
+      </div>
       <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
-      <button onClick={openCreateModal}>Create New Application</button>
       {isModalOpen && <div className="position: fixed z-1 left-0 top-0 w-full h-full overflow-auto bg-black/20">
         <div className="bg-white m-4 p-4 w-4/5">
           <span className="close" onClick={closeModal}>&times;</span>
-          <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate}/>
+          <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate} closeModal={closeModal}/>
         </div>
       </div>
       }
