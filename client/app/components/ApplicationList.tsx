@@ -11,27 +11,29 @@ interface Application {
 
 interface ApplicationListProps {
   applications: Application[];
+  updateApplication: (application: Application) => void;
+  updateCallback: () => void;
 }
 
 // The applications prop will come in a list of dictionaries
 // NOTE: if you want to filter, you could filter the applications prop here
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
-
-    const onDelete = async (id: any) => {
-        try {
-            const options = {
-                method: "DELETE"
-            }
-            const response = await fetch(`http://127.0.0.1:5000/delete_application/${id}`, options)
-            if (response.status === 200) {
-                updateCallback()
-            } else {
-                console.error("Failed to delete")
-            }
-        } catch (error) {
-            alert(error)
-        }
+  
+  const onDelete = async (id: number) => {
+    try {
+      const options = {
+        method: "DELETE"
+      };
+      const response = await fetch(`http://127.0.0.1:5000/delete_application/${id}`, options);
+      if (response.status === 200) {
+        updateCallback();
+      } else {
+        console.error("Failed to delete");
+      }
+    } catch (error) {
+      alert(error);
     }
+  };
 
   return (
     <div>
