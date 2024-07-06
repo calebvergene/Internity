@@ -13,7 +13,7 @@ interface Application {
     updateCallback: () => void;
   }
 
-  
+
 const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication = {}, updateCallback }) => {
   const [name, setName] = useState(existingApplication.name || "");
   const [open, setOpen] = useState(existingApplication.open || "");
@@ -56,6 +56,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="border border-gray-400 rounded-md ml-2 mt-2 px-2 py-1"
           />
         </div>
         <div>
@@ -75,6 +76,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
             id="close"
             value={close}
             onChange={(e) => setClose(e.target.value)}
+            className="border border-gray-400 rounded-md ml-2 mt-2 px-2 py-1"
           />
         </div>
         <div>
@@ -84,10 +86,11 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
             id="link"
             value={link}
             onChange={(e) => setLink(e.target.value)}
+            className="border border-gray-400 rounded-md ml-2 mt-2 px-2 py-1"
           />
         </div>
       </div>
-      <button type="submit">{updating ? "Update" : "Create"}</button>
+      <button type="submit" className="bg-sky-500 border-transparent rounded-md mt-2 py-1 px-2 text-white">{updating ? "Update" : "Create"}</button>
     </form>
   );
 };
