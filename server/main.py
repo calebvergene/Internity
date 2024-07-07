@@ -60,6 +60,7 @@ def update_application(user_id):
     application.open = data.get("open", application.open)
     application.close = data.get("close", application.close)
     application.link = data.get("link", application.link)
+    application.status = data.get("status", application.status)
 
     # since the application variable already existed in the db, all we 
     # have to do is commit the session.

@@ -23,13 +23,14 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
 
     const [status, setStatus] = useState("Not Applied");
 
-    const onClick = async (stat: string, application: Application) => {
+    const clickStatus = async (stat: string, application: Application) => {
         try {
             const updatedApplication = { ...application, status: stat };
+            console.log (updatedApplication)
             const options = {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ status: stat })
+                body: JSON.stringify(updatedApplication)
             };
             const response = await fetch(`http://127.0.0.1:5000/update_application/${application.id}`, options);
             if (response.status === 200) {
@@ -87,11 +88,11 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                         <td className="py-2 text-center">{application.name}</td>
                                         <td className="py-2 text-center">
                                             <Dropdown label={application.status} size="sm">
-                                                <Dropdown.Item onClick={() => onClick("Not Applied", application)}>Not Applied</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => onClick("Applied", application)}>Applied</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => onClick("Interviewing", application)}>Interviewing</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => onClick("Offered", application)}>Offered</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => onClick("Rejected", application)}>Rejected</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => clickStatus("Offered", application)}>Offered</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => clickStatus("Rejected", application)}>Rejected</Dropdown.Item>
                                             </Dropdown>
                                         </td>
                                         <td className="py-2 text-center">{application.open}</td>

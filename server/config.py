@@ -1,7 +1,5 @@
 # 1. starting with configuration
 
-# 1. starting with configuration
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
