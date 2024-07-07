@@ -20,6 +20,10 @@ interface ApplicationListProps {
 }
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
+<<<<<<< HEAD
+=======
+    const [status, setStatus] = useState("Not Applied");
+>>>>>>> 2093f65826d7212ff0f2bfe285bfdb77ac96233c
 
     const clickStatus = async (stat: string, application: Application) => {
         try {
@@ -57,9 +61,26 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
         }
     };
 
+    const getStatusClassName = (status: string) => {
+        switch (status) {
+          case "Not Applied":
+            return "text-red-500";
+          case "Applied":
+            return "text-yellow-500";
+          case "Interviewing":
+            return "text-purple-500";
+          case "Offered":
+            return "text-green-500";
+          case "Rejected":
+            return "text-gray-500";
+          default:
+            return "";
+        }
+      };
+
     return (
-        <div className="flex my-8 ml-4">
-            <div className="w-3/5">
+        <div className="flex items-start justify-center min-h-screen">
+            <div className="w-3/5 my-8">
                 <div className="overflow-y-auto max-h-[700px]">
                     <table className="w-full border-collapse table-fixed">
                         <thead>
@@ -82,10 +103,23 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                         </tr>
                                     )}
                                     <tr className="h-full">
-                                        <td className="py-2 text-center">{application.name}</td>
+                                        <a
+                                            href={application.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-pink-500 hover:underline text-center"
+                                        >
+                                            <td className="py-2 place-content-center flex justify-center">{application.name}</td>
+                                        </a>
                                         <td className="py-2 text-center">
+<<<<<<< HEAD
                                             <Dropdown label={application.status} size="sm" className="flex justify-center place-content-center">
                                                 <Dropdown.Item className="" onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
+=======
+                                            <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
+                                            size="sm">
+                                                <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
+>>>>>>> 2093f65826d7212ff0f2bfe285bfdb77ac96233c
                                                 <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Offered", application)}>Offered</Dropdown.Item>
