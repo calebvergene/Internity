@@ -66,7 +66,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
   }, [closeModal]);
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-opacity-50">
       <div ref={formRef} className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
         <form onSubmit={onSubmit} className="flex flex-col space-y-4">
         <div className="flex flex-col">
@@ -109,7 +109,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
                 className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
             />
         </div>
-          <button type="submit" className="bg-green-500/10 border-transparent rounded-md py-2 px-3 text-green-600 flex justify-center hover:bg-green-500/20 hover:text-green-600 duration-300">
+          <button type="submit" className="bg-green-500/10 rounded-md py-2 px-3 text-green-600 flex justify-center hover:bg-green-500/20 hover:text-green-600 duration-300">
             {updating ? "Update" : "Create"}
           </button>
         </form>
