@@ -60,6 +60,23 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
         }
     };
 
+    const getStatusClassName = (status: string) => {
+        switch (status) {
+          case "Not Applied":
+            return "text-red-500";
+          case "Applied":
+            return "text-blue-500";
+          case "Interviewing":
+            return "text-green-500";
+          case "Offered":
+            return "text-yellow-500";
+          case "Rejected":
+            return "text-gray-500";
+          default:
+            return "";
+        }
+      };
+
     return (
         <div className="flex items-start justify-center min-h-screen">
             <div className="w-3/5 my-8">
@@ -94,7 +111,8 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                             <td className="py-2 text-center">{application.name}</td>
                                         </a>
                                         <td className="py-2 text-center">
-                                            <Dropdown label={application.status} size="sm">
+                                            <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
+                                            size="sm">
                                                 <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
