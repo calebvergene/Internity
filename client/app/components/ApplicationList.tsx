@@ -20,7 +20,6 @@ interface ApplicationListProps {
 }
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
-
     const [status, setStatus] = useState("Not Applied");
 
     const clickStatus = async (stat: string, application: Application) => {
@@ -65,11 +64,11 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
           case "Not Applied":
             return "text-red-500";
           case "Applied":
-            return "text-blue-500";
-          case "Interviewing":
-            return "text-green-500";
-          case "Offered":
             return "text-yellow-500";
+          case "Interviewing":
+            return "text-purple-500";
+          case "Offered":
+            return "text-green-500";
           case "Rejected":
             return "text-gray-500";
           default:
@@ -106,9 +105,9 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                             href={application.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="text-blue-500 hover:underline text-center"
+                                            className="text-pink-500 hover:underline text-center"
                                         >
-                                            <td className="py-2 text-center">{application.name}</td>
+                                            <td className="py-2 place-content-center flex justify-center">{application.name}</td>
                                         </a>
                                         <td className="py-2 text-center">
                                             <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
