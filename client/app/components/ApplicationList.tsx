@@ -21,8 +21,6 @@ interface ApplicationListProps {
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
 
-    const [status, setStatus] = useState("Not Applied");
-
     const clickStatus = async (stat: string, application: Application) => {
         try {
             const updatedApplication = { ...application, status: stat };
@@ -34,7 +32,6 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
             };
             const response = await fetch(`http://127.0.0.1:5000/update_application/${application.id}`, options);
             if (response.status === 200) {
-                setStatus(stat);
                 updateCallback();
             } else {
                 console.error("Failed to update status");
@@ -87,8 +84,8 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                     <tr className="h-full">
                                         <td className="py-2 text-center">{application.name}</td>
                                         <td className="py-2 text-center">
-                                            <Dropdown label={application.status} size="sm">
-                                                <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
+                                            <Dropdown label={application.status} size="sm" className="flex justify-center place-content-center">
+                                                <Dropdown.Item className="" onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Offered", application)}>Offered</Dropdown.Item>
