@@ -61,8 +61,8 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
     };
 
     return (
-        <div className="flex my-8 ml-4">
-            <div className="w-3/5">
+        <div className="flex items-start justify-center min-h-screen">
+            <div className="w-3/5 my-8">
                 <div className="overflow-y-auto max-h-[700px]">
                     <table className="w-full border-collapse table-fixed">
                         <thead>
@@ -85,7 +85,14 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                         </tr>
                                     )}
                                     <tr className="h-full">
-                                        <td className="py-2 text-center">{application.name}</td>
+                                        <a
+                                            href={application.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-blue-500 hover:underline text-center"
+                                        >
+                                            <td className="py-2 text-center">{application.name}</td>
+                                        </a>
                                         <td className="py-2 text-center">
                                             <Dropdown label={application.status} size="sm">
                                                 <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
