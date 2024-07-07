@@ -20,10 +20,7 @@ interface ApplicationListProps {
 }
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
-<<<<<<< HEAD
-=======
     const [status, setStatus] = useState("Not Applied");
->>>>>>> 2093f65826d7212ff0f2bfe285bfdb77ac96233c
 
     const clickStatus = async (stat: string, application: Application) => {
         try {
@@ -112,14 +109,9 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                             <td className="py-2 place-content-center flex justify-center">{application.name}</td>
                                         </a>
                                         <td className="py-2 text-center">
-<<<<<<< HEAD
-                                            <Dropdown label={application.status} size="sm" className="flex justify-center place-content-center">
-                                                <Dropdown.Item className="" onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
-=======
                                             <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
                                             size="sm">
                                                 <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
->>>>>>> 2093f65826d7212ff0f2bfe285bfdb77ac96233c
                                                 <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => clickStatus("Offered", application)}>Offered</Dropdown.Item>
