@@ -100,8 +100,8 @@ export default function Home() {
           <>
           <button
             onClick={openCreateModal}
-            className="bg-green-500/10 border-transparent rounded-md mt-2 py-2 px-3 text-green-600 flex justify-center place-content-center hover:bg-green-500/20 hover:text-green-600 duration-300"
-          >
+            className="bg-gradient-to-r from-green-400 to-blue-300 border-transparent rounded-md mt-2 py-2 px-3 text-white flex justify-center place-content-center hover:from-blue-500 hover:to-green-400 hover:shadow-lg duration-300"
+>
             Create New Application
           </button>
           <button
