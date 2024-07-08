@@ -8,6 +8,7 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentApplication, setCurrentApplication] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [waterDroplets, setWaterDroplets] = useState(0);
 
 
   useEffect(() => {
@@ -89,28 +90,42 @@ export default function Home() {
 
   return (
     <>
-       <div className="flex items-center mt-6 justify-center">
+      <div className="flex flex-col items-center mt-3 justify-center">
         {!isLoggedIn ? ( // if not logged in
           <button
             onClick={handleLogin}
-            className="bg-blue-500/10 border-transparent rounded-md mt-2 py-2 px-3 text-blue-600 flex justify-center place-content-center hover:bg-blue-500/20 hover:text-blue-600 duration-300"
+            className="bg-blue-500/10 border-transparent font-rubik rounded-md mt-2 py-2 px-3 text-blue-600 flex justify-center place-content-center hover:bg-blue-500/20 hover:text-blue-600 duration-300"
           >
             Login with Google
           </button>
         ) : ( // displays create app button if logged in
           <>
-          <button
-            onClick={openCreateModal}
-            className="bg-gradient-to-r from-green-400 to-blue-300 border-transparent rounded-md mt-2 py-2 px-3 text-white flex justify-center place-content-center hover:from-blue-500 hover:to-green-400 hover:shadow-lg duration-300"
->
-            Create New Application
-          </button>
-          <button
-              onClick={handleLogout}
-              className="bg-red-500/10 border-transparent rounded-md mt-2 py-2 px-3 text-red-600 flex justify-center place-content-center hover:bg-red-500/20 hover:text-red-600 duration-300 ml-4"
-            >
-              Logout
-            </button>
+            <div className="flex justify-between w-full px-8">
+              <button className="p-3 rounded-lg px-[15px] hover:border-white hover:bg-gray-300/50 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                </svg>
+              </button>
+              <div className="flex">
+                <button className="border-r border-gray-400/50 px-6 py-0">
+                  💧{waterDroplets}
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="bg-black border-transparent font-rubik rounded-md my-2 py-2 px-3 ml-6 text-white flex justify-center place-content-center hover:bg-black/85 hover:text-gray-200 duration-300"
+                >
+                  Logout
+                </button>
+              </div>
+            </div>
+            
+            <div className="mt-4">
+              <button
+                onClick={openCreateModal}
+                className="bg-green-400 border-transparent font-rubik rounded-md mt-2 py-2 px-3 text-white flex justify-center place-content-center hover:shadow-green-400 duration-300">
+                  Create New Application <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 pl-1 pb-[2px] "><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              </button>
+            </div>
           </>
         )}
       </div>
@@ -124,4 +139,5 @@ export default function Home() {
       }
     </>
   );
-}
+  }
+  

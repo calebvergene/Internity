@@ -22,6 +22,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <body className={inter.className}>{children}</body>
+      <body className="font-rubik"></body>
     </html>
   );
 }

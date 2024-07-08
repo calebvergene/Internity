@@ -83,11 +83,11 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                     <table className="w-full border-collapse table-fixed">
                         <thead>
                             <tr className="">
-                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Name</th>
-                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Status</th>
-                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Open</th>
-                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Due</th>
-                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Actions</th>
+                                <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Name</th>
+                                <th className="font-rubik  border-b border-black py-1 text-center font-normal text-gray-600">Status</th>
+                                <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Open</th>
+                                <th className="font-rubik  border-b border-black py-1 text-center font-normal text-gray-600">Due</th>
+                                <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
