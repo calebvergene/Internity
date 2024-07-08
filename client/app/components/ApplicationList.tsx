@@ -77,16 +77,16 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
 
     return (
         <div className="flex items-start justify-center min-h-screen">
-            <div className="w-3/5 my-8">
-                <div className="overflow-y-auto max-h-[700px]">
+            <div className="w-4/5 my-8">
+                <div className="overflow-y-auto max-h-[900px]">
                     <table className="w-full border-collapse table-fixed">
                         <thead>
                             <tr>
-                                <th className="border-b border-gray-300 py-1 text-center">Name</th>
-                                <th className="border-b border-gray-300 py-1 text-center">Status</th>
-                                <th className="border-b border-gray-300 py-1 text-center">Open</th>
-                                <th className="border-b border-gray-300 py-1 text-center">Due</th>
-                                <th className="border-b border-gray-300 py-1 text-center">Actions</th>
+                                <th className="border-b border-gray-500 py-1 text-center">Name</th>
+                                <th className="border-b border-gray-500 py-1 text-center">Status</th>
+                                <th className="border-b border-gray-500 py-1 text-center">Open</th>
+                                <th className="border-b border-gray-500 py-1 text-center">Due</th>
+                                <th className="border-b border-gray-500 py-1 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
