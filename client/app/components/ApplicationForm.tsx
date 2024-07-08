@@ -36,10 +36,11 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
       close: close ? close.format("MMMM DD, YYYY") : "",
       link,
     };
-    const url = `http://127.0.0.1:5000/${updating ? `update_application/${existingApplication.id}` : "create_application"}`;
-    const options = {
+    const url = `http://localhost:5001/${updating ? `update_application/${existingApplication.id}` : "create_application"}`;
+    const options: RequestInit = {
       method: updating ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(data),
     };
     const response = await fetch(url, options);

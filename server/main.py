@@ -1,21 +1,120 @@
 # 3. For main, think of all of the features we need. 
 # We need to create, read, update, and delete rows of our tracker.
-
-from flask import request, jsonify
 from config import app, db
 from models import Application
 
+import os
+import pathlib
+import logging
 
+import requests
+from dotenv import load_dotenv
+from flask import session, abort, redirect, request, jsonify
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+import google.auth.transport.requests
+from pip._vendor import cachecontrol
+
+load_dotenv()
+
+GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', 'default-client-id')
+GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', 'default-client-secret')
+# change to environment variable before production!
+
+print(f"GOOGLE_CLIENT_ID: {GOOGLE_CLIENT_ID}")
+print(f"GOOGLE_CLIENT_SECRET: {GOOGLE_CLIENT_SECRET}")
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1" # to allow Http traffic for local dev
+client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+
+flow = Flow.from_client_secrets_file(
+    client_secrets_file=client_secrets_file,
+    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    redirect_uri="http://localhost:5001/callback"
+)
+
+logging.basicConfig(level=logging.DEBUG)
+
+def login_is_required(function):
+    def wrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+
+    return wrapper
+
+@app.route("/login")
+def login():
+    authorization_url, state = flow.authorization_url()
+    logging.debug(f"Authorization URL: {authorization_url}")
+    logging.debug(f"Generated state: {state}")
+    session["state"] = state
+    logging.debug(f"Session state set: {session['state']}")
+    return redirect(authorization_url)
+
+@app.route("/callback", methods=["GET"])
+def callback():
+    try:
+        logging.debug(f"Callback request.args: {request.args}")
+        logging.debug(f"Session state set: {session['state']}")
+        logging.debug(f"Request state set: {request.args['state']}")
+        # Check if 'state' is in session
+        if 'state' not in session:
+            logging.error("State not found in session.")
+            return abort(400)  # Bad request if state is missing in session
+
+        # Check if 'state' is in request.args
+        if 'state' not in request.args:
+            logging.error("State not found in request arguments.")
+            return abort(400)  # Bad request if state is missing in request arguments
+
+        # Compare session state with request state
+        if session["state"] != request.args["state"]:
+            logging.error("State mismatch. Session state: %s, Request state: %s", session["state"], request.args["state"])
+            abort(500)  # State does not match!
+
+        #session["state"] = request.args["state"]
+
+        flow.fetch_token(authorization_response=request.url)
+
+        credentials = flow.credentials
+        logging.debug(f"Credentials: {credentials}")
+
+        request_session = requests.session()
+        cached_session = cachecontrol.CacheControl(request_session)
+        token_request = google.auth.transport.requests.Request(session=cached_session)
+
+        id_info = id_token.verify_oauth2_token(
+            id_token=credentials._id_token,
+            request=token_request,
+            audience=GOOGLE_CLIENT_ID
+        )
+
+        logging.debug(f"ID Info: {id_info}")
+
+        session["google_id"] = id_info.get("sub")
+        session["name"] = id_info.get("name")
+        return redirect("http://localhost:3000")
+    except Exception as e:
+        logging.error(f"Error during callback: {e}")
+        return abort(500)
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
 
 # This is made to read the applications. If the front end requests
 # to see an application, this is what is sent. 
 @app.route("/application", methods=["GET"])
+@login_is_required
 def get_applications():
     # need to take each application from the db and return it as a json
-    applications = Application.query.all()
+    google_id = session["google_id"]
+    applications = Application.query.filter_by(google_id=google_id).all()
     json_applications = list(map(lambda x: x.to_json(), applications))
     return jsonify({"applications": json_applications})
-
 
 
 # This is made to create an application. We recieve json request from the 
@@ -29,13 +128,14 @@ def create_applications():
 
     if name is None or close is None: 
         return (
-            jsonify({"message": "you must include a name and a date for when the applications close."}),
+            jsonify({"message": "You must include a name and a date for when the applications close."}),
             400,
         )
     
     ## ERROR: could raise error here if open or link is None. refer back to this.
+    google_id = session["google_id"]
 
-    new_application = Application(status="Not Applied", name=name, open=open, close=close, link=link)
+    new_application = Application(status="Not Applied", name=name, open=open, close=close, link=link, google_id=google_id)
     try: 
         db.session.add(new_application)
         db.session.commit()
@@ -49,7 +149,7 @@ def create_applications():
 # This is to update an application
 @app.route("/update_application/<int:user_id>", methods=["PATCH"])
 def update_application(user_id):
-    application = Application.query.get(user_id)
+    application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
 
     # If given a non existant application ID
     if not application: 
@@ -73,7 +173,8 @@ def update_application(user_id):
 # This is to delete an application
 @app.route("/delete_application/<int:user_id>", methods=["DELETE"])
 def delete_application(user_id):
-    application = Application.query.get(user_id)
+    application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
+
 
     # If given a non existant application ID
     if not application: 
@@ -90,4 +191,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True)
+    app.run(debug=True, port=5001)
