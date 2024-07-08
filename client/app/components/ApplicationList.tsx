@@ -20,7 +20,6 @@ interface ApplicationListProps {
 }
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
-    const [status, setStatus] = useState("Not Applied");
 
     const clickStatus = async (stat: string, application: Application) => {
         try {
