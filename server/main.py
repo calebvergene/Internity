@@ -14,6 +14,7 @@ from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
+from functools import wraps
 
 load_dotenv()
 
@@ -36,11 +37,12 @@ flow = Flow.from_client_secrets_file(
 logging.basicConfig(level=logging.DEBUG)
 
 def login_is_required(function):
+    @wraps(function)
     def wrapper(*args, **kwargs):
         if "google_id" not in session:
             return abort(401)  # Authorization required
         else:
-            return function()
+            return function(*args, **kwargs)
 
     return wrapper
 
@@ -94,6 +96,7 @@ def callback():
         logging.debug(f"ID Info: {id_info}")
 
         session["google_id"] = id_info.get("sub")
+        print(f'session google ID: {session['google_id']}')
         session["name"] = id_info.get("name")
         return redirect("http://localhost:3000")
     except Exception as e:
@@ -120,6 +123,7 @@ def get_applications():
 # This is made to create an application. We recieve json request from the 
 # front end, then create the application on the back end. 
 @app.route("/create_application", methods=["POST"])
+@login_is_required
 def create_applications():
     name = request.json.get("name")
     open = request.json.get("open")
@@ -148,6 +152,7 @@ def create_applications():
 
 # This is to update an application
 @app.route("/update_application/<int:user_id>", methods=["PATCH"])
+@login_is_required
 def update_application(user_id):
     application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
 
@@ -172,6 +177,7 @@ def update_application(user_id):
 
 # This is to delete an application
 @app.route("/delete_application/<int:user_id>", methods=["DELETE"])
+@login_is_required
 def delete_application(user_id):
     application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
 

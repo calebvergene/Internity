@@ -29,9 +29,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
             const options = {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify(updatedApplication)
             };
-            const response = await fetch(`http://127.0.0.1:5000/update_application/${application.id}`, options);
+            const response = await fetch(`http://localhost:5001/update_application/${application.id}`, options);
             if (response.status === 200) {
                 updateCallback();
             } else {
@@ -45,9 +46,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
     const onDelete = async (id: number) => {
         try {
             const options = {
-                method: "DELETE"
+                method: "DELETE",
+                credentials: 'include',
             };
-            const response = await fetch(`http://127.0.0.1:5000/delete_application/${id}`, options);
+            const response = await fetch(`http://localhost:5001/delete_application/${id}`, options);
             if (response.status === 200) {
                 updateCallback();
             } else {
@@ -100,14 +102,16 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                         </tr>
                                     )}
                                     <tr className="h-full">
-                                        <a
-                                            href={application.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-pink-500 hover:underline text-center"
-                                        >
-                                            <td className="py-2 place-content-center flex justify-center">{application.name}</td>
-                                        </a>
+                                        <td className="py-2 place-content-center flex justify-center">
+                                            <a
+                                                href={application.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-pink-500 hover:underline text-center"
+                                            >
+                                                {application.name}
+                                            </a>
+                                        </td>
                                         <td className="py-2 text-center">
                                             <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
                                             size="sm">
