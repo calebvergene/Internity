@@ -28,9 +28,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
             const options = {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
+                credentials: "include",
                 body: JSON.stringify(updatedApplication)
             };
-            const response = await fetch(`http://127.0.0.1:5000/update_application/${application.id}`, options);
+            const response = await fetch(`http://localhost:5001/update_application/${application.id}`, options);
             if (response.status === 200) {
                 updateCallback();
             } else {
@@ -44,9 +45,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
     const onDelete = async (id: number) => {
         try {
             const options = {
-                method: "DELETE"
+                method: "DELETE",
+                credentials: 'include',
             };
-            const response = await fetch(`http://127.0.0.1:5000/delete_application/${id}`, options);
+            const response = await fetch(`http://localhost:5001/delete_application/${id}`, options);
             if (response.status === 200) {
                 updateCallback();
             } else {
