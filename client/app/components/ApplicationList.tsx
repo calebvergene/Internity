@@ -80,12 +80,12 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                 <div className="overflow-y-auto max-h-[900px]">
                     <table className="w-full border-collapse table-fixed">
                         <thead>
-                            <tr>
-                                <th className="border-b border-gray-500 py-1 text-center">Name</th>
-                                <th className="border-b border-gray-500 py-1 text-center">Status</th>
-                                <th className="border-b border-gray-500 py-1 text-center">Open</th>
-                                <th className="border-b border-gray-500 py-1 text-center">Due</th>
-                                <th className="border-b border-gray-500 py-1 text-center">Actions</th>
+                            <tr className="">
+                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Name</th>
+                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Status</th>
+                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Open</th>
+                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Due</th>
+                                <th className="border-b border-black py-1 text-center font-normal text-gray-600">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,14 +99,17 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                         </tr>
                                     )}
                                     <tr className="h-full">
-                                        <a
-                                            href={application.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-pink-500 hover:underline text-center"
-                                        >
-                                            <td className="py-2 place-content-center flex justify-center">{application.name}</td>
-                                        </a>
+                                        <div className="flex items-center justify-center my-1">
+                                            <a
+                                                href={application.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                <button className="bg-transparent p-2 py-3 text-sm flex items-center justify-center rounded-lg hover:p-2 hover:bg-gray-300/50 hover:mb-1 duration-300">
+                                                {application.name}
+                                                </button>
+                                            </a>
+                                        </div>
                                         <td className="py-2 text-center">
                                             <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
                                             size="sm">
@@ -117,9 +120,9 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                                 <Dropdown.Item onClick={() => clickStatus("Rejected", application)}>Rejected</Dropdown.Item>
                                             </Dropdown>
                                         </td>
-                                        <td className="py-2 text-center">{application.open}</td>
-                                        <td className="py-2 text-center">{application.close}</td>
-                                        <td className="py-2 text-center flex justify-center">
+                                        <td className="py-2 text-center text-sm">{application.open}</td>
+                                        <td className="py-2 text-center text-sm">{application.close}</td>
+                                        <td className="py-2 text-center flex justify-center text-sm">
                                             <button onClick={() => onDelete(application.id)} className="text-gray-500 flex justify-center place-content-center hover:bg-gray-500/20 hover:text-gray-600 duration-300 p-1 rounded-xl">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9L14.394 18M9.26 18L9.606 9M18.628 5.79C18.97 5.842 19.31 5.897 19.65 5.956M18.628 5.79L18.16 19.673A2.25 2.25 0 0115.916 21H8.084A2.25 2.25 0 015.84 19.673L5.372 5.79M18.628 5.79C17.48 5.618 16.313 5.492 15.13 5.414M4.372 5.79C4.034 5.731 3.694 5.676 3.354 5.617M4.372 5.79A48.108 48.108 0 007.85 5.393M14.5 4.5V3.75C14.5 2.57 13.59 1.586 12.41 1.55A51.964 51.964 0 009.09 1.55C7.91 1.586 7 2.57 7 3.75V4.5M14.5 4.5H9.5M14.5 4.5H9.5M14.5 4.5V5.393M9.5 4.5V5.393" />

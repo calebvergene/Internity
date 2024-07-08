@@ -35,7 +35,8 @@ export default function Home() {
 
 
   // this is an async function, so it has to wait to get the applications
-  const fetchApplications = async () => {
+  const fetchApplications = async (e: React.FormEvent) => {
+    e.preventDefault();
     // fetch sends a request to the backend API. we are waiting to get
     // a response, then we get json data
     const response = await fetch("http://localhost:5001/application")
@@ -81,7 +82,7 @@ export default function Home() {
 
   const onUpdate = () => {
     closeModal()
-    fetchApplications()
+    fetchApplications
     location.reload()
   }
 
