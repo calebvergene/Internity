@@ -110,7 +110,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({ existingApplication =
                 className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
             />
         </div>
-          <button type="submit" className="bg-green-500/10 rounded-md py-2 px-3 text-green-600 flex justify-center hover:bg-green-500/20 hover:text-green-600 duration-300">
+          <button type="submit" className="bg-gradient-to-r from-pink-400 to-yellow-300 rounded-md py-2 px-3 text-white flex justify-center hover:from-yellow-300 hover:to-pink-400 hover:text-white hover:shadow-lg duration-300">
             {updating ? "Update" : "Create"}
           </button>
         </form>
