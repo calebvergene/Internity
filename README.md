@@ -1,15 +1,15 @@
 <p align='center'><img src="images/Applyd-logo.png" alt="Logo" width="80" height="80"></p>
 <h1 align="center">Welcome to Applyd!</h2>
-<h3 align="center">Your personalized job application & calendar, in one.
+<h3 align="center">Your personalized job application & calendar, all in one.
 </h3>
-<p align="center">Created by your 2024 ProDev Chairs at UCI Management Information Student Society.</p>
+<p align="center">Created by your 2024 ProDev Chairs at UCI's Management Information Student Society.</p>
 
 ## About the Project
 
 With the 2025 recruitment season fast approaching, MAISS@UCI's 2024 ProDev Chairs, Maggie and Caleb, searched for existing resources that members could use to simplify and condense the application tracking process.
 However, no platform encompassed their vision.
 
-On top our traditional recruitment process tracker, we're working on implementing prodev-focused incentives to make the application process more enjoyable for all, regardless of your field. 
+On top of your traditional recruitment process tracker, we're working on implementing prodev-focused incentives to make the application process more enjoyable for all, regardless of your field. 
 Utilizing RAG and AI, we hope to launch tailored internship recommendations based on members' fields of interests and current alumni connections. 
 
 ## Technologies Used
