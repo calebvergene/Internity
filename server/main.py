@@ -117,7 +117,8 @@ def get_applications():
     google_id = session["google_id"]
     applications = Application.query.filter_by(google_id=google_id).all()
     json_applications = list(map(lambda x: x.to_json(), applications))
-    return jsonify({"applications": json_applications})
+    user_name = session["name"]
+    return jsonify({"applications": json_applications, "userName": user_name})
 
 
 # This is made to create an application. We recieve json request from the 

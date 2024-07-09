@@ -4,6 +4,7 @@ import ApplicationList from "./components/ApplicationList"
 import ApplicationForm from "./components/ApplicationForm";
 
 export default function Home() {
+  const [userName, setUserName] = useState('');
   const [applications, setApplications] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentApplication, setCurrentApplication] = useState({})
@@ -24,6 +25,7 @@ export default function Home() {
       if (response.ok) {
         const data = await response.json();
         setApplications(data.applications);
+        setUserName(data.userName);
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
@@ -100,25 +102,27 @@ export default function Home() {
           </button>
         ) : ( // displays create app button if logged in
           <>
-            <div className="flex justify-between w-full px-8">
+            <div className="flex justify-between items-center w-full px-8">
               <button className="p-3 rounded-lg px-[15px] hover:border-white hover:bg-gray-300/50 duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                 </svg>
               </button>
-              <div className="flex">
+              <div className="flex items-center">
                 <button className="border-r border-gray-400/50 px-6 py-0">
                   💧{waterDroplets}
                 </button>
                 <button
                   onClick={handleLogout}
-                  className="bg-black border-transparent font-rubik rounded-md my-2 py-2 px-3 ml-6 text-white flex justify-center place-content-center hover:bg-black/85 hover:text-gray-200 duration-300"
+                  className="bg-black border-transparent font-rubik rounded-md my-2 py-2 px-3 ml-6 text-white flex justify-center place-content-center hover:bg-gray-100 hover:text-black duration-300"
                 >
                   Logout
                 </button>
               </div>
             </div>
-            
+            <div className='flex flex-grow justify-center'>
+                <h3 className='text-center font-bold'>Glad to have you, {userName}!</h3>
+              </div>
             <div className="mt-4">
               <button
                 onClick={openCreateModal}
