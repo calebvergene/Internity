@@ -108,7 +108,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <button className="">
+                                                <button className="bg-gradient-to-r from-blue-500 to-green-500 bg-clip-text text-transparent hover:font-bold">
                                                 {application.name}
                                                 </button>
                                             </a>
