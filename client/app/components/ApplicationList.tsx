@@ -3,6 +3,7 @@
 import React from "react";
 import { useState } from "react";
 import { Dropdown } from "flowbite-react";
+import CustomDropdown from "./CustomDropdown";
 
 interface Application {
   id: number;
@@ -62,24 +63,24 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
     const getStatusClassName = (status: string) => {
         switch (status) {
           case "Not Applied":
-            return "text-red-500";
+            return "text-neutral-400 mr-2";
           case "Applied":
-            return "text-yellow-500";
+            return "text-blue-500 mr-2";
           case "Interviewing":
-            return "text-purple-500";
+            return "text-yellow-300 mr-2";
           case "Offered":
-            return "text-green-500";
+            return "text-green-400 mr-2";
           case "Rejected":
-            return "text-gray-500";
+            return "text-red-500 mr-2";
           default:
             return "";
         }
       };
 
     return (
-        <div className="flex items-start justify-center min-h-screen">
+        <div className="flex items-start justify-center">
             <div className="w-4/5 my-8">
-                <div className="overflow-y-auto max-h-[900px]">
+                <div className="overflow-y-visible max-h-[900px]">
                     <table className="w-full border-collapse table-fixed">
                         <thead>
                             <tr className="">
@@ -107,20 +108,22 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <button className="font-bold text-blue-400 bg-transparent p-2 py-3 text-md flex items-center justify-center rounded-lg hover:p-2 hover:bg-gray-300/50 hover:mb-1 hover:text-blue-500 duration-300">
+                                                <button className="">
                                                 {application.name}
                                                 </button>
                                             </a>
                                         </div>
                                         <td className="py-2 text-center">
-                                            <Dropdown label={<span className={getStatusClassName(application.status)}>{application.status}</span>} 
-                                            size="sm">
-                                                <Dropdown.Item onClick={() => clickStatus("Not Applied", application)}>Not Applied</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => clickStatus("Applied", application)}>Applied</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => clickStatus("Interviewing", application)}>Interviewing</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => clickStatus("Offered", application)}>Offered</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => clickStatus("Rejected", application)}>Rejected</Dropdown.Item>
-                                            </Dropdown>
+                                        <CustomDropdown
+                                            label={<><span className={getStatusClassName(application.status)}> ● </span><span>{application.status}</span></>}
+                                            items={[
+                                            { label: "Not Applied", onClick: () => clickStatus("Not Applied", application) },
+                                            { label: "Applied", onClick: () => clickStatus("Applied", application) },
+                                            { label: "Interviewing", onClick: () => clickStatus("Interviewing", application) },
+                                            { label: "Offered", onClick: () => clickStatus("Offered", application) },
+                                            { label: "Rejected", onClick: () => clickStatus("Rejected", application) }
+                                            ]}
+                                        />
                                         </td>
                                         <td className="py-2 text-center text-sm">{application.open}</td>
                                         <td className="py-2 text-center text-sm">{application.close}</td>
