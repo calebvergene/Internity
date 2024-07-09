@@ -1,3 +1,4 @@
+<p align='center'><img src="images/Applyd-logo.png" alt="Logo" width="80" height="80"></p>
 <h1 align="center">Welcome to Applyd!</h2>
 <h3 align="center">Your personalized job application & calendar, in one.
 </h3>
