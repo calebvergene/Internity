@@ -134,7 +134,7 @@ export default function Home() {
         )}
       </div>
       <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
-      {isModalOpen && <div className="position: fixed z-1 left-0 top-0 w-full h-full overflow-auto bg-black/20">
+      {isModalOpen && <div className="position: fixed z-1 left-0 top-0 w-full h-full overflow-auto">
         <div className="bg-white m-4 p-4 w-4/5">
           <span className="close" onClick={closeModal}>&times;</span>
           <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate} closeModal={closeModal}/>
