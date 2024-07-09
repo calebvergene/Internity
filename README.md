@@ -16,17 +16,7 @@ Utilizing RAG and AI, we hope to launch tailored internship recommendations base
 
 Built from scratch with:
 
-[![Node][Node.js]][Node-url]
-
-[![React][React.js]][React-url]
-
-[![Tailwind-CSS][Tailwind]][Tailwind-url]
-
-[![Bootstrap][Bootstrap.com]][Bootstrap-url]
-
-[![Flask][Flask-Py]][Flask-url]
-
-[![Firebase][Fire-base]][Firebase-url]
+[![Node][Node.js]][Node-url] [![React][React.js]][React-url] [![Tailwind-CSS][Tailwind]][Tailwind-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![Flask][Flask-Py]][Flask-url] [![Firebase][Fire-base]][Firebase-url]
 
 [Node.js]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
 [Node-url]: https://nextjs.org/](https://nodejs.org/en)
