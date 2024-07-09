@@ -1,5 +1,5 @@
-<p align='center'><img src="images/Applyd-logo.png" alt="Logo" width="80" height="80"></p>
-<h1 align="center">Welcome to Applyd!</h2>
+<p align='center'><img src="images/Landing-Page.png" alt="Logo" width="700" height="450"></p>
+<h1 align="center">Meet Applyd:</h2>
 <h3 align="center">Your personalized job application & calendar, all in one.
 </h3>
 <p align="center">Created by your 2024 ProDev Chairs at UCI's Management Information Student Society.</p>
