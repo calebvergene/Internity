@@ -107,7 +107,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                <button className="font-bold text-blue-400 bg-transparent p-2 py-3 text-sm flex items-center justify-center rounded-lg hover:p-2 hover:bg-gray-300/50 hover:mb-1 hover:text-blue-500 duration-300">
+                                                <button className="font-bold text-blue-400 bg-transparent p-2 py-3 text-md flex items-center justify-center rounded-lg hover:p-2 hover:bg-gray-300/50 hover:mb-1 hover:text-blue-500 duration-300">
                                                 {application.name}
                                                 </button>
                                             </a>
