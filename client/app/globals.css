@@ -17,6 +17,25 @@
   }
 }
 
+.blinking-cursor {
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

@@ -18,8 +18,10 @@ const config: Config = {
       fontFamily: {
         rubik: ['Rubik', 'sans-serif']
       }
+      
     },
   },
+  
   plugins: [flowbite.plugin()],
 };
 export default config;

@@ -2,7 +2,7 @@
 
 import React from "react";
 import {useState, useEffect} from "react"
-import x from './images/applyd-background.png'
+import Typewriter from "./components/Typewriter";
 
 
 export default function Landing() {
@@ -48,7 +48,7 @@ const checkLoginStatus = async () => {
             <div className="flex items-center space-x-4">
               <button
                 onClick={handleLogin}
-                className="bg-blue-500/10 border-transparent font-rubik rounded-md mt-2 py-2 px-3 text-blue-600 flex justify-center place-content-center hover:bg-blue-500/20 hover:text-blue-600 duration-300"
+                className="bg-gray-900 border-transparent font-rubik rounded-md py-2 px-5 text-white flex justify-center place-content-center hover:px-4 hover:mr-1 duration-300"
               > Login </button>
             </div>
           </div>
@@ -56,9 +56,9 @@ const checkLoginStatus = async () => {
       </nav>
 
       <div className="flex items-center justify-between h-screen bg-gray-100">
-        <div className="w-1/2 flex items-center justify-center bg-gray-100">
-          <h1 className="text-4xl font-bold">
-            Your personalized
+        <div className="w-1/2 flex flex-col items-center justify-center bg-gray-100">
+          <h1 className="text-5xl font-bold pr-8">
+            Your personalized <span className="px-10"></span><Typewriter />
           </h1>
           
           
