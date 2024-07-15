@@ -43,7 +43,7 @@ const checkLoginStatus = async () => {
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-14">
             <div className="flex items-center">
-              <a href="/" className="text-xl font-bold text-gray-800 flex flex-row"><img src="/Applyd-logo.png" alt="Hero" className="w-[40px] h-auto" /><span className="mt-1.5 font-rubik">Applyd</span></a>
+              <a href="/" className="text-xl font-bold text-gray-800 flex flex-row"><img src="/Applyd-logo.png" alt="Hero" className="w-[40px] h-auto" /><span className="mt-1.5 font-rubik font-medium">Applyd</span></a>
             </div>
             <div className="flex items-center space-x-4">
               <button
