@@ -2,6 +2,7 @@
 
 import React from "react";
 import {useState, useEffect} from "react"
+import x from './images/applyd-background.png'
 
 
 export default function Landing() {
@@ -36,13 +37,13 @@ const checkLoginStatus = async () => {
 
 
   return (
-    <div className='bg-[url("../public/applyd-background.png")] bg-cover h-full w-full'>
+    <div className='bg-[url("./images/applyd-background.png")] bg-cover h-full w-full'>
 
       <nav className="fixed w-full bg-white bg-opacity-30 backdrop-filter backdrop-blur-lg shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
+          <div className="flex justify-between h-14">
             <div className="flex items-center">
-              <a href="/" className="text-xl font-bold text-gray-900">Brand</a>
+              <a href="/" className="text-xl font-bold text-gray-900">Applyd</a>
             </div>
             <div className="flex items-center space-x-4">
               <button
@@ -53,6 +54,19 @@ const checkLoginStatus = async () => {
           </div>
         </div>
       </nav>
+
+      <div className="flex items-center justify-between h-screen bg-gray-100">
+        <div className="w-1/2 flex items-center justify-center bg-gray-100">
+          <h1 className="text-4xl font-bold">
+            Your personalized
+          </h1>
+          
+          
+        </div>
+        <div className="w-1/2 flex items-center justify-center">
+          <img src="/applyd-hero-image.png" alt="Hero" className="w-full h-auto" />
+        </div>
+      </div>
 
     </div>
   );
