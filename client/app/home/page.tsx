@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import ApplicationList from "../components/ApplicationList"
 import ApplicationForm from "../components/ApplicationForm";
+import CustomDropdown from "../components/CustomDropdown";
 
 export default function Home() {
   const [userName, setUserName] = useState('');
@@ -89,9 +90,25 @@ export default function Home() {
     location.reload()
   }
 
+  const clickSort = async (sort: string) => {
+    
+    const url = new URL('http://localhost:5001/application');
+    url.searchParams.append('custom_sort', sort);
+
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include"
+    });
+
+    const data = await response.json() 
+    setApplications(data.applications)
+  }
+
+
 
   return (
-    <>
+    <div className="bg-gray-100">
       <div className="flex flex-col items-center mt-3 justify-center">
         {!isLoggedIn ? ( // if not logged in, i think it needs to have link to /home
 
@@ -127,11 +144,18 @@ export default function Home() {
             </div>
             <div className='flex flex-grow justify-center'>
                 <h3 className='text-center font-bold'>Glad to have you, {userName}!</h3>
-              </div>
-            <div className="mt-4">
+            </div>
+            <div className="mt-4 flex flex-row">
+              <CustomDropdown
+                  label="Sort By"
+                  items={[
+                  { label: "Not Applied", onClick: () => clickSort("Not Applied") },
+                  { label: "Offered", onClick: () => clickSort("Offered") },
+                  ]}
+              />
               <button
                 onClick={openCreateModal}
-                className="bg-gradient-to-r from-green-400 to-blue-400 hover:from-blue-500 hover:to-green-400 duration-300 font-rubik rounded-md mt-2 py-2 px-3 text-white flex justify-center place-content-center">
+                className="bg-green-500 hover:from-blue-500 hover:to-green-400 duration-300 font-rubik rounded-md mt-2 py-2 px-3 text-white flex justify-center place-content-center">
                   Create New Application <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 pl-1 pb-[2px] "><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
               </button>
             </div>
@@ -146,7 +170,7 @@ export default function Home() {
         </div>
       </div>
       }
-    </>
+    </div>
   );
   }
   

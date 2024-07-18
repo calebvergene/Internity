@@ -1,5 +1,6 @@
 # 3. For main, think of all of the features we need. 
 # We need to create, read, update, and delete rows of our tracker.
+from sqlalchemy import case, asc, desc
 from config import app, db
 from models import Application
 
@@ -118,6 +119,36 @@ def get_applications():
     applications = Application.query.filter_by(google_id=google_id).all()
     json_applications = list(map(lambda x: x.to_json(), applications))
     user_name = session["name"]
+
+    custom_sort = request.args.get("custom_sort", "")
+    print(custom_sort)
+    query = Application.query.filter_by(google_id=google_id)
+    if custom_sort == "Not Applied":
+        order_by_status = case(
+            
+                (Application.status == 'Not Applied', 1),
+                (Application.status == 'Applied', 2),
+                (Application.status == 'Interviewing', 3),
+                (Application.status == 'Offered', 4),
+            else_=5
+        )
+        query = query.order_by(order_by_status)
+    elif custom_sort == "Offered":
+        order_by_status = case(
+                (Application.status == 'Offered', 1),
+                (Application.status == 'Interviewing', 2),
+                (Application.status == 'Applied', 3),
+                (Application.status == 'Not Applied', 4)
+            ,
+            else_=5
+        )
+    else:
+        query = query.order_by(Application.id.asc())
+        
+    applications = query.all()
+    json_applications = [application.to_json() for application in applications]
+    user_name = session["name"]
+    
     return jsonify({"applications": json_applications, "userName": user_name})
 
 

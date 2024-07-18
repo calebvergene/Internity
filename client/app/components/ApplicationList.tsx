@@ -25,13 +25,12 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
         try {
             const updatedApplication = { ...application, status: stat };
             console.log (updatedApplication)
-            const options = {
+            const response = await fetch(`http://localhost:5001/update_application/${application.id}`, {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
                 body: JSON.stringify(updatedApplication)
-            };
-            const response = await fetch(`http://localhost:5001/update_application/${application.id}`, options);
+            });
             if (response.status === 200) {
                 updateCallback();
             } else {
@@ -42,13 +41,13 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
         }
     };
 
+    
     const onDelete = async (id: number) => {
         try {
-            const options = {
+            const response = await fetch(`http://localhost:5001/delete_application/${id}`, {
                 method: "DELETE",
                 credentials: 'include',
-            };
-            const response = await fetch(`http://localhost:5001/delete_application/${id}`, options);
+            });
             if (response.status === 200) {
                 updateCallback();
             } else {
@@ -109,7 +108,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                             <td className="flex items-center justify-center font-rubik font-medium">
                                             
                                                 <button className="">
-                                                {application.name}
+                                                    {application.name}
                                                 </button>
                                             
                                             </td>
