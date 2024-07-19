@@ -90,19 +90,25 @@ export default function Home() {
     location.reload()
   }
 
+
   const clickSort = async (sort: string) => {
     
+    // adds parameters to the request it sends to the backend BECAUSE IT IS A GET REQ.
     const url = new URL('http://localhost:5001/application');
     url.searchParams.append('custom_sort', sort);
 
+    // sends request to the backend relaying information
     const response = await fetch(url.toString(), {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include"
     });
 
+    // updates live table
     const data = await response.json() 
     setApplications(data.applications)
+
+    // now needs to update the database
   }
 
 

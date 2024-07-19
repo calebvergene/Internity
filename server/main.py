@@ -114,27 +114,25 @@ def logout():
 @app.route("/application", methods=["GET"])
 @login_is_required
 def get_applications():
-    # need to take each application from the db and return it as a json
     google_id = session["google_id"]
-    applications = Application.query.filter_by(google_id=google_id).all()
-    json_applications = list(map(lambda x: x.to_json(), applications))
-    user_name = session["name"]
-
     custom_sort = request.args.get("custom_sort", "")
-    print(custom_sort)
+
     query = Application.query.filter_by(google_id=google_id)
+
     if custom_sort == "Not Applied":
         order_by_status = case(
             
                 (Application.status == 'Not Applied', 1),
                 (Application.status == 'Applied', 2),
                 (Application.status == 'Interviewing', 3),
-                (Application.status == 'Offered', 4),
+                (Application.status == 'Offered', 4)
+            ,
             else_=5
         )
         query = query.order_by(order_by_status)
     elif custom_sort == "Offered":
         order_by_status = case(
+            
                 (Application.status == 'Offered', 1),
                 (Application.status == 'Interviewing', 2),
                 (Application.status == 'Applied', 3),
@@ -142,14 +140,26 @@ def get_applications():
             ,
             else_=5
         )
+        query = query.order_by(order_by_status)
     else:
-        query = query.order_by(Application.id.asc())
-        
+        query = query.order_by(Application.order.asc())  # Default sorting
+
     applications = query.all()
+
+    # Update the order field in the database
+    for index, application in enumerate(applications):
+        application.order = index
+    db.session.commit()
+
+    # To help visualize order
+    for x in applications:
+        print (x.order, x.name)
+
     json_applications = [application.to_json() for application in applications]
     user_name = session["name"]
     
     return jsonify({"applications": json_applications, "userName": user_name})
+
 
 
 # This is made to create an application. We recieve json request from the 
