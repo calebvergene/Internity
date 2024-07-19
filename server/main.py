@@ -129,7 +129,7 @@ def get_applications():
             ,
             else_=5
         )
-        query = query.order_by(order_by_status)
+        query = query.order_by(order_by_status, desc(Application.id))
     elif custom_sort == "Offered":
         order_by_status = case(
             
@@ -140,14 +140,15 @@ def get_applications():
             ,
             else_=5
         )
-        query = query.order_by(order_by_status)
+        query = query.order_by(order_by_status, desc(Application.id))
     else:
-        query = query.order_by(Application.order.asc())  # Default sorting
+        query = query.order_by(Application.order.asc(), desc(Application.id))  # Default sorting
 
     applications = query.all()
 
     # Update the order field in the database
     for index, application in enumerate(applications):
+        
         application.order = index
     db.session.commit()
 

@@ -21,8 +21,10 @@ interface ApplicationListProps {
 
 const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateApplication, updateCallback }) => {
 
+
     const clickStatus = async (stat: string, application: Application) => {
         try {
+
             const updatedApplication = { ...application, status: stat };
             console.log (updatedApplication)
             const response = await fetch(`http://localhost:5001/update_application/${application.id}`, {
