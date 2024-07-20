@@ -128,28 +128,28 @@ export default function Home() {
           <>
             <div className="flex justify-between items-center w-full px-8">
               <a href="/">
-              <button className="p-3 rounded-lg px-[15px] hover:border-white hover:bg-gray-300/50 duration-300">
+              <button className="p-3 rounded-lg px-[13px] hover:border-white hover:bg-gray-300/50 duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                 </svg>
               </button>
+              
               </a>
+              
+              <div className="ml-12 font-rubik bg-gray-100 border border-gray-200 text-sm text-gray-800 rounded-lg p-2 px-4 dark:bg-white/10 dark:border-white/20 dark:text-white" role="alert">
+              🌱 Glad to have you, <span className="font-bold">{userName.split(' ')[0]}</span>!
+            </div>
               <div className="flex items-center">
-                <button className="border-r border-gray-400/50 px-6 py-0">
-                  💧{waterDroplets}
-                </button>
+                
                 <a href="/">
                   <button
                     onClick={handleLogout}
-                    className="bg-black border-transparent font-rubik rounded-md my-2 py-2 px-3 ml-6 text-white flex justify-center place-content-center hover:bg-gray-100 hover:text-black duration-300"
+                    className="bg-black/85 border-transparent font-rubik rounded-md my-2 py-2 px-3 ml-6 text-white flex justify-center place-content-center hover:bg-black/80 duration-300"
                   >
                     Logout
                   </button>
                 </a>
               </div>
-            </div>
-            <div className='flex flex-grow justify-center'>
-                <h3 className='text-center font-bold'>Glad to have you, {userName}!</h3>
             </div>
             <div className="mt-4 flex flex-row">
               <CustomDropdown
