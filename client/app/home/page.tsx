@@ -12,6 +12,8 @@ export default function Home() {
   const [currentApplication, setCurrentApplication] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [dataApplications, setDataApplications] = useState([]);
+  
   
 
   useEffect(() => {
@@ -26,6 +28,7 @@ export default function Home() {
       });
       if (response.ok) {
         const data = await response.json();
+        setDataApplications(data.applications)
         setApplications(data.applications);
         setUserName(data.userName);
         setIsLoggedIn(true);
@@ -110,23 +113,17 @@ export default function Home() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInputValue(value);
-  
-    if (value === '') {
-      setApplications(applications);
-    } else {
-      const matchedApplications = applications.filter(app => app.name.toLowerCase().includes(value.toLowerCase()));
-      setApplications(matchedApplications.length > 0 ? matchedApplications : applications);
-    }
+    const matchedApplications = dataApplications.filter(app => app.name.toLowerCase().includes(value.toLowerCase()));
+    setApplications(matchedApplications);
+    
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const matchedApplications = applications.filter(app => app.name.toLowerCase() === inputValue.toLowerCase());
+    const matchedApplications = dataApplications.filter(app => app.name.toLowerCase() === inputValue.toLowerCase());
     if (matchedApplications.length > 0) {
       setApplications(matchedApplications);
-    } else {
-      console.log('No matching applications found');
-    }
+    } 
     setInputValue('');
   };
 
@@ -186,7 +183,7 @@ export default function Home() {
                   { label: "Offered", onClick: () => clickSort("Offered") },
                   ]}
               />
-              <form className="flex items-center max-w-sm mx-auto justify-end ml-6" onSubmit={handleSubmit}>
+              <form className="flex items-center max-w-sm mx-auto justify-end ml-4" onSubmit={handleSubmit}>
                   <label className="sr-only">Search</label>
                   <div className="relative w-full">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
