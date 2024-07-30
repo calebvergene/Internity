@@ -4,14 +4,15 @@ import ApplicationList from "../components/ApplicationList"
 import ApplicationForm from "../components/ApplicationForm";
 import CustomDropdown from "../components/CustomDropdown";
 
+
 export default function Home() {
   const [userName, setUserName] = useState('');
   const [applications, setApplications] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentApplication, setCurrentApplication] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [waterDroplets, setWaterDroplets] = useState(0);
-
+  const [inputValue, setInputValue] = useState('');
+  
 
   useEffect(() => {
     checkLoginStatus();
@@ -48,10 +49,6 @@ export default function Home() {
     setApplications(data.applications)
   }
 
-  const handleLogin = async () => {
-    window.location.href = "http://localhost:5001/login";
-  };
-
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:5001/logout", {
@@ -87,7 +84,7 @@ export default function Home() {
   const onUpdate = () => {
     closeModal()
     fetchApplications
-    location.reload()
+    // location.reload()
   }
 
 
@@ -108,9 +105,40 @@ export default function Home() {
     const data = await response.json() 
     setApplications(data.applications)
 
-    // now needs to update the database
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInputValue(value);
+  
+    if (value === '') {
+      setApplications(applications);
+    } else {
+      const matchedApplications = applications.filter(app => app.name.toLowerCase().includes(value.toLowerCase()));
+      setApplications(matchedApplications.length > 0 ? matchedApplications : applications);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const matchedApplications = applications.filter(app => app.name.toLowerCase() === inputValue.toLowerCase());
+    if (matchedApplications.length > 0) {
+      setApplications(matchedApplications);
+    } else {
+      console.log('No matching applications found');
+    }
+    setInputValue('');
+  };
+
+  const refreshList = (e: React.FormEvent) => {
+    e.preventDefault();
+    location.reload()
+
+  };
+  
+  
+
+  
 
 
   return (
@@ -158,17 +186,29 @@ export default function Home() {
                   { label: "Offered", onClick: () => clickSort("Offered") },
                   ]}
               />
-              <form className="flex items-center max-w-sm mx-auto justify-end ml-6">   
+              <form className="flex items-center max-w-sm mx-auto justify-end ml-6" onSubmit={handleSubmit}>
                   <label className="sr-only">Search</label>
                   <div className="relative w-full">
-                      <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                          <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                          </svg>
-                      </div>
-                      <input type="text" id="simple-search" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-300 focus:border-gray-300 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-gren-500" placeholder="Search applications..." required />
+                    <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      id="simple-search"
+                      value={inputValue}
+                      onChange={(e) => handleInputChange(e)}
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-300 focus:border-gray-300 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                      placeholder="Search applications..."
+                    />
                   </div>
-              </form>
+                </form>
+                <button className="rounded-lg px-[11px] ml-1 hover:border-white hover:rotate-45 duration-300" onClick={refreshList}>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                  </svg>
+                  </button>
               </div>
             </div>
       </div>
