@@ -30,7 +30,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
   }, []);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left font-rubik text" ref={dropdownRef}>
       <div className="flex items-center justify-center my-1">
       <button
       onClick={toggleDropdown}
@@ -54,8 +54,8 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
     </button>
       </div>
       {isOpen && (
-        <div className="absolute left-1/2 transform -translate-x-1/2  w-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-        <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+        <div className="absolute left-1/2 transform -translate-x-1/2  w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+        <div className="" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {items.map((item, index) => (
               <button
                 key={index}
