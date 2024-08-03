@@ -87,7 +87,7 @@ export default function Home() {
   const onUpdate = () => {
     closeModal()
     fetchApplications
-    // location.reload()
+    location.reload()
   }
 
 
@@ -118,7 +118,7 @@ export default function Home() {
     
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmitSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const matchedApplications = dataApplications.filter(app => app.name.toLowerCase() === inputValue.toLowerCase());
     if (matchedApplications.length > 0) {
@@ -183,7 +183,7 @@ export default function Home() {
                   { label: "Offered", onClick: () => clickSort("Offered") },
                   ]}
               />
-              <form className="flex items-center max-w-sm mx-auto justify-end ml-4" onSubmit={handleSubmit}>
+              <form className="flex items-center max-w-sm mx-auto justify-end ml-4" onSubmit={handleSubmitSearch}>
                   <label className="sr-only">Search</label>
                   <div className="relative w-full">
                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
