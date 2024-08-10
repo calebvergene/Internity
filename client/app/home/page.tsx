@@ -142,13 +142,13 @@ export default function Home() {
   return (
     <div className="bg-gray-100">
       <div className="flex flex-col items-center mt-3 justify-center">
-            <div className="flex justify-between items-center w-full px-8">
+            <div className="flex justify-between items-center w-full px-8 pb-8 border-b border-grey-800 py-1">
               <div>
-                <div className="font-rubik  text-2xl text-gray-800 rounded-lg px-4 mt-4 dark:bg-white/10 dark:border-white/20 dark:text-white" role="alert">
+                <div className="font-rubik  text-4xl text-gray-800 rounded-lg px-2 mt-4 dark:bg-white/10 dark:border-white/20 dark:text-white" role="alert">
                   🌱 Glad to have you, <span className="font-semibold">{userName.split(' ')[0]}</span>!
                 </div>
-                <div className="font-rubik  text-l text-gray-800 rounded-lg p-2 px-4 mt-3 dark:bg-white/10 dark:border-white/20 dark:text-white" role="alert">
-                  Here are your saved applications 
+                <div className="font-rubik text-xs text-gray-600 rounded-lg px-4 mt-2 ml-10 dark:bg-white/10 dark:border-white/20 dark:text-white" role="alert">
+                  {applications.length} TOTAL APPLICATIONS
                 </div>
               </div>
 
