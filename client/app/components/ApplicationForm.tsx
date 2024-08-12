@@ -26,8 +26,8 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
   closeModal
 }) => {
   const [name, setName] = useState(existingApplication.name || "");
-  const [open, setOpen] = useState<Dayjs | null>(existingApplication.open ? dayjs(existingApplication.open) : null);
-  const [close, setClose] = useState<Dayjs | null>(existingApplication.close ? dayjs(existingApplication.close) : null);
+  const [open, setOpen] = useState(existingApplication.open || "");
+  const [close, setClose] = useState(existingApplication.close || "");
   const [link, setLink] = useState(existingApplication.link || "");
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -38,8 +38,8 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
 
     const data = {
       name,
-      open: open ? open.format("MMMM DD, YYYY") : "",
-      close: close ? close.format("MMMM DD, YYYY") : "",
+      open,
+      close,
       link
     };
     const url = `http://localhost:5001/${updating ? `update_application/${existingApplication.id}` : "create_application"}`;
@@ -104,22 +104,26 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
                   />
                 </div>
                 <div className="flex flex-col">
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateField
-                      value={open}
-                      onChange={(newValue) => setOpen(newValue)}
-                      label="Application Opens"
-                    />
-                  </LocalizationProvider>
+                  <label htmlFor="role" className="sr-only">Role:</label>
+                  <input
+                    type="text"
+                    id="role"
+                    value={open}
+                    onChange={(e) => setOpen(e.target.value)}
+                    placeholder="Role"
+                    className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
+                  />
                 </div>
                 <div className="flex flex-col">
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateField
-                      value={close}
-                      onChange={(newValue) => setClose(newValue)}
-                      label="Application Due"
-                    />
-                  </LocalizationProvider>
+                  <label htmlFor="location" className="sr-only">Location:</label>
+                  <input
+                    type="text"
+                    id="location"
+                    value={open}
+                    onChange={(e) => setClose(e.target.value)}
+                    placeholder="Location"
+                    className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
+                  />
                 </div>
                 <div className="flex flex-col">
                   <label htmlFor="link" className="sr-only">Link:</label>

@@ -86,8 +86,8 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                             <tr className="">
                                 <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Name</th>
                                 <th className="font-rubik  border-b border-black py-1 text-center font-normal text-gray-600">Status</th>
-                                <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Open</th>
-                                <th className="font-rubik  border-b border-black py-1 text-center font-normal text-gray-600">Due</th>
+                                <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Role</th>
+                                <th className="font-rubik  border-b border-black py-1 text-center font-normal text-gray-600">Location</th>
                                 <th className="font-rubik border-b border-black py-1 text-center font-normal text-gray-600">Actions</th>
                             </tr>
                         </thead>
@@ -127,7 +127,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                             ]}
                                         />
                                         </td>
-                                        <td className="py-2 text-center text-sm">{application.open}</td>
+                                        <td className="py-2 text-center text-m">{application.open}</td>
                                         <td className="py-2 text-center text-sm">{application.close}</td>
                                         <td className="py-2 text-center flex justify-center text-sm">
                                             <button onClick={() => onDelete(application.id)} className="text-gray-500 flex justify-center place-content-center hover:bg-gray-500/20 hover:text-gray-600 duration-300 p-1 rounded-xl mt-1">
