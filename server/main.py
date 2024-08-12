@@ -97,7 +97,6 @@ def callback():
         logging.debug(f"ID Info: {id_info}")
 
         session["google_id"] = id_info.get("sub")
-        print(f'session google ID: {session['google_id']}')
         session["name"] = id_info.get("name")
         return redirect("http://localhost:3000")
     except Exception as e:
@@ -148,13 +147,14 @@ def get_applications():
 
     # Update the order field in the database
     for index, application in enumerate(applications):
-        
         application.order = index
     db.session.commit()
 
     # To help visualize order
     for x in applications:
         print (x.order, x.name)
+
+    print(applications)
 
     json_applications = [application.to_json() for application in applications]
     user_name = session["name"]
@@ -233,6 +233,25 @@ def delete_application(user_id):
     db.session.commit()
 
     return jsonify({"message": "Application deleted."}), 200
+
+
+
+def default_applications(google_id):
+    try:
+        # Create a list of default applications for the new user
+        default_apps = [
+            Application(status="Not Applied", name="Default App 1", open=None, close=None, link=None, google_id=google_id),
+            Application(status="Not Applied", name="Default App 2", open=None, close=None, link=None, google_id=google_id),
+        ]
+        
+        # Add the default applications to the database
+        db.session.bulk_save_objects(default_apps)
+        db.session.commit()
+        
+        print("Default applications created for user:", google_id)
+    except Exception as e:
+        print("Error creating default applications:", e)
+
 
 
 

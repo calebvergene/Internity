@@ -25,7 +25,7 @@ class Application(db.Model):
             "name": self.name, 
             "open": self.open,
             "close": self.close,
-            "link": self.link,        
+            "link": self.link,  
             "google_id": self.google_id,
             'order': self.order,
         }
