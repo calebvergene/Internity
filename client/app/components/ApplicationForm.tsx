@@ -119,7 +119,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
                   <input
                     type="text"
                     id="location"
-                    value={open}
+                    value={close}
                     onChange={(e) => setClose(e.target.value)}
                     placeholder="Location"
                     className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
