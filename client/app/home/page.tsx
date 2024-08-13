@@ -179,7 +179,7 @@ export default function Home() {
       </div>
     </div>
         
-      <div className="mt-10 mb-4 flex flex-row justify-between items-center w-[78%]">
+      <div className="mt-10 mb-4 flex flex-row justify-between items-center w-[91%]">
               <div className="">
               <button
                 onClick={openCreateModal}
@@ -222,9 +222,8 @@ export default function Home() {
             </div>
       </div>
       <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
-      {isModalOpen && <div className="position: fixed z-1 left-0 top-0 w-full h-full overflow-auto">
-        <div className="bg-white m-4 p-4 w-4/5">
-          <span className="close" onClick={closeModal}>&times;</span>
+      {isModalOpen && <div className="position: fixed z-10 left-0 top-0 w-full h-full overflow-auto">
+        <div className=" m-4 p-4 w-4/5">
           <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate} closeModal={closeModal}/>
         </div>
       </div>
