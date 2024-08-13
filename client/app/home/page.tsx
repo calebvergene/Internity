@@ -178,8 +178,7 @@ export default function Home() {
         </a>
       </div>
     </div>
-        
-      <div className="mt-10 mb-4 flex flex-row justify-between items-center w-[91%]">
+      <div className="mt-10 mb-4 flex flex-row justify-between items-center w-[91%] sticky top-0 z-10">
               <div className="">
               <button
                 onClick={openCreateModal}

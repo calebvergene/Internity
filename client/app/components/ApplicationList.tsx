@@ -78,9 +78,9 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
       };
 
         return (
-          <div className="flex items-start justify-center h-[800px] overflow-auto">
+          <div className="flex items-start justify-center h-[700px] overflow-auto mb-12">
             <div className="w-11/12 my-10">
-              <div className="overflow-y-visible max-h-[800px]">
+              <div className="overflow-y-visible max-h-[600px]">
                 <table className="w-full border-collapse table-fixed">
                   <thead className="bg-gray-100 sticky top-0 z-10">
                     <tr>
