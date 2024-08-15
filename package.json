@@ -1,7 +1,13 @@
 {
   "dependencies": {
+    "@zendeskgarden/react-forms": "^8.76.5",
+    "@zendeskgarden/react-grid": "^8.76.5",
+    "@zendeskgarden/react-loaders": "^8.76.5",
+    "@zendeskgarden/react-tooltips": "^8.76.5",
     "clsx": "^2.1.1",
     "framer-motion": "^11.3.8",
+    "pdf-lib": "^1.17.1",
+    "react-dropzone": "^14.2.3",
     "tailwind-merge": "^2.4.0"
   }
 }
