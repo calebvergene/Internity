@@ -42,7 +42,7 @@ const FileUploadModal: React.FC<FileUploadProps> = ({ closeModal }) => {
           <FiAlertCircle className="text-white/10 rotate-12 text-[250px] absolute z-0 -top-24 -left-24" />
           <div className="relative z-10">
             <div ref={formRef} className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-md">
-              
+              <FileUploadComponent/>
             </div>
           </div>
         </motion.div>

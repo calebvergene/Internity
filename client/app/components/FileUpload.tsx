@@ -5,7 +5,6 @@ import { KEYS } from '@zendeskgarden/container-utilities';
 import {
   Field,
   Label,
-  Hint,
   Input,
   FileUpload,
   Message,
@@ -15,10 +14,12 @@ import {
 import { Progress } from '@zendeskgarden/react-loaders';
 import { Row, Col } from '@zendeskgarden/react-grid';
 import { Tooltip } from '@zendeskgarden/react-tooltips';
-import { PDFDocument } from 'pdf-lib';
+import * as pdfjsLib from 'pdfjs-dist';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
 
 const StyledFileUpload = styled(FileUpload)`
-  min-height: ${(p) => p.theme.space.base * 20}px;
+  min-height: 200px;
 `;
 
 interface FileItemProps {
@@ -30,7 +31,6 @@ const FileItem: React.FC<FileItemProps> = memo(({ name, onRemove }) => {
   const [progress, setProgress] = useState(0);
 
   React.useEffect(() => {
-    /* simulate file upload progress */
     const interval = setInterval(() => {
       setProgress((value) => {
         if (value >= 100) {
@@ -101,10 +101,12 @@ const FileItem: React.FC<FileItemProps> = memo(({ name, onRemove }) => {
 
 const FileUploadComponent: React.FC = () => {
   const [files, setFiles] = useState<string[]>([]);
+  const [pdfText, setPdfText] = useState<string | null>(null);
 
   const removeFile = useCallback(
     (fileIndex: number) => {
       setFiles((files) => files.filter((_, index) => index !== fileIndex));
+      setPdfText(null); // Clear extracted text when a file is removed
     },
     []
   );
@@ -115,14 +117,25 @@ const FileUploadComponent: React.FC = () => {
         for (const acceptedFile of acceptedFiles) {
           const fileReader = new FileReader();
           fileReader.onload = async () => {
-            const pdfData = new Uint8Array(fileReader.result as ArrayBuffer);
-            const pdfDoc = await PDFDocument.load(pdfData);
-            const numPages = pdfDoc.getPageCount();
+            try {
+              const pdfData = new Uint8Array(fileReader.result as ArrayBuffer);
+              const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+              const textItems = [];
 
-            if (numPages <= 2) {
+              for (let i = 0; i < pdf.numPages; i++) {
+                const page = await pdf.getPage(i + 1);
+                const textContent = await page.getTextContent();
+                const pageText = textContent.items.map((item: any) => item.str).join(' ');
+                textItems.push(pageText);
+              }
+
+              const fullText = textItems.join('\n');
+
+              setPdfText(fullText);
               setFiles((files) => [...files, acceptedFile.name]);
-            } else {
-              alert(`The file "${acceptedFile.name}" has more than 2 pages.`);
+            } catch (error) {
+              console.error(error);
+              alert('Failed to extract text from the PDF.');
             }
           };
           fileReader.readAsArrayBuffer(acceptedFile);
@@ -141,10 +154,10 @@ const FileUploadComponent: React.FC = () => {
 
   return (
     <Row justifyContent="center">
-      <Col sm={5}>
+      <Col sm={12}>
         <Field>
-          <Label>Upload a PDF</Label>
-          <Hint>Only PDFs with a maximum of 2 pages are allowed</Hint>
+          <Label>Upload Resume</Label>
+          <Message>Acceptable format is PDF.</Message>
           <StyledFileUpload {...getRootProps()} isDragging={isDragActive}>
             {isDragActive ? (
               <span>Drop files here</span>
@@ -154,7 +167,7 @@ const FileUploadComponent: React.FC = () => {
             <Input {...getInputProps()} />
           </StyledFileUpload>
           {files.length === 0 ? (
-            <Message>Acceptable format is PDF with up to 2 pages</Message>
+            <Message>Your resume will be analyzed to match you up to companies that are looking for people with your skills.</Message>
           ) : (
             <FileList>
               {files.map((file, index) => (
@@ -163,6 +176,12 @@ const FileUploadComponent: React.FC = () => {
             </FileList>
           )}
         </Field>
+        {pdfText && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
+            <h3 className="text-lg font-bold mb-2">Extracted Text:</h3>
+            <pre className="whitespace-pre-wrap">{pdfText}</pre>
+          </div>
+        )}
       </Col>
     </Row>
   );
