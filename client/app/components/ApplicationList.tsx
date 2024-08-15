@@ -139,7 +139,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                           <td className="py-2 text-center text-sm">{application.close}</td>
                           <td className="py-2 text-center flex justify-center text-sm">
                             <a href={application.link} target="_blank" rel="noopener noreferrer">
-                              <button className="justify-start bg-green-500 duration-300 font-rubik rounded-md mt-2 py-1 mb-1 mr-2 px-3 text-white flex place-content-center">
+                              <button className="justify-start bg-green-500 duration-300 font-rubik rounded-md mt-2 py-1 mb-1 mr-2 px-3 text-white flex place-content-center" onClick={() => clickStatus("Applied", application)}>
                                 Apply
                               </button>
                             </a>
