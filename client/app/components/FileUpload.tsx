@@ -99,7 +99,7 @@ const FileItem: React.FC<FileItemProps> = memo(({ name, onRemove }) => {
   );
 });
 
-const Example: React.FC = () => {
+const FileUploadComponent: React.FC = () => {
   const [files, setFiles] = useState<string[]>([]);
 
   const removeFile = useCallback(
@@ -168,4 +168,4 @@ const Example: React.FC = () => {
   );
 };
 
-export default Example;
+export default FileUploadComponent;

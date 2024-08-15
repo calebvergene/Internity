@@ -37,8 +37,11 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
   };
 
   return (
-    <div className="relative inline-block text-left font-rubik text" ref={dropdownRef}>
-      <div className="flex items-center justify-center my-1">
+    <div className="relative inline-block text-left font-rubik" ref={dropdownRef}>
+      <div
+        className={`flex items-center justify-center my-1 z-${isOpen ? '0' : '10'}`}
+        style={{ zIndex: isOpen ? 0 : 10 }}
+      >
         <button
           onClick={toggleDropdown}
           className="bg-transparent p-2 py-2 text-md flex items-center justify-center rounded-lg hover:p-1 hover:px-2 hover:mt-1 hover:bg-gray-300/50 hover:mb-1 duration-300"
@@ -61,13 +64,13 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
         </button>
       </div>
       {isOpen && (
-        <div className="absolute left-1/2 transform -translate-x-1/2  w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
-          <div className="" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+        <div className="absolute left-1/2 transform -translate-x-1/2 w-28 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+          <div className="z-50" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
             {items.map((item, index) => (
               <button
                 key={index}
                 onClick={() => handleItemClick(item)}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-center"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-center z-50"
                 role="menuitem"
               >
                 {item.label}
@@ -81,4 +84,3 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
 };
 
 export default CustomDropdown;
-
