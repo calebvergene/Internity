@@ -1,189 +1,71 @@
-import React, { useCallback, useState, memo } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
-import { KEYS } from '@zendeskgarden/container-utilities';
-import {
-  Field,
-  Label,
-  Input,
-  FileUpload,
-  Message,
-  FileList,
-  File
-} from '@zendeskgarden/react-forms';
-import { Progress } from '@zendeskgarden/react-loaders';
-import { Row, Col } from '@zendeskgarden/react-grid';
-import { Tooltip } from '@zendeskgarden/react-tooltips';
-import * as pdfjsLib from 'pdfjs-dist';
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+import { Field, Label, Input, FileUpload, Message, FileList, File } from '@zendeskgarden/react-forms';
 
 const StyledFileUpload = styled(FileUpload)`
   min-height: 200px;
 `;
 
-interface FileItemProps {
-  name: string;
-  onRemove: () => void;
+interface FileUploadComponentProps {
+  closeModal: () => void;
 }
 
-const FileItem: React.FC<FileItemProps> = memo(({ name, onRemove }) => {
-  const [progress, setProgress] = useState(0);
+const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal }) => {
+  const [files, setFiles] = useState<File[]>([]);
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((value) => {
-        if (value >= 100) {
-          clearInterval(interval);
-          return 100;
-        }
-        return value + 20;
-      });
-    }, Math.random() * 300 + 100);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
-
-  const handleFileKeyDown = (e: React.KeyboardEvent<any>) => {
-    if (e.key === KEYS.DELETE || e.key === KEYS.BACKSPACE) {
-      e.preventDefault();
-      onRemove();
+  const handleDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles && acceptedFiles.length > 0 && files.length === 0) {
+      setFiles(acceptedFiles);
+      console.log("Files received:", acceptedFiles);
+    } else {
+      console.error("No files received or file already uploaded");
     }
-  };
-
-  const handleCloseKeyDown = (e: React.KeyboardEvent<any>) => {
-    const keys = [KEYS.SPACE, KEYS.ENTER, KEYS.DELETE, KEYS.BACKSPACE];
-
-    if (keys.includes(e.key)) {
-      e.preventDefault();
-      alert('File dismissed via keyboard');
-    }
-  };
-
-  const labelAction = progress === 100 ? 'remove' : 'cancel upload';
-
-  return (
-    <FileList.Item>
-      <File
-        type="pdf"
-        title={name}
-        aria-label={`PDF file, press delete to ${labelAction}`}
-        tabIndex={0}
-        onKeyDown={handleFileKeyDown}
-      >
-        {name}
-        <Tooltip content={progress === 100 ? 'Remove file' : 'Stop upload'}>
-          {progress === 100 ? (
-            <File.Delete
-              aria-label="Remove file"
-              onClick={onRemove}
-              onKeyDown={handleCloseKeyDown}
-            />
-          ) : (
-            <File.Close
-              aria-label="Stop upload"
-              onClick={onRemove}
-              onKeyDown={handleCloseKeyDown}
-            />
-          )}
-        </Tooltip>
-        <Progress
-          value={progress}
-          aria-label={`Uploading ${name}`}
-          aria-hidden={progress === 100}
-        />
-      </File>
-    </FileList.Item>
-  );
-});
-
-const FileUploadComponent: React.FC = () => {
-  const [files, setFiles] = useState<string[]>([]);
-  const [pdfText, setPdfText] = useState<string | null>(null);
-
-  const removeFile = useCallback(
-    (fileIndex: number) => {
-      setFiles((files) => files.filter((_, index) => index !== fileIndex));
-      setPdfText(null); // Clear extracted text when a file is removed
-    },
-    []
-  );
-
-  const onDrop = useCallback(
-    async (acceptedFiles: File[]) => {
-      if (acceptedFiles && acceptedFiles.length > 0) {
-        for (const acceptedFile of acceptedFiles) {
-          const fileReader = new FileReader();
-          fileReader.onload = async () => {
-            try {
-              const pdfData = new Uint8Array(fileReader.result as ArrayBuffer);
-              const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-              const textItems = [];
-
-              for (let i = 0; i < pdf.numPages; i++) {
-                const page = await pdf.getPage(i + 1);
-                const textContent = await page.getTextContent();
-                const pageText = textContent.items.map((item: any) => item.str).join(' ');
-                textItems.push(pageText);
-              }
-
-              const fullText = textItems.join('\n');
-
-              setPdfText(fullText);
-              setFiles((files) => [...files, acceptedFile.name]);
-            } catch (error) {
-              console.error(error);
-              alert('Failed to extract text from the PDF.');
-            }
-          };
-          fileReader.readAsArrayBuffer(acceptedFile);
-        }
-      }
-    },
-    []
-  );
+  }, [files]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: {
-      'application/pdf': ['.pdf']
-    },
-    onDrop
+    accept: { 'application/pdf': ['.pdf'] },
+    onDrop: handleDrop,
+    disabled: files.length > 0, // Disable further uploads after one file is uploaded
   });
 
   return (
-    <Row justifyContent="center">
-      <Col sm={12}>
-        <Field>
-          <Label>Upload Resume</Label>
-          <Message>Acceptable format is PDF.</Message>
-          <StyledFileUpload {...getRootProps()} isDragging={isDragActive}>
-            {isDragActive ? (
-              <span>Drop files here</span>
-            ) : (
-              <span>Choose a file or drag and drop here</span>
-            )}
-            <Input {...getInputProps()} />
-          </StyledFileUpload>
-          {files.length === 0 ? (
-            <Message>Your resume will be analyzed to match you up to companies that are looking for people with your skills.</Message>
+    <div>
+      <Field>
+        <Label>Upload Resume</Label>
+        <Message>Acceptable format is PDF.</Message>
+        <StyledFileUpload {...getRootProps()} isDragging={isDragActive} disabled={files.length > 0}>
+          {isDragActive ? (
+            <span>Drop files here...</span>
           ) : (
+            <span>{files.length === 0 ? 'Choose a file or drag and drop here' : 'File uploaded successfully'}</span>
+          )}
+          <Input {...getInputProps()} disabled={files.length > 0} />
+        </StyledFileUpload>
+        {files.length === 0 ? (
+          <Message>Your resume will be analyzed to move up applications that are looking for people with your skills.</Message>
+        ) : (
+          <div>
             <FileList>
               {files.map((file, index) => (
-                <FileItem key={file} name={file} onRemove={() => removeFile(index)} />
+                <FileList.Item key={index}>
+                  <File>{file.name}</File>
+                </FileList.Item>
               ))}
             </FileList>
-          )}
-        </Field>
-        {pdfText && (
-          <div className="mt-4 p-4 bg-gray-100 rounded-lg">
-            <h3 className="text-lg font-bold mb-2">Extracted Text:</h3>
-            <pre className="whitespace-pre-wrap">{pdfText}</pre>
+            <div className='flex justify-end w-full mt-2'>
+              <button className='p-1.5 bg-green-400 text-white rounded-lg flex items-center' onClick={closeModal}>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5">
+                  <path fillRule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clipRule="evenodd" />
+                  <path fillRule="evenodd" d="M6 10a.75.75 0 0 1 .75-.75h9.546l-1.048-.943a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 1 1-1.004-1.114l1.048-.943H6.75A.75.75 0 0 1 6 10Z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
-      </Col>
-    </Row>
+      </Field>
+    </div>
+
   );
 };
 
