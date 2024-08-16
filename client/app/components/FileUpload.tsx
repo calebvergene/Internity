@@ -13,11 +13,31 @@ interface FileUploadComponentProps {
 
 const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   const handleDrop = useCallback((acceptedFiles: File[]) => {
     if (acceptedFiles && acceptedFiles.length > 0 && files.length === 0) {
       setFiles(acceptedFiles);
       console.log("Files received:", acceptedFiles);
+
+      const formData = new FormData();
+      formData.append('file', acceptedFiles[0]);
+
+      fetch('http://localhost:5001/upload-resume', {
+          method: 'POST',
+          body: formData,
+          credentials: 'include',  // Include credentials if necessary (e.g., for sessions)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          setUploadStatus('File uploaded successfully');
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          setUploadStatus('Failed to upload file');
+        });
+
     } else {
       console.error("No files received or file already uploaded");
     }
@@ -54,7 +74,7 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
               ))}
             </FileList>
             <div className='flex justify-end w-full mt-2'>
-              <button className='p-1.5 bg-green-400 text-white rounded-lg flex items-center' onClick={closeModal}>
+              <button className='p-1.5 bg-black/80 text-white rounded-lg flex items-center' onClick={closeModal}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5">
                   <path fillRule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clipRule="evenodd" />
                   <path fillRule="evenodd" d="M6 10a.75.75 0 0 1 .75-.75h9.546l-1.048-.943a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 1 1-1.004-1.114l1.048-.943H6.75A.75.75 0 0 1 6 10Z" clipRule="evenodd" />
@@ -64,8 +84,8 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
           </div>
         )}
       </Field>
+      {uploadStatus && <Message>{uploadStatus}</Message>}
     </div>
-
   );
 };
 

@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)  # Disable CORS errors to communicate with the front end
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 
 # Specify the location of the local SQLite database

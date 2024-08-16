@@ -257,21 +257,13 @@ def upload_resume():
         return jsonify({'error': 'No selected file'}), 400
     
     print("reached")
-    filename = secure_filename(file.filename)
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(file_path)
-
-    # Extract text from the PDF (or any other processing you need)
-    reader = PdfReader(file_path)
-    text = ''
-    for page in reader.pages:
-        text += page.extract_text() + '\n'
+    
 
     # Here you can perform any further processing you need
     # For example, save the text to a database, log it, etc.
 
     # Optionally, remove the file after processing
-    os.remove(file_path)
+
 
     return jsonify({'message': 'File processed successfully'}), 200
 
