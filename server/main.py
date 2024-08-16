@@ -4,6 +4,7 @@ from sqlalchemy import case, asc, desc
 from config import app, db
 from models import Application
 from default_apps import default_apps
+from file_analysis import analyze_resume
 
 import os
 import pathlib
@@ -258,11 +259,8 @@ def upload_resume():
     
     print("reached")
     
-
-    # Here you can perform any further processing you need
-    # For example, save the text to a database, log it, etc.
-
-    # Optionally, remove the file after processing
+    analyze_resume(file)
+    
 
 
     return jsonify({'message': 'File processed successfully'}), 200

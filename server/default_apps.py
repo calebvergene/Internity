@@ -1,5 +1,71 @@
 from models import Application
 
+def skill_set():
+    skill_set = {
+    # Programming Languages
+    "python", "java", "c++", "c#", "javascript", "typescript", "ruby", "go", "rust",
+    "swift", "kotlin", "php", "r", "scala", "perl", "matlab", "bash", "shell", "haskell",
+    "objective-c", "dart", "lua", "groovy", "elixir", "clojure",
+
+    # Web Development Frameworks
+    "django", "flask", "spring", "rails", "express", "react", "angular", "vue.js",
+    "next.js", "nuxt.js", "ember.js", "svelte", "laravel", "symfony", "asp.net", "blazor",
+
+    # Databases
+    "sql", "mysql", "postgresql", "sqlite", "oracle", "mongodb", "redis", "cassandra",
+    "couchdb", "neo4j", "dynamodb", "firebase", "elasticsearch", "influxdb", "couchbase",
+
+    # DevOps & CI/CD Tools
+    "docker", "kubernetes", "jenkins", "travis ci", "circleci", "gitlab ci", "teamcity",
+    "ansible", "puppet", "chef", "terraform", "vagrant", "nomad", "prometheus", "grafana",
+    "splunk", "new relic", "datadog",
+
+    # Cloud Platforms
+    "aws", "azure", "google cloud", "gcp", "ibm cloud", "heroku", "digitalocean", 
+    "netlify", "vercel", "cloudflare", "firebase",
+
+    # Version Control & Collaboration
+    "git", "github", "gitlab", "bitbucket", "svn", "mercurial", "jira", "trello",
+    "confluence", "slack", "microsoft teams", "asana",
+
+    # Testing & QA
+    "unit testing", "integration testing", "functional testing", "end-to-end testing",
+    "selenium", "cypress", "pytest", "junit", "mocha", "chai", "jest", "enzyme", 
+    "cucumber", "testng", "postman",
+
+    # Machine Learning & Data Science
+    "machine learning", "deep learning", "data analysis", "data visualization",
+    "tensorflow", "keras", "pytorch", "scikit-learn", "numpy", "pandas", "matplotlib",
+    "seaborn", "nltk", "opencv", "xgboost", "lightgbm", "catboost", "data mining",
+    "big data", "hadoop", "spark", "dask", "hive", "pig",
+
+    # Security
+    "cybersecurity", "penetration testing", "ethical hacking", "encryption", "ssl/tls",
+    "oauth", "saml", "jwt", "firewalls", "ids/ips", "siem", "key management", "zero trust",
+    "vulnerability assessment", "security auditing", "sast", "dast", "owasp",
+
+    # Mobile Development
+    "android", "ios", "react native", "flutter", "xamarin", "ionic", "swiftui",
+    "objective-c", "kotlin", "java (android)", "dart", "cordova",
+
+    # System & Network Administration
+    "linux", "unix", "windows server", "networking", "tcp/ip", "dns", "dhcp", "vpn",
+    "firewall management", "nginx", "apache", "load balancing", "proxy servers", 
+    "bash scripting", "powershell", "zabbix", "nagios", "system monitoring",
+
+    # Software Development Methodologies
+    "agile", "scrum", "kanban", "lean", "xp", "tdd", "bdd", "waterfall", "devops",
+    "ci/cd", "continuous integration", "continuous deployment",
+
+    # Soft Skills & Miscellaneous
+    "communication", "teamwork", "problem solving", "critical thinking", "project management",
+    "time management", "mentorship", "leadership", "documentation", "api development", 
+    "rest", "graphql", "microservices", "soa", "design patterns", "software architecture",
+    "performance optimization", "scalability", "usability", "accessibility", 
+    "ux/ui design", "data structures", "algorithms"
+}
+    return skill_set
+
 def default_apps(google_id):
     return ([
     Application(status="Not Applied", name="Akuna Capital", open="Software Engineer Intern - Python", close="Chicago, IL", link="", google_id=google_id),
