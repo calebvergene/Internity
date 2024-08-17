@@ -63,7 +63,7 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
           <Input {...getInputProps()} disabled={files.length > 0} />
         </StyledFileUpload>
         {files.length === 0 ? (
-          <Message>Your resume will be analyzed to move up applications that are looking for people with your skills.</Message>
+          <Message>Your resume will be analyzed to match applications with your skills.</Message>
         ) : (
           <div>
             <FileList>

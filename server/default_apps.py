@@ -12,7 +12,7 @@ def skill_set():
     "django", "flask", "spring", "rails", "express", "react", "angular", "vue.js",
     "next.js", "nuxt.js", "ember.js", "svelte", "laravel", "symfony", "asp.net", "blazor",
     "tailwind css", "bootstrap", "material-ui", "daisyui", "foundation", "bulma", "semantic-ui", 
-    "backbone.js", "marionette.js", "knockout.js", "ember.js", "mithril.js", "phoenix", "sinatra",
+    "backbone.js", "marionette.js", "knockout.js", "ember.js", "mithril.js", "tailwindcss", "tailwind",
 
     # Databases & Data Management
     "sql", "mysql", "postgresql", "sqlite", "oracle", "mongodb", "redis", "cassandra",
@@ -92,16 +92,6 @@ def skill_set():
     "lxc/lxd", "systemd", "cron", "logrotate", "rsync", "nfs", "samba", "iscsi", "glusterfs",
     "ceph", "rancher", "digitalocean", "vultr", "ovh", "terraform", "packer", "vault", "cloud-init",
 
-    # Software Development Methodologies & Practices
-    "agile", "scrum", "kanban", "lean", "xp", "tdd", "bdd", "waterfall", "devops",
-    "continuous integration", "continuous deployment", "devops", "ci/cd", "code quality",
-    "linting", "debugging", "refactoring", "software architecture", "microservices", "soa",
-    "design patterns", "scalability", "usability", "accessibility", "ux/ui design", "dapr",
-    "event-driven architecture", "domain-driven design", "hexagonal architecture", "clean architecture", 
-    "cqrs", "event sourcing", "twelve-factor app", "test-driven development", "behavior-driven development", 
-    "code coverage", "static analysis", "dynamic analysis", "dependency injection", "service mesh", 
-    "observability", "chaos engineering", "resilience testing", "api-first development", "restful design", 
-    "graphql design", "containerization", "orchestration", "serverless computing", "cloud-native development",
 
     # APIs & Web Services
     "rest", "graphql", "soap", "json", "xml", "api development", "swagger", "postman",
@@ -141,7 +131,7 @@ def skill_set():
     "inclusivity", "coaching", "feedback", "self-motivation", "stress management", "resilience",
     "flexibility", "growth mindset", "work ethic", "creativity", "innovation", "design thinking",
     "user empathy", "customer focus", "business acumen", "entrepreneurship", "product management",
-    "strategic thinking", "vision", "goal setting", "project planning", "risk management",
+    "strategic thinking", "goal setting", "project planning", "risk management",
     "prioritization", "resource management", "timeboxing", "work-life balance", "continuous learning",
     "lifelong learning", "personal development", "career development", "mentorship", "team building",
     "collaborative problem solving", "cross-functional collaboration", "remote collaboration",
