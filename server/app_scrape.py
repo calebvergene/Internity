@@ -66,7 +66,7 @@ def extract_base_rows():
     # Simulate arrow key navigation and extract content after each scroll
     actions = ActionChains(driver)
 
-    for _ in range(50):  # Adjust the range as needed to ensure all rows are processed
+    for _ in range(444):  # Adjust the range as needed to ensure all rows are processed
         # Extract the page's HTML content
         page_source = driver.page_source
         jobs = extract_jobs(page_source)
@@ -90,7 +90,7 @@ def finish_extract():
     all_jobs = extract_base_rows()
     
     print("Extracting deeper info...")
-    for job in all_jobs[0:5]:
+    for job in all_jobs:
         link = job['link']
 
         # Send a GET request to the job link
@@ -156,7 +156,7 @@ def finish_extract():
     
         print(job['apply_link'], job['job_title'], job['name'])
 
-    with open('extracted_jobs.json', 'w') as file:
+    with open('extracted_swe_jobs.json', 'w') as file:
         json.dump(all_jobs, file, indent=4)
 
 finish_extract()
