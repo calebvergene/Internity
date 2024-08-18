@@ -7,49 +7,40 @@ from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
 
-def extract_job(page_source):
+def extract_jobs(page_source):
     soup = BeautifulSoup(page_source, 'html.parser')
-    job_data = []
 
-    # Find the container column that holds all job roles
+    # Find both left and right panes that hold all job roles and details
     job_roles = soup.find_all('div', class_="dataRow leftPane rowExpansionEnabled rowSelectionEnabled")
-    
-    job_roles_list = []
-    for job_role in job_roles:
-        # Extract the nested divs containing job role descriptions
-        job_role2 = job_role.find('div', class_='cell primary read')
-        if job_role2:
-            job_role3 = job_role2.find('div', class_='flex-auto line-height-4')
-            if job_role3:
-                job_role4 = job_role3.find('div', class_='truncate')
-                if job_role4:
-                    job_roles_list.append(job_role4.get_text(strip=True))
-
-
-    # This container has all of the right side rows, containing job info
     job_rows = soup.find_all('div', class_="dataRightPaneInnerContent paneInnerContent")
-    
-    job_links_list = []
-    for job in job_rows:
+
+    jobs_list = []
+
+    # Loop through all job roles and corresponding job rows
+    for role, job in zip(job_roles, job_rows):
+        # Extract the job information (link, location, name)
         job2 = job.find_all('div', class_='dataRow rightPane rowExpansionEnabled rowSelectionEnabled')
         for square in job2:
             # Retrieves links
             links = square.find('a', class_="link-quiet pointer flex-inline items-center justify-center z1 strong text-decoration-none rounded print-color-exact background-transparent darken2-hover text-blue border-box border-thick border-transparent border-darken2-focus px1")
-            href_value = links['href']
-            job_links_list.append(href_value)
+            href_value = links['href'] if links else None
             
             job3 = square.find_all('div', class_="flex-auto line-height-4")
             lst = []
             for x in job3:
                 job4 = x.find('div', class_="truncate")
                 lst.append(job4.get_text(strip=True))
-            lst[0] = href_value
-            job_info = {'link': lst[0],'location': lst[1],'name': lst[2]}
-            job_links_list.append(job_info)
-    print(lst)
-
-                
-        
+            
+            # Create job info dictionary
+            if len(lst) >= 2:
+                job_info = {
+                    'link': href_value,
+                    'location': lst[1],
+                    'name': lst[2]
+                }
+                jobs_list.append(job_info)
+    
+    return jobs_list
 
 def main():
     # Initialize Selenium WebDriver
@@ -60,14 +51,13 @@ def main():
     driver.get(url)
 
     # Allow the page to fully load
-    time.sleep(6)  # Wait 10 seconds initially for content to load
+    time.sleep(6)  # Wait 6 seconds initially for content to load
 
     # Find the first row to click on
     first_row = driver.find_element(By.CLASS_NAME, 'dataRow')  # Replace with the correct selector
     first_row.click()  # Click the row to focus on it
 
-    # Initialize an empty list to store all job roles
-    all_job_roles = []
+    all_jobs = []
 
     # Simulate arrow key navigation and extract content after each scroll
     actions = ActionChains(driver)
@@ -75,10 +65,10 @@ def main():
     for _ in range(50):  # Adjust the range as needed to ensure all rows are processed
         # Extract the page's HTML content
         page_source = driver.page_source
-        job_roles_text = extract_job(page_source)
+        jobs = extract_jobs(page_source)
 
-        # Add the extracted job roles to the list
-        # all_job_roles.extend(job_roles_text)
+        # Add the extracted jobs to the list
+        all_jobs.extend(jobs)
 
         # Move down to the next row
         actions.send_keys(Keys.ARROW_DOWN).perform()
@@ -88,12 +78,11 @@ def main():
     driver.quit()
 
     # Optional: Remove duplicates if any
-    all_job_roles = list(set(all_job_roles))
+    all_jobs = [dict(t) for t in {frozenset(job.items()) for job in all_jobs}]
 
-    # Print or process the extracted job roles
-    for job_role in all_job_roles:
-        print(job_role)
-    print(len(all_job_roles))
+    # Print or process the extracted jobs
+    for job in all_jobs:
+        print(job)
 
 if __name__ == "__main__":
     main()
