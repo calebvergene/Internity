@@ -12,7 +12,6 @@ def skill_set():
     return skill_set
 
 
-
 """
 ## Code to extract all new skills from applications data
 with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
@@ -28,9 +27,6 @@ with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
         json.dump(sorted_skill_list, file)
 """
                 
-
-
-
 
 def default_apps(google_id):
     """
