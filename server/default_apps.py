@@ -1,163 +1,30 @@
 from models import Application
+import json
+
+
 
 def skill_set():
-    skill_set = {
-    # Programming Languages
-    "python", "java", "c++", "c#", "javascript", "typescript", "ruby", "go", "rust",
-    "swift", "kotlin", "php", "r", "scala", "perl", "matlab", "bash", "shell", "haskell",
-    "objective-c", "dart", "lua", "groovy", "elixir", "clojure", "html", "css", "coffeescript",
-    "visual basic", "assembly", "fortran", "cobol", "actionscript", "erlang", "scheme",
-
-    # Web Development Frameworks & Libraries
-    "django", "flask", "spring", "rails", "express", "react", "angular", "vue.js",
-    "next.js", "nuxt.js", "ember.js", "svelte", "laravel", "symfony", "asp.net", "blazor",
-    "tailwind css", "bootstrap", "material-ui", "daisyui", "foundation", "bulma", "semantic-ui", 
-    "backbone.js", "marionette.js", "knockout.js", "ember.js", "mithril.js", "tailwindcss", "tailwind",
-
-    # Databases & Data Management
-    "sql", "mysql", "postgresql", "sqlite", "oracle", "mongodb", "redis", "cassandra",
-    "couchdb", "neo4j", "dynamodb", "firebase", "elasticsearch", "graphql", "json", 
-    "xml", "influxdb", "couchbase", "excel", "microsoft sql server", "teradata", "db2", 
-    "hbase", "solr", "splunk", "redshift", "bigquery", "clickhouse", "greenplum", "vertica", 
-    "snowflake", "timescale db", "amazon rds", "aurora", "sybase",
-
-    # DevOps & CI/CD Tools
-    "docker", "kubernetes", "jenkins", "travis ci", "circleci", "gitlab ci", "teamcity",
-    "ansible", "puppet", "chef", "terraform", "vagrant", "nomad", "prometheus", "grafana",
-    "splunk", "new relic", "datadog", "github actions", "azure devops", "ci/cd",
-    "continuous integration", "continuous deployment", "serverless architecture", "openshift",
-    "helm", "kafka", "flink", "airflow", "luigi", "argo cd", "tekton", "drone", "packer",
-    "vault", "jenkins x", "spinnaker", "argocd", "bamboo", "puppet enterprise", "octopus deploy",
-
-    # Cloud Platforms
-    "aws", "azure", "google cloud", "gcp", "ibm cloud", "heroku", "digitalocean", 
-    "netlify", "vercel", "cloudflare", "firebase", "microsoft azure", "aws lambda", 
-    "openstack", "oracle cloud", "rackspace", "sap cloud", "salesforce", "alibaba cloud",
-    "ovh cloud", "vultr", "linode", "backblaze", "wasabi", "cloud foundry", "cloud run",
-    "fargate", "lambda edge", "lambda@edge", "cloud functions", "app engine", "tencent cloud",
-
-    # Version Control & Collaboration
-    "git", "github", "gitlab", "bitbucket", "svn", "mercurial", "jira", "trello",
-    "confluence", "slack", "microsoft teams", "asana", "agile", "scrum", "kanban",
-    "pair programming", "code review", "project management", "gitflow", "basecamp",
-    "monday.com", "clickup", "notion", "taiga", "redmine", "bugzilla", "phabricator",
-    "pivotal tracker", "trac", "taiga", "youtrack", "taskwarrior", "todoist", "airtable",
-
-    # Testing & QA
-    "unit testing", "integration testing", "functional testing", "end-to-end testing",
-    "selenium", "cypress", "pytest", "junit", "mocha", "chai", "jest", "enzyme", 
-    "cucumber", "testng", "postman", "test automation", "tdd", "bdd", "load testing",
-    "stress testing", "performance testing", "security testing", "api testing",
-    "browserstack", "saucelabs", "qtest", "zephyr", "robot framework", "soapui",
-    "jmeter", "gatling", "locust", "blazemeter", "loadrunner", "applitools", 
-    "k6", "tau", "pact", "xray", "carina", "testcomplete", "rational functional tester",
-
-    # Machine Learning & Data Science
-    "machine learning", "deep learning", "data analysis", "data visualization",
-    "tensorflow", "keras", "pytorch", "scikit-learn", "numpy", "pandas", "matplotlib",
-    "seaborn", "nltk", "opencv", "xgboost", "lightgbm", "catboost", "data mining",
-    "big data", "hadoop", "spark", "dask", "hive", "pig", "yolov5", "nlp", 
-    "computer vision", "ai", "google gemini", "fetch.ai", "mlops", "dataiku", 
-    "mlflow", "kubeflow", "kubernetes for ml", "sagemaker", "azure ml", "databricks", 
-    "h2o.ai", "knime", "rapidminer", "vertex ai", "data science notebooks", "jupyter notebooks", 
-    "colab", "databricks notebooks", "kaggle", "pyspark", "mahout", "flink", "mllib", 
-    "airflow for ml", "dvc", "ml pipelines", "feature engineering", "model deployment", 
-    "hyperparameter tuning", "ensemble learning", "reinforcement learning", "neural networks", 
-    "graph neural networks", "recommender systems", "ai ethics", "explainable ai", "fairness in ai",
-
-    # Security
-    "cybersecurity", "penetration testing", "ethical hacking", "encryption", "ssl/tls",
-    "oauth", "saml", "jwt", "firewalls", "ids/ips", "siem", "key management", "zero trust",
-    "vulnerability assessment", "security auditing", "sast", "dast", "owasp", "secure coding",
-    "threat modeling", "incident response", "forensics", "network security", "cloud security", 
-    "application security", "compliance", "gdpr", "hipaa", "pci dss", "iso 27001", "cissp", 
-    "oscp", "ceh", "iso 27017", "nist", "soc2", "penetration testing", "metasploit", "nmap", 
-    "wireshark", "burp suite", "openvas", "nessus", "cortex xdr", "crowdstrike", "darktrace",
-    "splunk phantom", "fortinet", "kali linux", "tenable.io", "snyk", "veracode", "checkmarx",
-
-    # Mobile Development
-    "android", "ios", "react native", "flutter", "xamarin", "ionic", "swiftui",
-    "objective-c", "kotlin", "java (android)", "dart", "cordova", "firebase", "realm",
-    "core data", "rxswift", "rxjava", "native script", "jetpack compose", "android jetpack",
-    "workmanager", "room", "lottie", "ml kit", "camera x", "graphql", "realm database",
-    "cloud firestore", "rxkotlin", "koin", "dagger", "hilt", "retrofit", "volley", "okhttp",
-
-    # System & Network Administration
-    "linux", "unix", "windows server", "networking", "tcp/ip", "dns", "dhcp", "vpn",
-    "firewall management", "nginx", "apache", "load balancing", "proxy servers", 
-    "bash scripting", "powershell", "zabbix", "nagios", "system monitoring", "ansible", 
-    "saltstack", "puppet", "chef", "openvpn", "wireguard", "iptables", "firewalld", "netcat", 
-    "tcpdump", "wireshark", "bind", "isc dhcp", "haproxy", "keepalived", "etcd", "consul",
-    "openstack", "kvm", "xen", "vmware", "vagrant", "virtualbox", "hyper-v", "docker swarm", 
-    "lxc/lxd", "systemd", "cron", "logrotate", "rsync", "nfs", "samba", "iscsi", "glusterfs",
-    "ceph", "rancher", "digitalocean", "vultr", "ovh", "terraform", "packer", "vault", "cloud-init",
-
-
-    # APIs & Web Services
-    "rest", "graphql", "soap", "json", "xml", "api development", "swagger", "postman",
-    "api testing", "openapi", "grpc", "azure functions", "aws api gateway", "webhooks", 
-    "rpc", "thrift", "json-rpc", "restful api", "json api", "oath", "saml", "sso", 
-    "jwt", "openid connect", "oauth2", "wsdl", "uddi", "aws lambda", "google cloud functions", 
-    "eventbridge", "sns", "sqs", "step functions", "azure logic apps", "service bus", 
-    "function as a service", "backend as a service", "headless cms", "contentful", "strapi", 
-    "wordpress api", "drupal api", "shopify api", "salesforce api", "stripe api", "paypal api",
-
-    # Data Structures & Algorithms
-    "data structures", "algorithms", "sorting algorithms", "search algorithms", "recursion", 
-    "dynamic programming", "graph theory", "trees", "hash tables", "linked lists", "arrays", 
-    "stacks", "queues", "time complexity", "space complexity", "big-o notation", "greedy algorithms",
-    "divide and conquer", "backtracking", "bit manipulation", "heap", "priority queue", "red-black tree",
-    "avl tree", "binary search tree", "graph traversal", "bfs", "dfs", "kruskal's algorithm",
-    "dijkstra's algorithm", "floyd-warshall", "a* search", "bellman-ford", "dynamic programming", 
-    "knapsack problem", "longest common subsequence", "edit distance", "fibonacci sequence",
-    "minimum spanning tree", "topological sorting", "trie", "suffix tree", "kmp algorithm", "rabin-karp",
-    "boyer-moore", "z algorithm", "manacher's algorithm", "segment tree", "fenwick tree", 
-    "monotonic stack", "disjoint set", "union-find", "maximum flow", "ford-fulkerson", "edmonds-karp",
-    "push-relabel", "minimum cut", "min-cost max-flow", "graph coloring", "bipartite graph", 
-    "network flow", "matching algorithms", "stable matching", "gale-shapley", "linear programming",
-    "simplex algorithm", "integer programming", "branch and bound", "greedy algorithms", 
-    "approximation algorithms", "online algorithms", "randomized algorithms", "monte carlo method",
-    "simulated annealing", "genetic algorithms", "ant colony optimization", "dynamic connectivity",
-    "range queries", "interval tree", "lazy propagation", "binary indexed tree", "persistent data structures",
-    "functional data structures", "self-adjusting data structures", "skip list", "dancing links",
-    "treap", "cartesian tree", "pairing heap", "leftist heap", "binomial heap", "fibonacci heap",
-
-    # Soft Skills & Communication
-    "communication", "teamwork", "problem solving", "critical thinking", "time management",
-    "adaptability", "attention to detail", "learning agility", "initiative", "collaboration",
-    "presentation skills", "technical writing", "documentation", "leadership", "mentorship",
-    "empathy", "conflict resolution", "decision making", "negotiation", "emotional intelligence",
-    "active listening", "public speaking", "interpersonal skills", "networking", "cultural awareness",
-    "inclusivity", "coaching", "feedback", "self-motivation", "stress management", "resilience",
-    "flexibility", "growth mindset", "work ethic", "creativity", "innovation", "design thinking",
-    "user empathy", "customer focus", "business acumen", "entrepreneurship", "product management",
-    "strategic thinking", "goal setting", "project planning", "risk management",
-    "prioritization", "resource management", "timeboxing", "work-life balance", "continuous learning",
-    "lifelong learning", "personal development", "career development", "mentorship", "team building",
-    "collaborative problem solving", "cross-functional collaboration", "remote collaboration",
-    "virtual teams", "digital literacy", "tech savviness", "social media", "personal branding",
-    "self-discipline", "accountability", "ownership", "trustworthiness", "integrity", "honesty",
-    "professionalism", "ethics", "confidentiality", "responsibility", "delegation", "assertiveness",
-    "proactivity", "positivity", "mindfulness", "reflection", "self-awareness", "emotional regulation",
-    "patience", "tolerance", "humility", "respect", "kindness", "team spirit", "enthusiasm",
-    "passion", "energy", "focus", "attention span", "concentration", "detail-oriented", "organization",
-    "multitasking", "agility", "adaptability", "learning agility", "grit", "perseverance", "tenacity",
-    "determination", "persistence", "dedication", "commitment", "reliability", "dependability", 
-    "accountability", "autonomy", "self-reliance", "independence", "self-starter", "entrepreneurial mindset",
-
-    # Miscellaneous / Emerging Skills
-    "web accessibility", "ux/ui design", "responsive design", "cross-browser compatibility",
-    "automation scripting", "cloud computing", "blockchain basics", "ar/vr", "quantum computing basics",
-    "robotics", "edge computing", "tiktok ad campaigns", "web scraping", "chatgpt", "ai-enhanced experiences",
-    "microsoft office", "powerpoint", "excel", "web scraping", "figma", "web design", 
-    "vertical search model", "multithreading", "google maps api", "ai model training",
-    "revenue generation", "advertisement marketing", "web design", "personalized experiences",
-    "user experience enhancement", "chatbots", "conversational ai", "voice assistants", "smart home",
-    "iot", "smart cities", "edge ai", "computer vision", "deepfake detection", "image recognition",
-    "video processing", "speech recognition", "natural language processing", "text-to-speech",
-    "speech-to-text", "synthetic data", "data privacy"}
+    skill_set = {".NET", ".Net", "AD", "ADAS", "ADC", "AI", "AI/ML", "AJAX", "API", "APIs", "ASP.NET", "AST", "AWS", "Access", "Accessibility", "Accountability", "Accounting", "Accuracy", "Action-oriented", "Adapt", "Adaptability", "Adaptable", "Adobe", "Agile", "Agility", "Algorithms", "Altium", "Analytical", "Android", "Angular", "AngularJS", "Animation", "Ansible", "Antennas", "Appium", "Arduino", "Attendance", "Attitude", "Authentication", "AutoCAD", "AutoCad", "Automation", "Autonomy", "Azure", "BaBel", "Babylon.js", "Backend", "Bash", "Bash/Shell", "Bidding", "Bioinformatics", "Bitbucket", "Boost", "Bugzilla", "C", "C#", "C#/.NET", "C+", "C++", "C++/C#", "C/C++", "C/c++", "CI/CD", "CICD", "CIGI", "CMake", "CPT", "CSS", "CSS3", "CUDA", "Cadence", "Calculus", "Canva", "CarMaker", "CarSim", "Charismatic", "Chromium", "Clang", "Closures", "Coaching", "Coding", "Collaboration", "Collaborative", "Collaborator", "Commitment", "Committed", "Communication", "Communicator", "Competitions", "Compiler", "Compilers", "Confidentiality", "Confluence", "Consulting", "Containerization", "Containers", "Contentful", "Creativity", "Cross-Compilation", "Curiosity", "Curious", "Cybersecurity", "DB2", "DHCP", "DNS", "DSP", "Dagger", "Dash", "Dashboarding", "Dashboards", "Data-driven", "Database", "Databases", "Datasheets", "Debuggers", "Debugging", "Decisiveness", "Dedication", "DeltaLake", "Dependability", "Dependable", "Deployment", "Detail-oriented", "Determination", "DevOps", "DevSecOps", "Direct3D", "Discipline", "Django", "Django/Flask", "Docker", "Documentation", "Drive", "Driven", "DynamoDB", "EJB", "ES5/6", "ESRI", "Eagerness", "Eclipse", "Economics", "Efficient", "ElasticSearch", "Elasticsearch", "Electromagnetics", "Electron", "Electronic", "Electronics", "Elixir", "Embedded", "Empathetic", "Emulators", "Engagement", "Enthusiastic", "Entrepreneurial", "Etcd", "Ethernet", "Excel", "Excellence", "Exchange", "Excited", "ExoPlayer", "Express", "FFmpeg", "FPGA", "Figma", "FinTech", "Finance", "Flask", "Flexibility", "Flexible", "Flink", "Flutter", "Focus", "Follow-up", "Fortran", "Frontend", "Fullstack", "Fun", "GDAL", "GED", "GIS", "GIT", "GPIO", "GSEC", "GStreamer", "GenAI", "Genomics", "Git", "GitHub", "GitLab", "Github", "Gitlab", "Go", "GoLang", "Goal-oriented", "Golang", "GoogleTest", "GraphQL", "Greater", "Greenhills", "Grit", "Groovy", "Gulp", "HBase", "HTML", "HTML-5", "HTML/CSS", "HTML/CSS/JS", "HTML5", "HTTP", "HYDE", "Hadoop", "Hard-working", "Hibernate", "Higher", "Hive", "Honest", "Hootsuite", "Houdini", "Hudi", "Humble", "HydroCad", "Hypervisor", "I2C", "IIS", "IOS", "IP", "IT/Networking", "IText", "Iceberg", "Inclusivity", "Independence", "Influencing", "Informatica", "Initiative", "Innovate", "Innovation", "Innovative", "Inquisitive", "Integration", "Integrity", "Interested", "Internships", "Interpersonal", "Investment", "JEE", "JIRA", "JQuery", "JSON", "JSP", "JUnit", "Java", "JavaScript", "Javascript", "Jenkins", "Jira", "Kafka", "Kanban", "Kokkos", "Kotlin", "Kubernetes", "Kudu", "LLMs/RAG", "LLVM", "LabVIEW", "Laravel", "Layouts", "Leadership", "Leaflet", "Libraries", "Linux", "Linux/UNIX", "Linux/Unix", "Linux/Windows", "Lit", "Logstash", "Lync", "MATLAB", "MIL/SIL", "MIS", "MLE", "MLIR", "MPI", "MQ", "MQTT", "MSSQL", "MVC", "MVVM", "MacOS", "MapBox", "MariaDB", "MathCad", "Mathematics", "Matlab", "Maya", "Mentoring", "Microcontrollers", "Microservices", "Microsoft.net", "Mil-Std-1553", "Model-View-Controller", "Modeling", "Modems", "MongoDB", "Motivated", "Motivation", "Multi-Threading", "Multi-tasking", "Multitasking", "Multithreading", "MxNET", "MySQL", "NSQ", "NUnit", "Networks", "Next.js", "NiFi", "NoSQL", "Node.js", "NodeJS", "Numpy", "Nutanix", "OOA/OOD", "OOP", "OPT", "ORC", "OSGi", "Object-Oriented", "Objective-C", "Objective-c", "Objectivity", "Ooad", "Open-Minded", "OpenCL", "OpenGL", "OpenLayers", "OpenMP", "Operations", "Oracle", "OracleDB", "Orchestration", "Orekit", "Organization", "Organizational", "Organized", "Oscilloscopes", "Ownership", "PADS", "PAN-OS", "PCIe", "PHP", "PHP/MySQL", "PWM", "Pandas", "Parquet", "Passion", "Passionate", "Patience", "Paxos", "Perforce", "Perl", "Perseverance", "Persistence", "Photoshop", "Physics", "Playback", "Portable", "PostGIS", "PostgreSQL", "Postgres", "PowerApps", "PowerBI", "PowerPoint", "Presentation", "Prioritize", "Proactive", "Proactivity", "Probability", "Problem-Solving", "Problem-solving", "Production", "Professionalism", "Programming", "Protocols", "Prototyping", "Punctual", "Punctuality", "Puppet", "PyTorch", "Python", "Qnx", "Qt", "Quant", "Queuing", "R", "RAG", "RDBMS", "REST", "RF", "ROS", "RS-232", "RS-422", "RTOS", "RabbitMQ", "Raft", "Rails", "Rancher", "Ranking", "React", "React.js", "ReactJS", "ReactNative", "Redis", "Redux", "Relationship-building", "Reliability", "Research", "Resourceful", "Responsibility", "Responsible", "Results-oriented", "Reusable", "Rhapsody", "Rigour", "Robotics", "Rollup", "Router", "Ruby", "Rust", "SAP", "SCCM", "SDLC", "SIMD", "SOA", "SPI", "SQL", "SQS", "SSCP", "SSRS", "STEM", "SVN", "SYCL", "Scala", "Scalability", "Schematics", "Scripting", "Scrum", "ScyllaDB", "Security", "Security+ce", "Selenium", "Self-Awareness", "Self-Confidence", "Self-Directed", "Self-Driven", "Self-Learning", "Self-Motivated", "Self-Motivation", "Self-Starter", "Self-discipline", "Self-driven", "Self-motivated", "Self-motivation", "Self-starter", "Servlets", "SharePoint", "Shoelace", "Simulation", "Simulations", "Simulators", "Simulink", "Smart", "SolidWorks", "Spark", "Specificity", "Spinnaker", "Spring", "Springboot", "Stateflow", "Statistics", "Storage", "Subversion", "Supercomputing", "Swift", "SwiftUI", "Switch", "Sybase", "Symfony", "Synthesis", "T-SQL", "TCL", "TCP", "TCP/IP", "TDD", "TVM", "Tableau", "Team-Oriented", "Team-oriented", "TeamCity", "Teamwork", "TensorFlow", "Tensorflow", "Terraform", "TestRail", "Testing", "Thoroughness", "Threads", "Threats", "Three.js", "Thrive", "Timeliness", "Torch", "Trading", "Transcoding", "Troubleshooting", "TurboCAD", "Tutoring", "TypeScript", "Typescript", "Typing", "UDP", "UML", "USB", "Unity", "Unix", "Unix/Linux", "Unix/linux", "Unreal", "Usability", "V8", "VLC", "VMWare", "VSphere", "Virtualization", "Visio", "Visualization", "Vue", "Vue.js", "Vulkan", "VxWorks", "WPF", "WaterCad", "Webpack", "Windows", "Wireless", "Wix", "Word", "WordPress", "Wordpress", "Workflows", "XLA", "XML", "XML/XSLT", "XrmToolBox", "Zero-MQ", "ZooKeeper", "a* search", "accountability", "actionscript", "active listening", "adaptability", "advertisement marketing", "agile", "agility", "ai", "ai ethics", "ai model training", "ai-enhanced experiences", "airflow", "airflow for ml", "airtable", "algorithms", "alibaba cloud", "amazon rds", "android", "android jetpack", "angular", "ansible", "ant colony optimization", "apache", "api development", "api testing", "app engine", "application security", "applitools", "approximation algorithms", "ar/vr", "argo cd", "argocd", "arrays", "asana", "asp.net", "assembly", "assertiveness", "attention span", "attention to detail", "aurora", "automation scripting", "autonomy", "avl tree", "aws", "aws api gateway", "aws lambda", "azure", "azure devops", "azure functions", "azure logic apps", "azure ml", "backblaze", "backbone.js", "backend as a service", "backtracking", "bamboo", "basecamp", "bash", "bash scripting", "bdd", "bellman-ford", "bfs", "big data", "big-o notation", "bigquery", "binary indexed tree", "binary search tree", "bind", "binomial heap", "bipartite graph", "bit manipulation", "bitbucket", "blazemeter", "blazor", "blockchain basics", "bootstrap", "boyer-moore", "branch and bound", "browserstack", "bugzilla", "bulma", "burp suite", "business acumen", "c#", "c++", "camera x", "career development", "carina", "cartesian tree", "cassandra", "catboost", "ceh", "ceph", "chai", "chatbots", "chatgpt", "checkmarx", "chef", "ci/cd", "circleci", "cissp", "clickhouse", "clickup", "clojure", "cloud computing", "cloud firestore", "cloud foundry", "cloud functions", "cloud run", "cloud security", "cloud-init", "cloudflare", "coaching", "cobol", "code review", "coffeescript", "colab", "collaboration", "collaborative problem solving", "commitment", "communication", "compliance", "computer vision", "concentration", "confidentiality", "conflict resolution", "confluence", "consul", "contentful", "continuous deployment", "continuous integration", "continuous learning", "conversational ai", "cordova", "core data", "cortex xdr", "couchbase", "couchdb", "creativity", "critical thinking", "cron", "cross-browser compatibility", "cross-functional collaboration", "crowdstrike", "css", "cucumber", "cultural awareness", "customer focus", "cybersecurity", "cypress", "dagger", "daisyui", "dancing links", "darktrace", "dart", "dask", "dast", "data analysis", "data mining", "data privacy", "data science notebooks", "data structures", "data visualization", "databricks", "databricks notebooks", "datadog", "dataiku", "db2", "decision making", "dedication", "deep learning", "deepfake detection", "delegation", "dependability", "design thinking", "detail-oriented", "determination", "dfs", "dhcp", "digital literacy", "digitalocean", "dijkstra's algorithm", "disjoint set", "divide and conquer", "django", "dns", "docker", "docker swarm", "documentation", "drone", "drupal api", "dvc", "dynamic connectivity", "dynamic programming", "dynamodb", "edge ai", "edge computing", "edit distance", "edmonds-karp", "elasticsearch", "elixir", "ember.js", "emotional intelligence", "emotional regulation", "empathy", "encryption", "end-to-end testing", "energy", "ensemble learning", "enthusiasm", "entrepreneurial mindset", "entrepreneurship", "enzyme", "erlang", "etcd", "ethical hacking", "ethics", "eventbridge", "excel", "explainable ai", "express", "fairness in ai", "fargate", "feature engineering", "feedback", "fenwick tree", "fetch.ai", "fibonacci heap", "fibonacci sequence", "figma", "firebase", "firewall management", "firewalld", "firewalls", "flask", "flexibility", "flink", "floyd-warshall", "flutter", "focus", "ford-fulkerson", "forensics", "fortinet", "fortran", "foundation", "function as a service", "functional data structures", "functional testing", "gale-shapley", "gatling", "gcp", "gdpr", "genetic algorithms", "git", "gitflow", "github", "github actions", "gitlab", "gitlab ci", "glusterfs", "go", "goal setting", "google cloud", "google cloud functions", "google gemini", "google maps api", "grafana", "graph coloring", "graph neural networks", "graph theory", "graph traversal", "graphql", "greedy algorithms", "greenplum", "grit", "groovy", "growth mindset", "grpc", "h2o.ai", "hadoop", "haproxy", "hash tables", "haskell", "hbase", "headless cms", "heap", "helm", "heroku", "hilt", "hipaa", "hive", "honesty", "html", "humility", "hyper-v", "hyperparameter tuning", "ibm cloud", "ids/ips", "image recognition", "incident response", "inclusivity", "independence", "influxdb", "initiative", "innovation", "integer programming", "integration testing", "integrity", "interpersonal skills", "interval tree", "ionic", "ios", "iot", "iptables", "isc dhcp", "iscsi", "iso 27001", "iso 27017", "java", "java (android)", "javascript", "jenkins", "jenkins x", "jest", "jetpack compose", "jira", "jmeter", "json", "json api", "json-rpc", "junit", "jupyter notebooks", "jwt", "k6", "kafka", "kaggle", "kali linux", "kanban", "keepalived", "keras", "key management", "kindness", "kmp algorithm", "knapsack problem", "knime", "knockout.js", "koin", "kotlin", "kruskal's algorithm", "kubeflow", "kubernetes", "kubernetes for ml", "kvm", "lambda edge", "lambda@edge", "laravel", "lazy propagation", "leadership", "learning agility", "leftist heap", "lifelong learning", "lightgbm", "linear programming", "linked lists", "linode", "linux", "load balancing", "load testing", "loadrunner", "locust", "logrotate", "longest common subsequence", "lottie", "lua", "luigi", "lxc/lxd", "machine learning", "mahout", "manacher's algorithm", "marionette.js", "matching algorithms", "material-ui", "matlab", "matplotlib", "maximum flow", "mentorship", "mercurial", "metasploit", "microsoft azure", "microsoft office", "microsoft sql server", "microsoft teams", "min-cost max-flow", "mindfulness", "minimum cut", "minimum spanning tree", "mithril.js", "ml kit", "ml pipelines", "mlflow", "mllib", "mlops", "mocha", "model deployment", "monday.com", "mongodb", "monotonic stack", "monte carlo method", "multitasking", "multithreading", "mysql", "nagios", "native script", "natural language processing", "negotiation", "neo4j", "nessus", "netcat", "netlify", "network flow", "network security", "networking", "neural networks", "new relic", "next.js", "nfs", "nginx", "nist", "nlp", "nltk", "nmap", "nomad", "notion", "numpy", "nuxt.js", "oath", "oauth", "oauth2", "objective-c", "octopus deploy", "okhttp", "online algorithms", "openapi", "opencv", "openid connect", "openshift", "openstack", "openvas", "openvpn", "oracle", "oracle cloud", "organization", "oscp", "ovh", "ovh cloud", "owasp", "ownership", "packer", "pact", "pair programming", "pairing heap", "pandas", "passion", "patience", "paypal api", "pci dss", "penetration testing", "performance testing", "perl", "perseverance", "persistence", "persistent data structures", "personal branding", "personal development", "personalized experiences", "phabricator", "php", "pig", "pivotal tracker", "positivity", "postgresql", "postman", "powerpoint", "powershell", "presentation skills", "prioritization", "priority queue", "proactivity", "problem solving", "problem-solving", "product management", "professionalism", "project management", "project planning", "prometheus", "proxy servers", "public speaking", "puppet", "puppet enterprise", "push-relabel", "pyspark", "pytest", "python", "pytorch", "qtest", "quantum computing basics", "queues", "r", "rabin-karp", "rackspace", "rails", "rancher", "randomized algorithms", "range queries", "rapidminer", "rational functional tester", "react", "react native", "realm", "realm database", "recommender systems", "recursion", "red-black tree", "redis", "redmine", "redshift", "reflection", "reinforcement learning", "reliability", "remote collaboration", "resilience", "resource management", "respect", "responsibility", "responsive design", "rest", "restful api", "retrofit", "revenue generation", "risk management", "robot framework", "robotics", "room", "rpc", "rsync", "ruby", "rust", "rxjava", "rxkotlin", "rxswift", "sagemaker", "salesforce", "salesforce api", "saltstack", "samba", "saml", "sap cloud", "sast", "saucelabs", "scala", "scheme", "scikit-learn", "scrum", "seaborn", "search algorithms", "secure coding", "security auditing", "security testing", "segment tree", "selenium", "self-adjusting data structures", "self-awareness", "self-discipline", "self-motivation", "self-reliance", "self-starter", "semantic-ui", "serverless architecture", "service bus", "shell", "shopify api", "siem", "simplex algorithm", "simplify", "simulated annealing", "skip list", "slack", "smart cities", "smart home", "snowflake", "sns", "snyk", "soap", "soapui", "soc2", "social media", "solr", "sorting algorithms", "space complexity", "spark", "speech recognition", "speech-to-text", "spinnaker", "splunk", "splunk phantom", "spring", "sql", "sqlite", "sqs", "ssl/tls", "sso", "stable matching", "stacks", "step functions", "strapi", "strategic thinking", "stress management", "stress testing", "stripe api", "suffix tree", "svelte", "svn", "swagger", "swift", "swiftui", "sybase", "symfony", "synthetic data", "system monitoring", "systemd", "taiga", "tailwind", "tailwind css", "tailwindcss", "taskwarrior", "tau", "tcp/ip", "tcpdump", "tdd", "team building", "team spirit", "teamcity", "teamwork", "tech savviness", "technical writing", "tekton", "tenable.io", "tenacity", "tencent cloud", "tensorflow", "teradata", "terraform", "test automation", "testcomplete", "testng", "text-to-speech", "threat modeling", "thrift", "tiktok ad campaigns", "time complexity", "time management", "timeboxing", "timescale db", "todoist", "tolerance", "topological sorting", "trac", "travis ci", "treap", "trees", "trello", "trie", "trustworthiness", "typescript", "uddi", "union-find", "unit testing", "unix", "user empathy", "user experience enhancement", "ux/ui design", "vagrant", "vault", "veracode", "vercel", "vertex ai", "vertica", "vertical search model", "video processing", "virtual teams", "virtualbox", "visual basic", "vmware", "voice assistants", "volley", "vpn", "vue.js", "vulnerability assessment", "vultr", "wasabi", "web accessibility", "web design", "web scraping", "webhooks", "windows server", "wireguard", "wireshark", "wordpress api", "work ethic", "work-life balance", "workmanager", "wsdl", "xamarin", "xen", "xgboost", "xml", "xray", "yolov5", "youtrack", "z algorithm", "zabbix", "zephyr", "zero trust"}
 
     return skill_set
+
+
+
+with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
+    job_data = json.load(file)
+    new_skill_set = skill_set()
+    for job in job_data:
+        for skill in job['skills']:
+            if ' ' not in skill:
+                if skill not in skill_set():
+                    new_skill_set.add(skill)
+    sorted_skill_list = sorted(list(new_skill_set))
+    with open('skill_set.json', 'w') as file:
+        json.dump(sorted_skill_list, file)
+                
+
+
+
 
 def default_apps(google_id):
     return ([
