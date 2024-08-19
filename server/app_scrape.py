@@ -1,3 +1,8 @@
+"""
+Webscraper to retrieve job info from job application air tables. Can retrieve up to 12,000 applications.
+"""
+
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -12,6 +17,9 @@ import requests
 import time
 
 def extract_jobs(page_source):
+    """
+    Extracts job data from each row in an application air table
+    """
     soup = BeautifulSoup(page_source, 'html.parser')
 
     # Find both left and right panes that hold all job roles and details
@@ -47,6 +55,9 @@ def extract_jobs(page_source):
     return jobs_list
 
 def extract_base_rows():
+    """
+    Utilizes the previous function by opening up testing chrome browser, and scrolls through each row, extracting data from each row
+    """
     # Initialize Selenium WebDriver
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
@@ -87,6 +98,10 @@ def extract_base_rows():
 
 
 def finish_extract():
+    """
+    HARD PART: For each link in the list of applications that were extracted, it opens up that link and retrieves additional data on
+    the application. From each link, the script opens ANOTHER link and retrieves the original job application link 
+    """
     all_jobs = extract_base_rows()
     
     print("Extracting deeper info...")
