@@ -60,19 +60,11 @@ def analyze_resume(file):
         all_applications = json.load(file)
         
         for application in all_applications:
-            lst = []
-            job_role_doc = nlp(" ".join(application['skills']))
-            
-            # Find matching skills
-            for skill in resume_skills:
-                for job_skill in application['skills']:
-                    if skill in job_skill.split() or skill == job_skill:  # Properly formatted if statement
-                        lst.append(f'{skill} matched with {job_skill}')
-            
+
+            job_role_doc = nlp(" ".join(application['skills']))     
             # Print job name and similarity score
             print(application['name'], resume_doc.similarity(job_role_doc))
-            print("Matched Skills:", lst)
-            print()
+
 
 
 """
