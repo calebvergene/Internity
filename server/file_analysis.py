@@ -66,8 +66,7 @@ def analyze_resume(file):
         if similarity == 0.0:
             similarity = 0.04
         similarity = round(similarity, 2)
-        if len(str(similarity)) == 3:
-            similarity = f"{similarity:.2f}"
+        similarity = f"{similarity:.2f}"
         similarity_results.append({"name":application["name"], "role": application['role'], "location": application['location'], "similarity": similarity})
         # ranked_similarity_roles = sorted(similarity_results, key=lambda x: x["similarity"], reverse=True)
     return similarity_results

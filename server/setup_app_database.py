@@ -30,7 +30,7 @@ def create_database(db_name='applications.db'):
 
 def insert_application(db_name, name, location, role, skills, link, apply_link, field):
     # Blacklist
-    if name in ["Dell Technologies", "BlackHawk Network"]:
+    if name in ["Dell Technologies", "BlackHawk Network", "ConocoPhillips"]:
         return  
 
     conn = sqlite3.connect(db_name)

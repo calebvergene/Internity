@@ -263,7 +263,22 @@ def upload_resume():
     if not applications:
         return jsonify({"message": "No applications found."}), 404
 
-  
+    for application in applications:
+        # Iterate over similarity_scores to find a match
+        for sim_app in similarity_scores:
+            if (
+                application.name == sim_app["name"] and
+                application.open == sim_app["role"] and
+                application.close == sim_app["location"]
+            ):
+                if application.link == None:
+                    application.link = 'https://github.com/calebvergene/Internity'
+                application.link = application.link + ' ' + sim_app['similarity']
+
+    # Commit the changes to the database if any updates were made
+    db.session.commit()
+
+    return jsonify({"message": "All applications processed."}), 200
 
 
 
