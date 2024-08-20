@@ -257,10 +257,13 @@ def upload_resume():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     
-    #similarity_scores = analyze_resume(file)
+    similarity_scores = analyze_resume(file)
+    applications = Application.query.filter_by(google_id=session["google_id"]).all()
 
+    if not applications:
+        return jsonify({"message": "No applications found."}), 404
 
-    return jsonify({'message': 'File processed successfully'}), 200
+  
 
 
 
