@@ -59,22 +59,16 @@ def analyze_resume(file):
     resume_doc = nlp(" ".join(resume_skills))
     get_all_applications()
     all_applications = get_all_applications()
+    similarity_results = []
     for application in all_applications:
         job_role_doc = nlp(" ".join(application['skills']))     
-        # Print job name and similarity score
-        print(application['name'], resume_doc.similarity(job_role_doc))
+        similarity = resume_doc.similarity(job_role_doc)
+        if similarity == 0.0:
+            similarity = 0.04
+        similarity = round(similarity, 2)
+        if len(str(similarity)) == 3:
+            similarity = f"{similarity:.2f}"
+        similarity_results.append({"name":application["name"], "role": application['role'], "location": application['location'], "similarity": similarity})
+        # ranked_similarity_roles = sorted(similarity_results, key=lambda x: x["similarity"], reverse=True)
+    return similarity_results
 
-
-
-"""
-# Calculate similarity for each job role
-similarity_results = {}
-for role, skills in job_roles.items():
-    similarity = calculate_similarity(normalized_resume_skills, skills)
-    similarity_results[role] = similarity
-
-# Rank based on similarity
-ranked_similarity_roles = sorted(similarity_results.items(), key=lambda item: item[1], reverse=True)
-print("Ranked job roles based on semantic similarity:")
-for role, score in ranked_similarity_roles:
-    print(f"{role}: {score:.2f} similarity")"""
