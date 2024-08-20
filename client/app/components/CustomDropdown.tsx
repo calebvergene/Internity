@@ -12,7 +12,7 @@ interface CustomDropdownProps {
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedLabel, setSelectedLabel] = useState<string | null>(null); /* update selected label when new item is chosen */
+  const [selectedItem, setSelectedItem] = useState<{ icon: React.ReactNode, label: string } | null>(null); 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -30,23 +30,46 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
     };
   }, []);
 
-  const handleItemClick = (item: DropdownItem) => {
+  const handleDropdownClick = (icon: React.ReactNode, item: DropdownItem) => {
     item.onClick();
-    setSelectedLabel(item.label);
+    setSelectedItem({ icon, label: item.label });
     setIsOpen(false);
+  };
+
+  const getStatusClassName = (status: string) => {
+    switch (status) {
+      case "Not Applied":
+        return "text-neutral-400 mr-2";
+      case "Applied":
+        return "text-blue-500 mr-2";
+      case "Interviewing":
+        return "text-yellow-300 mr-2";
+      case "Offered":
+        return "text-green-400 mr-2";
+      case "Rejected":
+        return "text-red-500 mr-2";
+      default:
+        return "";
+    }
   };
 
   return (
     <div className="relative inline-block text-left font-rubik" ref={dropdownRef}>
       <div
-        className={`flex items-center justify-center my-1 z-${isOpen ? '0' : '10'}`}
-        style={{ zIndex: isOpen ? 0 : 10 }}
+        className={`flex items-center justify-center my-1 z-${isOpen ? '20' : '20'}`}
+        style={{ zIndex: isOpen ? 20 : 20 }}
       >
         <button
           onClick={toggleDropdown}
           className="bg-transparent p-2 py-2 text-md flex items-center justify-center rounded-lg hover:p-1 hover:px-2 hover:mt-1 hover:bg-gray-300/50 hover:mb-1 duration-300"
         >
-          {selectedLabel || label}
+          {selectedItem ? (
+            <>
+              {selectedItem.icon} {selectedItem.label}
+            </>
+          ) : (
+            label
+          )}
           {label === "Sort By" && (
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -69,7 +92,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
             {items.map((item, index) => (
               <button
                 key={index}
-                onClick={() => handleItemClick(item)}
+                onClick={() => handleDropdownClick(<span className={getStatusClassName(item.label)}> ● </span>, item)}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-center z-50"
                 role="menuitem"
               >

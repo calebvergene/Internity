@@ -9,6 +9,7 @@
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.5.136",
     "react-dropzone": "^14.2.3",
+    "react-window": "^1.8.10",
     "tailwind-merge": "^2.4.0"
   }
 }

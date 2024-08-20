@@ -225,7 +225,9 @@ export default function Home() {
               </div>
             </div>
       </div>
-      <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
+      <div className="flex place-content-center justify-center">
+        <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
+      </div>
       {isModalOpen && <div className="position: fixed z-10 left-0 top-0 w-full h-full overflow-auto">
         <div className=" m-4 p-4 w-4/5">
           <ApplicationForm existingApplication={currentApplication} updateCallback={onUpdate} closeModal={closeModal}/>
