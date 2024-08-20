@@ -257,10 +257,7 @@ def upload_resume():
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
     
-    print("reached")
-    
-    analyze_resume(file)
-    
+    #similarity_scores = analyze_resume(file)
 
 
     return jsonify({'message': 'File processed successfully'}), 200

@@ -71,4 +71,3 @@ def analyze_resume(file):
         similarity_results.append({"name":application["name"], "role": application['role'], "location": application['location'], "similarity": similarity})
         # ranked_similarity_roles = sorted(similarity_results, key=lambda x: x["similarity"], reverse=True)
     return similarity_results
-

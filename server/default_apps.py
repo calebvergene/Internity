@@ -1,5 +1,7 @@
 from models import Application
 import json
+from setup_app_database import get_all_applications
+
 
 
 
@@ -32,7 +34,14 @@ def default_apps(google_id):
     """
     Returns default applications that a user will have in their table once registering an account. 
     """
-    return ([
+    get_all_applications()
+    default_apps = get_all_applications()
+
+
+    return (
+        
+        
+        [
     Application(status="Not Applied", name="Akuna Capital", open="Software Engineer Intern - Python", close="Chicago, IL", link="", google_id=google_id),
     Application(status="Not Applied", name="Jane Street", open="Software Engineer Internship", close="New York, NY", link="", google_id=google_id),
     Application(status="Not Applied", name="Wells Fargo", open="Software Engineering Intern", close="Multiple locations", link="", google_id=google_id),
@@ -81,3 +90,5 @@ def default_apps(google_id):
     Application(status="Not Applied", name="Epic", open="Software Developer Intern", close="Madison, WI", link="", google_id=google_id),
     Application(status="Not Applied", name="Apple", open="Machine Learning Intern", close="United States", link="", google_id=google_id)
 ])
+
+print(get_all_applications())

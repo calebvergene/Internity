@@ -35,15 +35,25 @@ def insert_application(db_name, name, location, role, skills, link, apply_link, 
     # Convert skills list to a comma-separated string
     skills_str = ','.join(skills)
 
-    # Insert the application into the table
+    # Check if the application already exists in the database
     cursor.execute('''
-        INSERT INTO applications (name, location, role, skills, link, apply_link, field)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
-    ''', (name, location, role, skills_str, link, apply_link, field))
+        SELECT COUNT(*) FROM applications 
+        WHERE name = ? AND location = ? AND role = ? AND link = ?
+    ''', (name, location, role, link))
+
+    count = cursor.fetchone()[0]
+
+    if count == 0:
+        # Insert the application into the table only if it doesn't exist
+        cursor.execute('''
+            INSERT INTO applications (name, location, role, skills, link, apply_link, field)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''', (name, location, role, skills_str, link, apply_link, field))
 
     # Commit and close the connection
     conn.commit()
     conn.close()
+
 
 
 def get_applications(db_name='applications.db'):
