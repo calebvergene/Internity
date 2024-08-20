@@ -9,9 +9,9 @@ class Application(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     status = db.Column(db.String(60), unique = False, nullable = False)
     name = db.Column(db.String(60), unique = False, nullable = False)
-    open = db.Column(db.String(60), unique = False, nullable = True)
+    open = db.Column(db.String(200), unique = False, nullable = True)
     close = db.Column(db.String(60), unique = False, nullable = False)
-    link = db.Column(db.String(200), unique = True, nullable = True)
+    link = db.Column(db.String(400), unique = True, nullable = True)
     google_id = db.Column(db.String(100), nullable=False)
     order = db.Column(db.Integer, nullable=False, default=0)
 

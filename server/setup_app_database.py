@@ -29,6 +29,10 @@ def create_database(db_name='applications.db'):
 
 
 def insert_application(db_name, name, location, role, skills, link, apply_link, field):
+    # Blacklist
+    if name in ["Dell Technologies", "BlackHawk Network"]:
+        return  
+
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
@@ -53,6 +57,7 @@ def insert_application(db_name, name, location, role, skills, link, apply_link, 
     # Commit and close the connection
     conn.commit()
     conn.close()
+
 
 
 

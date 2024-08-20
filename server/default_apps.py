@@ -34,61 +34,10 @@ def default_apps(google_id):
     """
     Returns default applications that a user will have in their table once registering an account. 
     """
-    get_all_applications()
     default_apps = get_all_applications()
+    application_list = []
+    for app in default_apps:
+        application_list.append(Application(status="Not Applied", name=app['name'], open=app['role'], close=app['location'], link=app['apply_link'], google_id=google_id))
 
 
-    return (
-        
-        
-        [
-    Application(status="Not Applied", name="Akuna Capital", open="Software Engineer Intern - Python", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Jane Street", open="Software Engineer Internship", close="New York, NY", link="", google_id=google_id),
-    Application(status="Not Applied", name="Wells Fargo", open="Software Engineering Intern", close="Multiple locations", link="", google_id=google_id),
-    Application(status="Not Applied", name="TikTok", open="Mobile Software Engineer Intern - User Relation", close="Los Angeles, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="IXL Learning", open="Software Engineer, Intern", close="San Mateo, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="ATPCO", open="Systems Engineer Intern", close="Remote in USA", link="", google_id=google_id),
-    Application(status="Not Applied", name="ATPCO", open="Systems Engineer Intern", close="Dulles, VA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Sensata", open="Software Engineer Intern - Summer 2025", close="Attleboro, MA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Akuna Capital", open="Quantitative Research Intern - Summer 2025", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Amazon", open="Program Manager Intern", close="Seattle, WA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Virtu Financial", open="Internship - Developer", close="NYC", link="", google_id=google_id),
-    Application(status="Not Applied", name="ByteDance", open="Software Engineer Intern (AI Platform)", close="San Jose, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Notion", open="Software Engineer Intern, Mobile (Summer 2025)", close="New York, NY", link="", google_id=google_id),
-    Application(status="Not Applied", name="Notion", open="Software Engineering Intern (Summer 2025)", close="San Francisco, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Motorola", open="Android Platform Software Engineering Intern - Summer 2025", close="Plantation, FL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Motorola", open="Android Platform Software Engineering Intern - Summer 2025", close="Hoffman Estates, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Codeium", open="Software Engineering Intern - Summer 2025", close="Mountain View, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="HPR (Hyannis Port Research)", open="Software Engineering Intern - Summer 2025", close="Needham, MA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Sentry", open="Software Engineer Intern - Summer 2025", close="Toronto, ON, Canada", link="", google_id=google_id),
-    Application(status="Not Applied", name="Ventas", open="Intern, Software Engineering (Summer 2025)", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Five Rings", open="Software Developer Intern", close="New York", link="", google_id=google_id),
-    Application(status="Not Applied", name="Confluent", open="Software Engineering Intern", close="Remote", link="", google_id=google_id),
-    Application(status="Not Applied", name="Confluent", open="Software Engineering Intern", close="Austin, TX", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern - 2025", close="Bellevue, WA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern - 2025", close="Mountain View, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern - 2025", close="SF", link="", google_id=google_id),
-    Application(status="Not Applied", name="Deloitte", open="Software Engineering Summer Scholar", close="New York, NY", link="", google_id=google_id),
-    Application(status="Not Applied", name="Deloitte", open="Software Engineering Summer Scholar", close="Austin, TX", link="", google_id=google_id),
-    Application(status="Not Applied", name="Deloitte", open="Software Engineering Summer Scholar", close="San Francisco, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="TikTok", open="Software Engineer Intern (Data-TnS-Eng-Biz Arch)", close="Vancouver, Canada", link="", google_id=google_id),
-    Application(status="Not Applied", name="Airwallex", open="Software Engineer Intern Program", close="SF", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern", close="Bellevue, WA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern", close="Mountain View, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Databricks", open="Software Engineering Intern", close="San Francisco, CA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Strider Technologies", open="Intelligence Specialist Internship - China Focus", close="Vienna, VA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Strider Technologies", open="Intelligence Specialist Internship - China Focus", close="South Jordan, UT", link="", google_id=google_id),
-    Application(status="Not Applied", name="Oshkosh", open="Data Engineer Intern - Advanced Analytics", close="Oshkosh, WI", link="", google_id=google_id),
-    Application(status="Not Applied", name="Quantiq Partners", open="Software Developer Intern", close="Austin, TX", link="", google_id=google_id),
-    Application(status="Not Applied", name="Belvedere Trading", open="Software Engineer Intern - Summer 2025", close="Boulder, CO", link="", google_id=google_id),
-    Application(status="Not Applied", name="Belvedere Trading", open="Software Engineer Intern - Summer 2025", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Jump Trading", open="Campus Web Dev / UI Software Engineer – Intern", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Neuralink", open="Software Engineer Intern", close="Austin, TX", link="", google_id=google_id),
-    Application(status="Not Applied", name="DV Trading", open="2025 Summer Internship - Algo Trader", close="Chicago, IL", link="", google_id=google_id),
-    Application(status="Not Applied", name="Qualcomm", open="Software Engineering Intern", close="San Diego, California", link="", google_id=google_id),
-    Application(status="Not Applied", name="Vestmark", open="Software Engineer Intern", close="Wakefield, MA", link="", google_id=google_id),
-    Application(status="Not Applied", name="Epic", open="Software Developer Intern", close="Madison, WI", link="", google_id=google_id),
-    Application(status="Not Applied", name="Apple", open="Machine Learning Intern", close="United States", link="", google_id=google_id)
-])
-
-print(get_all_applications())
+    return (application_list)
