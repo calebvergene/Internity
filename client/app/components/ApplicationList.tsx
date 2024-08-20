@@ -77,6 +77,28 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
         }
       };
 
+      const getLink = (link: string | null | undefined): string => {
+        if (link && link.includes(' ')) {
+            return link.split(' ')[0];
+        } else if (link) {
+            return link; 
+        } else {
+            return '';
+        }
+    };
+    
+
+    const getSimilarity = (link: string): string => {
+      if (link && link.includes(' ')) {
+        return link.split(' ')[1];
+    } else if (link) {
+        return 'x'; 
+    } else {
+        return '';
+    }
+};
+    
+
         return (
           <div className="flex items-start justify-center h-[700px] overflow-auto mb-12">
             <div className="w-11/12 my-10">
@@ -138,7 +160,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                           <td className="py-2 text-center text-m">{application.open}</td>
                           <td className="py-2 text-center text-sm">{application.close}</td>
                           <td className="py-2 text-center flex justify-center text-sm">
-                            <a href={application.link} target="_blank" rel="noopener noreferrer">
+                            <a href={getLink(application.link)} target="_blank" rel="noopener noreferrer">
                               <button className="justify-start bg-green-500 duration-300 font-rubik rounded-md mt-2 py-1 mb-1 mr-2 px-3 text-white flex place-content-center" onClick={() => clickStatus("Applied", application)}>
                                 Apply
                               </button>
@@ -181,6 +203,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({ applications, updateA
                                 />
                               </svg>
                             </button>
+                            <p>{getSimilarity(application.link)}</p>
                           </td>
                         </tr>
                       </React.Fragment>

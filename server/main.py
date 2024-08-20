@@ -136,7 +136,6 @@ def get_applications():
     custom_sort = request.args.get("custom_sort", "")
 
     query = Application.query.filter_by(google_id=google_id)
-
     if custom_sort == "Not Applied":
         order_by_status = case(
             
