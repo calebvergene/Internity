@@ -18,5 +18,3 @@ def add_swe_field():
                 
         with open('server/application_data/extracted_swe_jobs.json', 'w') as file:
                 json.dump(all_applications, file, indent=4)
-
-add_swe_field()

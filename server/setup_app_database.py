@@ -1,5 +1,6 @@
 import sqlite3
 from flask import Flask, jsonify
+import json
 
 app = Flask(__name__)
 
@@ -17,7 +18,7 @@ def create_database(db_name='applications.db'):
             role TEXT NOT NULL,
             skills TEXT,  -- Store as a comma-separated string
             link TEXT NOT NULL,
-            app_link TEXT NOT NULL,
+            apply_link TEXT,
             field TEXT NOT NULL
         )
     ''')
@@ -27,7 +28,7 @@ def create_database(db_name='applications.db'):
 
 
 
-def insert_application(db_name, name, location, role, skills, link, app_link, field):
+def insert_application(db_name, name, location, role, skills, link, apply_link, field):
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
 
@@ -36,9 +37,9 @@ def insert_application(db_name, name, location, role, skills, link, app_link, fi
 
     # Insert the application into the table
     cursor.execute('''
-        INSERT INTO applications (name, location, role, skills, link, app_link, field)
+        INSERT INTO applications (name, location, role, skills, link, apply_link, field)
         VALUES (?, ?, ?, ?, ?, ?, ?)
-    ''', (name, location, role, skills_str, link, app_link, field))
+    ''', (name, location, role, skills_str, link, apply_link, field))
 
     # Commit and close the connection
     conn.commit()
@@ -66,7 +67,7 @@ def get_applications(db_name):
             'role': application[3],
             'skills': application[4].split(','),  # Convert skills back to list
             'link': application[5],
-            'app_link': application[6],
+            'apply_link': application[6],
             'field': application[7]
         }
         applications_list.append(app_dict)
@@ -82,14 +83,18 @@ def get_all_applications():
 
 # Initialize the database and Flask app
 if __name__ == '__main__':
-    create_database()  # Create the database and table
-    # Example of inserting an application
-    insert_application(
-        db_name='applications.db',
-        name='Software Engineer Intern',
-        location='Cambridge, MA',
-        company='Philips',
-        skills=['Python', 'SQL', 'Java'],
-        link='https://jobright.ai/jobs/info/66be7dfc0b2da45a95d15e21?utm_source=1099&utm_campaign=Software Engineer'
-    )
-    app.run(debug=True)  # Run the Flask app
+    create_database()  
+    with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
+                all_applications = json.load(file)
+                for application in all_applications:                       
+                    insert_application(
+                        db_name='applications.db',
+                        name=application['name'],
+                        location=application['location'],
+                        role=application['job_title'],
+                        skills=application['skills'],
+                        link=application['link'],
+                        apply_link=application['apply_link'],
+                        field = application['field']
+                    )
+    app.run(debug=True)  
