@@ -46,7 +46,7 @@ def insert_application(db_name, name, location, role, skills, link, apply_link, 
     conn.close()
 
 
-def get_applications(db_name):
+def get_applications(db_name='applications.db'):
     """
     Retrieve all applications from the table
     """
@@ -79,7 +79,7 @@ def get_applications(db_name):
 @app.route('/applications', methods=['GET'])
 def get_all_applications():
     applications = get_applications('applications.db')
-    return jsonify(applications)
+    return applications
 
 # Initialize the database and Flask app
 if __name__ == '__main__':

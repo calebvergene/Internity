@@ -4,6 +4,7 @@ import pandas as pd
 import spacy
 from default_apps import skill_set
 import json
+from setup_app_database import get_all_applications
 
 def extract_text_from_pdf(file):
     """
@@ -56,14 +57,12 @@ def analyze_resume(file):
 
 
     resume_doc = nlp(" ".join(resume_skills))
-    with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
-        all_applications = json.load(file)
-        
-        for application in all_applications:
-
-            job_role_doc = nlp(" ".join(application['skills']))     
-            # Print job name and similarity score
-            print(application['name'], resume_doc.similarity(job_role_doc))
+    get_all_applications()
+    all_applications = get_all_applications()
+    for application in all_applications:
+        job_role_doc = nlp(" ".join(application['skills']))     
+        # Print job name and similarity score
+        print(application['name'], resume_doc.similarity(job_role_doc))
 
 
 
