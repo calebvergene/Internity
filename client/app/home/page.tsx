@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import ApplicationList from "../components/ApplicationList";
 import ApplicationForm from "../components/ApplicationForm";
 import CustomDropdown from "../components/CustomDropdown";
-import SquareButton from "../components/SquareButton";
+import AnimatedCounter from "../components/AnimatedCounter";
 import FileUploadModal from "../components/FileUploadModal";
 
 interface Application {
@@ -148,7 +148,7 @@ export default function Home() {
               className="border-b border-gray-300 pb-7 font-rubik text-xs text-gray-600 px-4 mt-2 pl-14 pr-5 dark:bg-white/10 dark:border-white/20 dark:text-white"
               role="alert"
             >
-              {applications.length} TOTAL APPLICATIONS
+              TOTAL APPLICATIONS: <AnimatedCounter from={0} to={applications.length} /> 
             </div>
           </div>
 
