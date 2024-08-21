@@ -226,9 +226,9 @@ export default function Home() {
             </div>
       </div>
       <div className="flex flex-row justify-between items-center border border-gray-300 p-1.5 mt-4 bg-gray-200">
-        <p className="flex-grow text-center text-gray-600">Name</p>
-        <p className="flex-grow text-center ml-6 text-gray-600">Status</p>
-        <p className="flex-grow text-center ml-2 text-gray-600">Title</p>
+        <p className="flex-grow text-center text-gray-600 ml-2.5">Name</p>
+        <p className="flex-grow text-center ml-5 text-gray-600">Status</p>
+        <p className="flex-grow text-center ml-5 text-gray-600">Title</p>
         <p className="flex-grow text-center ml-4 text-gray-600">Location</p>
         <p className="flex-grow text-center text-gray-600">Actions</p>
       </div>

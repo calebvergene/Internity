@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import CustomDropdown from './CustomDropdown';
+import Pie from './ProgressCircle'
 
 
 interface Application {
@@ -113,11 +114,26 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
     }
   };
 
+  const getColour = (percentage: number): string => {
+    if (percentage > 79) {
+      return '#16a34a';
+    } else if (percentage > 59) {
+      return '#22c55e'; 
+    } else if (percentage > 39) {
+      return '#fbbf24'; 
+    } else if (percentage > 19) {
+      return '#fb923c';
+    } else {
+      return '#ef4444';
+    }
+  };
+
+
   const Row = ({ index, style }: ListChildComponentProps) => {
     const application = applications[index];
     return (
       <div style={style} key={application.id} className={`flex items-center justify-center ${index % 2 === 0 ? 'bg-gray-100' : 'bg-gray-200'}`}>
-        <div className="w-1/5 flex items-center justify-center font-rubik font-medium">
+        <div className="w-1/5 flex items-center justify-center text-center font-medium ml-2">
           {application.name}
         </div>
         <div className="w-1/5 text-center">
@@ -147,7 +163,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
           </a>
           <button
             onClick={() => updateApplication(application)}
-            className="text-gray-500 flex justify-center place-content-center hover:bg-gray-500/20 hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
+            className="text-gray-500 flex justify-center place-content-center hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -166,7 +182,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
           </button>
           <button
             onClick={() => onDelete(application.id)}
-            className="text-gray-500 flex justify-center place-content-center hover:bg-gray-500/20 hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
+            className="text-gray-500 flex justify-center place-content-center hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +199,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
               />
             </svg>
           </button>
-          <p>{getSimilarity(application.link)}</p>
+          <div className='pt-1.5 ml-0.5'>
+          <Pie percentage={parseFloat(getSimilarity(application.link).slice(-2))} colour={getColour(parseFloat(getSimilarity(application.link).slice(-2)))} />
+          </div>
+          <p></p>
         </div>
       </div>
     );

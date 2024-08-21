@@ -32,6 +32,8 @@ def insert_application(db_name, name, location, role, skills, link, apply_link, 
     # Blacklist
     if name in ["Dell Technologies", "BlackHawk Network", "ConocoPhillips"]:
         return  
+    if "Harris" in name.split():
+         name = "Harris Corp"
 
     conn = sqlite3.connect(db_name)
     cursor = conn.cursor()
