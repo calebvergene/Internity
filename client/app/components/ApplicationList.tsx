@@ -180,7 +180,15 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
               />
             </svg>
           </button>
-          <button
+          
+          <div className='pt-1.5 ml-0.5'>
+          {getSimilarity(application.link).slice(-2) !== '' ? (
+            <Pie 
+              percentage={parseFloat(getSimilarity(application.link).slice(-2))} 
+              colour={getColour(parseFloat(getSimilarity(application.link).slice(-2)))} 
+            />
+          ) : (
+            <button
             onClick={() => onDelete(application.id)}
             className="text-gray-500 flex justify-center place-content-center hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
           >
@@ -198,10 +206,11 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
                 d="M14.74 9L14.394 18M9.26 18L9.606 9M18.628 5.79C18.97 5.842 19.31 5.897 19.65 5.956M18.628 5.79L18.16 19.673A2.25 2.25 0 0115.916 21H8.084A2.25 2.25 0 015.84 19.673L5.372 5.79M18.628 5.79C17.48 5.618 16.313 5.492 15.13 5.414M4.372 5.79C4.034 5.731 3.694 5.676 3.354 5.617M4.372 5.79A48.108 48.108 0 007.85 5.393M14.5 4.5V3.75C14.5 2.57 13.59 1.586 12.41 1.55A51.964 51.964 0 009.09 1.55C7.91 1.586 7 2.57 7 3.75V4.5M14.5 4.5H9.5M14.5 4.5H9.5M14.5 4.5V5.393M9.5 4.5V5.393"
               />
             </svg>
-          </button>
-          <div className='pt-1.5 ml-0.5'>
-          <Pie percentage={parseFloat(getSimilarity(application.link).slice(-2))} colour={getColour(parseFloat(getSimilarity(application.link).slice(-2)))} />
+          </button> // Replace with what you want to render if the condition is not met
+          )}
+
           </div>
+
           <p></p>
         </div>
       </div>

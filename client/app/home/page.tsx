@@ -20,7 +20,7 @@ export default function Home() {
   const [applications, setApplications] = useState<Application[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isFileModalOpen, setIsFileModalOpen] = useState<boolean>(false);
-  const [currentApplication, setCurrentApplication] = useState<Application | null>(null);
+  const [currentApplication, setCurrentApplication] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
   const [dataApplications, setDataApplications] = useState<Application[]>([]);
@@ -77,7 +77,7 @@ export default function Home() {
   const closeModal = () => {
     setIsModalOpen(false);
     setIsFileModalOpen(false);
-    setCurrentApplication(null);
+    setCurrentApplication({});
   };
 
   const openFileModal = () => {
