@@ -28,10 +28,10 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
   useEffect(() => {
     if (typeof window !== 'undefined') {
       // Safe to use `window` object here
-      setListWidth(window.innerWidth * 0.98); // Set initial width
+      setListWidth(window.innerWidth); // Set initial width
 
       const handleResize = () => {
-        setListWidth(window.innerWidth * 0.98); // Adjust width on resize
+        setListWidth(window.innerWidth); // Adjust width on resize
       };
 
       window.addEventListener('resize', handleResize);
@@ -191,7 +191,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
 
   return (
     <FixedSizeList
-      height={700}
+      height={750}
       width={listWidth}
       itemSize={60} // Approximate height of each row
       itemCount={applications.length} // Total number of items

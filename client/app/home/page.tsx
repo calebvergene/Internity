@@ -183,7 +183,7 @@ export default function Home() {
         </a>
       </div>
     </div>
-      <div className="mt-10 mb-4 flex flex-row justify-between items-center w-[91%] sticky top-0 z-10">
+      <div className="mt-6 mb-4 flex flex-row justify-between items-center w-[91%] sticky top-0 z-10">
               <div className="">
               <button
                 onClick={openCreateModal}
@@ -225,6 +225,15 @@ export default function Home() {
               </div>
             </div>
       </div>
+      <div className="flex flex-row justify-between items-center border border-gray-300 p-1.5 mt-4 bg-gray-200">
+        <p className="flex-grow text-center text-gray-600">Name</p>
+        <p className="flex-grow text-center ml-6 text-gray-600">Status</p>
+        <p className="flex-grow text-center ml-2 text-gray-600">Title</p>
+        <p className="flex-grow text-center ml-4 text-gray-600">Location</p>
+        <p className="flex-grow text-center text-gray-600">Actions</p>
+      </div>
+
+
       <div className="flex place-content-center justify-center">
         <ApplicationList applications={applications} updateApplication={openEditModal} updateCallback={onUpdate}/>
       </div>
