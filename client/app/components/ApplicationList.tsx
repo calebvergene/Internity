@@ -52,7 +52,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
         body: JSON.stringify(updatedApplication)
       });
       if (response.status === 200) {
-        updateCallback();
+        console.log('Status updated')
       } else {
         console.error("Failed to update status");
       }
@@ -190,7 +190,7 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
           ) : (
             <button
             onClick={() => onDelete(application.id)}
-            className="text-gray-500 flex justify-center place-content-center hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 rounded-xl mt-1"
+            className="text-gray-500 flex justify-center place-content-center hover:text-gray-600 duration-300 py-1 pt-1.5 px-1 pr-3 rounded-xl mb-1"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -115,20 +115,18 @@ export default function Home() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     setInputValue(value);
-    const matchedApplications = dataApplications.filter(app => app.name.toLowerCase().includes(value.toLowerCase()));
-    setApplications(matchedApplications);
-  };
 
-  const handleSubmitSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    const matchedApplications = dataApplications.filter(app => app.name.toLowerCase() === inputValue.toLowerCase());
-    if (matchedApplications.length > 0) {
-      setApplications(matchedApplications);
-    } 
-    setInputValue('');
-  };
+    const matchedApplications = dataApplications.filter(app => 
+        app.name.toLowerCase().includes(value) || 
+        app.open.toLowerCase().includes(value) || 
+        app.close.toLowerCase().includes(value)
+    );
+
+    setApplications(matchedApplications);
+};
+
 
   const refreshList = (e: React.FormEvent) => {
     e.preventDefault();
@@ -189,7 +187,7 @@ export default function Home() {
                 { label: "Offered", onClick: () => clickSort("Offered") },
               ]}
             />
-            <form className="flex items-center max-w-sm mx-auto justify-end ml-4" onSubmit={handleSubmitSearch}>
+            <form className="flex items-center max-w-sm mx-auto justify-end ml-4" >
               <label className="sr-only">Search</label>
               <div className="relative w-full">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
