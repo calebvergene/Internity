@@ -56,7 +56,7 @@ export default function Landing() {
                   alt="Hero"
                   className="w-[40px] h-auto"
                 />
-                <span className="mt-1.5 font-rubik font-medium">Applyd</span>
+                <span className="mt-[.3rem] font-rubik font-semibold text-2xl ">Internity</span>
               </a>
             </div>
             <div className="flex items-center space-x-4">
