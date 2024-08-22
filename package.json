@@ -5,13 +5,13 @@
     "@zendeskgarden/react-loaders": "^8.76.5",
     "@zendeskgarden/react-tooltips": "^8.76.5",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.3.8",
+    "framer-motion": "^11.3.29",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.5.136",
     "react-countup": "^6.5.3",
     "react-dropzone": "^14.2.3",
     "react-visibility-sensor": "^5.1.1",
     "react-window": "^1.8.10",
-    "tailwind-merge": "^2.4.0"
+    "tailwind-merge": "^2.5.2"
   }
 }

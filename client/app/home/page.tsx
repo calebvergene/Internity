@@ -5,6 +5,7 @@ import ApplicationForm from "../components/ApplicationForm";
 import CustomDropdown from "../components/CustomDropdown";
 import AnimatedCounter from "../components/AnimatedCounter";
 import FileUploadModal from "../components/FileUploadModal";
+import TypewriterEffectSmoothDemo from "../components/Typewriter2"
 
 interface Application {
   id: number;
@@ -135,50 +136,61 @@ export default function Home() {
 
   return (
     <div className="bg-gray-100">
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex justify-between items-start w-full px-8 py-1">
+      <div className="flex flex-col items-center justify-center ">
+        <div className="flex justify-between items-start  px-8 py-1 mb-4 mt-2 bg-gray-200 mx-2 rounded-full">
           <div className="flex flex-col">
             <div
-              className="font-rubik text-4xl text-gray-800 px-2 mt-6 dark:bg-white/10 dark:border-white/20 dark:text-white"
+              className="font-rubik text-3xl py-1.5 text-gray-800  font-semibold dark:bg-white/10 dark:border-white/20 dark:text-white flex row"
               role="alert"
             >
-              🌱 Glad to have you, <span className="font-semibold">{userName.split(' ')[0]}</span>!
+              <a href="" className="flex row ml-44">
+              <img
+                  src="/Applyd-logo.png"
+                  alt="Hero"
+                  className="w-[40px] h-auto"
+                />
+                <span className="mt-0.5">Internity</span>
+                </a>
             </div>
-            <div
-              className="border-b border-gray-300 pb-7 font-rubik text-xs text-gray-600 px-4 mt-2 pl-14 pr-5 dark:bg-white/10 dark:border-white/20 dark:text-white"
-              role="alert"
-            >
-              TOTAL APPLICATIONS: <AnimatedCounter from={0} to={applications.length} /> 
-            </div>
+            
           </div>
+          
 
-          <div className="flex row place-content-center">
-            <button className="p-3 mb-2 rounded-lg px-[13px] mt-3 bg-gray-300/15 hover:border-white hover:bg-gray-300/50 duration-300 flex items-center" onClick={openFileModal}>
-              AI Resume Personalization
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 ml-1.5 text-green-500">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-              </svg>
-            </button>
+          <div className="flex row place-content-center ml-28">
 
             <a href="/" className="">
               <button
                 onClick={handleLogout}
-                className="bg-black/85 border-transparent font-rubik rounded-md mt-4 py-2 px-3 ml-4 text-white flex justify-center items-center hover:bg-black/80 duration-300"
+                className="bg-black/85 border-transparent font-rubik rounded-xl mt-2 py-1.5 px-3 ml-4 text-white flex justify-center items-center hover:bg-black/80 duration-300"
               >
                 Logout
               </button>
             </a>
           </div>
         </div>
+        <div
+              className=" border rounded-full  py-1 font-rubik text-xs text-gray-600 px-4  mr-5 dark:bg-white/10 dark:border-white/20 dark:text-white"
+              role="alert"
+            >
+              TOTAL APPLICATIONS: <AnimatedCounter from={0} to={applications.length} /> 
+          </div>
 
-        <div className="mt-6 mb-4 flex flex-row justify-between items-center w-[91%] sticky top-0 z-10">
-          <div>
+        <div className=" mb-4 flex flex-row justify-between items-center w-[91%] sticky top-0 z-10">
+          <div className="flex row">
+            <button className="p-1 mr-2 font-medium rounded-lg px-[13px] text-white bg-black/80 hover:bg-black/90 duration-300 flex items-center" onClick={openFileModal}>
+              AI Resume Similarity
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 ml-1.5 text-green-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+              </svg>
+            </button>
             <button
               onClick={openCreateModal}
-              className="justify-start bg-green-500 hover:from-blue-500 hover:to-green-400 duration-300 font-rubik rounded-md mt-2 py-2 px-3 text-white flex  place-content-center">
-              Create New Application <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23" stroke-width="2.5" stroke="currentColor" className="size-6 pl-1 pb-[2px]"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              className=" border-black/80 border-1.5 font-rubik rounded-md hover:bg-black/5 hover:border-black/90 hover:text-black py-1.5 px-3 duration-200 text-black/90 flex  place-content-center">
+              Add Application <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 23" stroke-width="2.5" stroke="currentColor" className="size-6 pl-1 pb-[2px]"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
             </button>
+            
           </div>
+          
           <div className="justify-end flex">
             <CustomDropdown
               label="Sort By"
