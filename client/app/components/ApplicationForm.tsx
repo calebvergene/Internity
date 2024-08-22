@@ -72,6 +72,16 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
     };
   }, [closeModal]);
 
+  const getLink = (link: string | null | undefined): string => {
+    if (link && link.includes(' ')) {
+      return link.split(' ')[0];
+    } else if (link) {
+      return link;
+    } else {
+      return '';
+    }
+  };
+
   return (
     <AnimatePresence>
       <motion.div
@@ -130,7 +140,7 @@ const ApplicationForm: React.FC<ApplicationFormProps> = ({
                   <input
                     type="text"
                     id="link"
-                    value={link}
+                    value={getLink(link)}
                     onChange={(e) => setLink(e.target.value)}
                     placeholder="Link"
                     className="border border-neutral-400/65 rounded-[4px] px-2 py-3 placeholder-neutral-600/90"
