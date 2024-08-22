@@ -92,8 +92,12 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
             {items.map((item, index) => (
               <button
                 key={index}
-                onClick={() => handleDropdownClick(<span className={getStatusClassName(item.label)}> ● </span>, item)}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-center z-50"
+                onClick={() => handleDropdownClick(
+                  item.label !== "Similarity" ? <span className={getStatusClassName(item.label)}> ● </span> : null,
+                  item
+                )}                className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:rounded-sm w-full text-center z-50 ${
+                  item.label === 'Similarity' ? 'border-t border-gray-300' : ''
+                }`}
                 role="menuitem"
               >
                 {item.label}
@@ -102,6 +106,7 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({ label, items }) => {
           </div>
         </div>
       )}
+
     </div>
   );
 };
