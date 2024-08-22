@@ -136,25 +136,23 @@ def get_applications():
     custom_sort = request.args.get("custom_sort", "")
 
     query = Application.query.filter_by(google_id=google_id)
+
     if custom_sort == "Not Applied":
         order_by_status = case(
-            
-                (Application.status == 'Not Applied', 1),
-                (Application.status == 'Applied', 2),
-                (Application.status == 'Interviewing', 3),
-                (Application.status == 'Offered', 4)
-            ,
+            (Application.status == 'Not Applied', 1),
+            (Application.status == 'Applied', 2),
+            (Application.status == 'Interviewing', 3),
+            (Application.status == 'Offered', 4),
             else_=5
         )
         query = query.order_by(order_by_status, desc(Application.id))
+        
     elif custom_sort == "Applied":
         order_by_status = case(
-            
-                (Application.status == 'Applied', 1),
-                (Application.status == 'Interviewing', 2),
-                (Application.status == 'Offered', 3),
-                (Application.status == 'Not Applied', 4)
-            ,
+            (Application.status == 'Applied', 1),
+            (Application.status == 'Interviewing', 2),
+            (Application.status == 'Offered', 3),
+            (Application.status == 'Not Applied', 4),
             else_=5
         )
         query = query.order_by(order_by_status, desc(Application.id))
@@ -169,20 +167,42 @@ def get_applications():
             else_=5
         )
         query = query.order_by(order_by_status, desc(Application.id))
+    elif custom_sort == "Similarity":
+        try:
+            # Fetch the data
+            applications = query.all()
+
+            # Sort the applications in Python by the last part of the link (assuming it's numeric)
+            sorted_applications = sorted(applications, key=lambda app: float(app.link.split()[-1]), reverse=True)
+
+            # Create a CASE statement to update the 'order' column
+            order_case = case(
+                {app.id: index + 1 for index, app in enumerate(sorted_applications)},
+                value=Application.id
+            )
+
+            # Apply the CASE to the query
+            query = query.order_by(order_case)
+
+        except Exception as e:
+            print(f'Error sorting by similarity: {e}')
+
     else:
         query = query.order_by(Application.order.asc(), desc(Application.id))  # Default sorting
 
+    # Fetch the sorted applications
     applications = query.all()
 
     # Update the order field in the database
     for index, application in enumerate(applications):
-        application.order = index
+        application.order = index + 1  # Adjust index to start from 1 if needed
     db.session.commit()
 
     json_applications = [application.to_json() for application in applications]
     user_name = session["name"]
-    
+
     return jsonify({"applications": json_applications, "userName": user_name})
+
 
 
 

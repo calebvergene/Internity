@@ -198,6 +198,7 @@ export default function Home() {
                 { label: "Not Applied", onClick: () => clickSort("Not Applied") },
                 { label: "Applied", onClick: () => clickSort("Applied") },
                 { label: "Offered", onClick: () => clickSort("Offered") },
+                { label: "Similarity", onClick: () => clickSort("Similarity") },
               ]}
             />
             <form className="flex items-center max-w-sm mx-auto justify-end ml-4" >

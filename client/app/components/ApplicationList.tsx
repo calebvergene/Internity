@@ -106,7 +106,8 @@ const ApplicationList: React.FC<ApplicationListProps> = ({
 
   const getSimilarity = (link: string): string => {
     if (link && link.includes(' ')) {
-      return link.split(' ')[1];
+      const parts = link.split(' ');
+      return parts[parts.length - 1];  // Correct way to access the last element
     } else if (link) {
       return 'x';
     } else {
