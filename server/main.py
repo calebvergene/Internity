@@ -172,19 +172,25 @@ def get_applications():
         query = query.order_by(order_by_status, desc(Application.id))
     elif custom_sort == "Similarity":
         try:
-            # Fetch the data
             applications = query.all()
 
-            # Sort the applications in Python by the last part of the link (assuming it's numeric)
-            sorted_applications = sorted(applications, key=lambda app: float(app.link.split()[-1]), reverse=True)
+            def get_similarity_value(app):
+                try:
+                    # Finds similarity in app. Added error handling
+                    return float(app.link.split()[-1]) if app.link and float(app.link.split()[-1]) else float(0)
+                except (ValueError, IndexError) as e:
+                    print(e)
+                    return float(0)
 
-            # Create a CASE statement to update the 'order' column
+            
+            # Sort the applications in Python by the similarity value
+            sorted_applications = sorted(applications, key=get_similarity_value, reverse=True)
+
             order_case = case(
                 {app.id: index + 1 for index, app in enumerate(sorted_applications)},
                 value=Application.id
             )
 
-            # Apply the CASE to the query
             query = query.order_by(order_case)
 
         except Exception as e:
@@ -205,6 +211,7 @@ def get_applications():
     user_name = session["name"]
 
     return jsonify({"applications": json_applications, "userName": user_name})
+
 
 
 
