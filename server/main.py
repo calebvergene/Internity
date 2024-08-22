@@ -147,6 +147,17 @@ def get_applications():
             else_=5
         )
         query = query.order_by(order_by_status, desc(Application.id))
+    elif custom_sort == "Applied":
+        order_by_status = case(
+            
+                (Application.status == 'Applied', 1),
+                (Application.status == 'Interviewing', 2),
+                (Application.status == 'Offered', 3),
+                (Application.status == 'Not Applied', 4)
+            ,
+            else_=5
+        )
+        query = query.order_by(order_by_status, desc(Application.id))
     elif custom_sort == "Offered":
         order_by_status = case(
             

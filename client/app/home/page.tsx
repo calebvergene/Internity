@@ -196,6 +196,7 @@ export default function Home() {
               label="Sort By"
               items={[
                 { label: "Not Applied", onClick: () => clickSort("Not Applied") },
+                { label: "Applied", onClick: () => clickSort("Applied") },
                 { label: "Offered", onClick: () => clickSort("Offered") },
               ]}
             />
