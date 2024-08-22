@@ -137,7 +137,7 @@ export default function Home() {
   return (
     <div className="bg-gray-100">
       <div className="flex flex-col items-center justify-center ">
-        <div className="flex justify-between items-start  px-8 py-1 mb-4 mt-2 bg-gray-200 mx-2 rounded-full">
+        <div className="flex justify-between items-start  px-8 py-1 mb-3 mt-2 bg-gray-200 mx-2 rounded-full">
           <div className="flex flex-col">
             <div
               className="font-rubik text-3xl py-1.5 text-gray-800  font-semibold dark:bg-white/10 dark:border-white/20 dark:text-white flex row"
