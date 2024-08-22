@@ -293,7 +293,6 @@ def upload_resume():
     similarity_scores = analyze_resume(file)
     applications = Application.query.filter_by(google_id=session["google_id"]).all()
     resume_skills = extract_skills(file, skill_set())
-    print(resume_skills)
     if not applications:
         return jsonify({"message": "No applications found."}), 404
 
@@ -312,7 +311,7 @@ def upload_resume():
     # Commit the changes to the database if any updates were made
     db.session.commit()
 
-    return jsonify({"message": "All applications processed."}), 200
+    return jsonify({'skills': list(resume_skills)}), 200
 
 
 

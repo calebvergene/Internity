@@ -13,6 +13,7 @@ interface FileUploadComponentProps {
 
 const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [skills, setSkills] = useState<string[]>([]); // Initialize skills as an empty array
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   const handleDrop = useCallback((acceptedFiles: File[]) => {
@@ -30,7 +31,11 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Success:', data);
+          if (data.skills && Array.isArray(data.skills)) {
+            setSkills(data.skills); // Ensure data.skills is an array before setting it
+          } else {
+            setSkills([]); // Fallback to an empty array if data.skills is not an array
+          }
           setUploadStatus('File uploaded successfully');
         })
         .catch((error) => {
@@ -73,13 +78,16 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
                 </FileList.Item>
               ))}
             </FileList>
-            <div>
-              <button>
-                
-              </button>
-            </div>
+            {skills.length > 0 && (
+              <div>
+                {skills.map((skill, index) => (
+                  <button key={index} className="p-2 m-1 bg-blue-500 text-white rounded">
+                    <Label>{skill}</Label>
+                  </button>
+                ))}
+              </div>
+            )}
             <div className='flex justify-end w-full mt-2'>
-            
               <button className='p-1.5 bg-black/80 text-white rounded-lg flex items-center' onClick={closeModal}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5">
                   <path fillRule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clipRule="evenodd" />
