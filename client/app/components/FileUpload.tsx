@@ -81,10 +81,13 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
                 </FileList.Item>
               ))}
             </FileList>
+            <div className='mt-4'></div>
+            <Label>Skills Found: </Label>
+            <div className='mt-2'></div>
             {skills.length > 0 && (
               <div>
                 {skills.map((skill, index) => (
-                  <button key={index} className="p-2 m-1 bg-blue-500 text-white rounded">
+                  <button key={index} className="p-2 m-1 border border-gray-200 hover:bg-gray-200 duration-300 hover:mx-1.5 text-white rounded">
                     <Message>{skill}</Message>
                   </button>
                 ))}
