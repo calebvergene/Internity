@@ -17,12 +17,13 @@ def extract_text_from_pdf(file):
     return text
 
 
-def extract_skills(file, text, skill_set):
+def extract_skills(file, skill_set):
     """
     Analyzes text in a resume and compares words to a list of skills. If any skills are found in the resume, 
     they are pulled out and returned
     """
     nlp = spacy.load("en_core_web_sm")
+    text = extract_text_from_pdf(file)
     doc = nlp(text)
     extracted_skills = set()
 
@@ -40,7 +41,7 @@ def extract_skills(file, text, skill_set):
             for line in block["lines"]:
                 for span in line["spans"]:
                     if "Bold" in span["font"]:
-                        print(span["text"].split())
+                        #print(span["text"].split())
                         extract_skills.add(span["text"].split())
 
     return extracted_skills
@@ -51,9 +52,8 @@ def analyze_resume(file):
     Compares skills in resume to each job, creating a similarity score for each
     """
     nlp = spacy.load("en_core_web_md")
-    text = extract_text_from_pdf(file)
-    resume_skills = extract_skills(file, text, skill_set())
-    print("Skills found:", resume_skills)
+    resume_skills = extract_skills(file, skill_set())
+    
 
 
     resume_doc = nlp(" ".join(resume_skills))

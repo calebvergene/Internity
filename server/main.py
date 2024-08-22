@@ -18,6 +18,9 @@ from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
 from functools import wraps
+from file_analysis import extract_skills
+from default_apps import skill_set
+
 
 
 load_dotenv()
@@ -289,7 +292,8 @@ def upload_resume():
     
     similarity_scores = analyze_resume(file)
     applications = Application.query.filter_by(google_id=session["google_id"]).all()
-
+    resume_skills = extract_skills(file, skill_set())
+    print(resume_skills)
     if not applications:
         return jsonify({"message": "No applications found."}), 404
 
