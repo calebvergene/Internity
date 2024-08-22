@@ -2,6 +2,9 @@ import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { useDropzone } from 'react-dropzone';
 import { Field, Label, Input, FileUpload, Message, FileList, File } from '@zendeskgarden/react-forms';
+import HashLoader from 'react-spinners/HashLoader';
+import { motion } from "framer-motion";
+
 
 const StyledFileUpload = styled(FileUpload)`
   min-height: 200px;
@@ -13,7 +16,7 @@ interface FileUploadComponentProps {
 
 const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal }) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [skills, setSkills] = useState<string[]>([]); // Initialize skills as an empty array
+  const [skills, setSkills] = useState<string[]>([]);
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
 
   const handleDrop = useCallback((acceptedFiles: File[]) => {
@@ -22,7 +25,7 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
       console.log("Files received:", acceptedFiles);
 
       // Set upload status to indicate the file is being processed
-      setUploadStatus('Processing file...');
+      setUploadStatus('processing');
 
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
@@ -35,15 +38,15 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
         .then(response => response.json())
         .then(data => {
           if (data.skills && Array.isArray(data.skills)) {
-            setSkills(data.skills); // Ensure data.skills is an array before setting it
+            setSkills(data.skills);
           } else {
-            setSkills([]); // Fallback to an empty array if data.skills is not an array
+            setSkills([]);
           }
-          setUploadStatus('File uploaded successfully');
+          setUploadStatus('success');
         })
         .catch((error) => {
           console.error('Error:', error);
-          setUploadStatus('Failed to process file');
+          setUploadStatus('error');
         });
 
     } else {
@@ -66,7 +69,15 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
           {isDragActive ? (
             <span>Drop files here...</span>
           ) : (
-            <span>{files.length === 0 ? 'Choose a file or drag and drop here' : uploadStatus }</span>
+            <span>
+              {files.length === 0 
+                ? 'Choose a file or drag and drop here' 
+                : uploadStatus === 'processing' 
+                ? <HashLoader color="#36d7b7" /> 
+                : uploadStatus === 'success' 
+                ? 'File uploaded successfully' 
+                : 'Failed to process file'}
+            </span>
           )}
           <Input {...getInputProps()} disabled={files.length > 0} />
         </StyledFileUpload>
@@ -81,24 +92,32 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
                 </FileList.Item>
               ))}
             </FileList>
-            <div className='mt-4'></div>
-            <Label>Skills Found: </Label>
-            <div className='mt-2'></div>
+            
             {skills.length > 0 && (
               <div>
-                {skills.map((skill, index) => (
-                  <button key={index} className="p-2 m-1 border border-gray-200 hover:bg-gray-200 duration-300 hover:mx-1.5 text-white rounded">
-                    <Message>{skill}</Message>
-                  </button>
-                ))}
+                <div className='mt-5'></div>
+                <Label>Skills Found: </Label>
+                <div className='mt-2'></div>
+
+                  {skills.map((skill, index) => (
+                    <motion.button 
+                      key={index} 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ delay: index * 0.2, duration: 0.2 }}
+                      className="p-2 m-1 border border-gray-200 hover:bg-gray-200 text-white rounded duration-300"
+                    >
+                      <Message>{skill}</Message>
+                    </motion.button>
+                  ))}
+
               </div>
             )}
             <div className='flex justify-end w-full mt-2'>
-              <button className='p-1.5 bg-black/80 text-white rounded-lg flex items-center' onClick={closeModal}>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5">
-                  <path fillRule="evenodd" d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z" clipRule="evenodd" />
-                  <path fillRule="evenodd" d="M6 10a.75.75 0 0 1 .75-.75h9.546l-1.048-.943a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 1 1-1.004-1.114l1.048-.943H6.75A.75.75 0 0 1 6 10Z" clipRule="evenodd" />
-                </svg>
+              <button className='p-2 bg-emerald-500 text-white rounded-lg flex items-center' onClick={closeModal}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
               </button>
             </div>
           </div>
