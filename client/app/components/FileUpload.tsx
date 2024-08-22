@@ -21,6 +21,9 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
       setFiles(acceptedFiles);
       console.log("Files received:", acceptedFiles);
 
+      // Set upload status to indicate the file is being processed
+      setUploadStatus('Processing file...');
+
       const formData = new FormData();
       formData.append('file', acceptedFiles[0]);
 
@@ -82,7 +85,7 @@ const FileUploadComponent: React.FC<FileUploadComponentProps> = ({ closeModal })
               <div>
                 {skills.map((skill, index) => (
                   <button key={index} className="p-2 m-1 bg-blue-500 text-white rounded">
-                    <Label>{skill}</Label>
+                    <Message>{skill}</Message>
                   </button>
                 ))}
               </div>
