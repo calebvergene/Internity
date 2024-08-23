@@ -1,4 +1,4 @@
-<p align='center'><img src="images/Landing-Page.png" alt="Logo" width="700" height="450"></p>
+<p align='center'><img src="images/Langing-Page.png" alt="Logo" width="700" height="450"></p>
 <h1 align="center">Internity</h1>
 <h3 align="center">Your personalized job internship provider and hub, all in one.
 </h3>
@@ -29,7 +29,7 @@ Built from scratch with:
 [Python-url]: https://docs.python.org/3.13/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Next]: https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+[Next]: https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white
 [Next-url]: https://nextjs.org/docs
 [Tailwind]: https://img.shields.io/badge/tailwindcss-dbdbdb?style=for-the-badge&logo=tailwindcss
 [Tailwind-url]: https://tailwindcss.com/
@@ -39,11 +39,11 @@ Built from scratch with:
 [Firebase-url]: https://firebase.google.com/
 [Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
 [Docker-url]: https://www.docker.com/
-[SqlAlchemy]: https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white
+[SqlAlchemy]: https://img.shields.io/badge/SqlAlchemy-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white
 [SqlAlchemy-url]: https://www.sqlalchemy.org/
-[BeautifulSoup]: https://img.shields.io/badge/AngelList-%23D4D4D4.svg?style=for-the-badge&logo=AngelList&logoColor=black
+[BeautifulSoup]: https://img.shields.io/badge/BeautifulSoup-%23D4D4D4.svg?style=for-the-badge&logo=AngelList&logoColor=black
 [BeautifulSoup-url]: https://www.crummy.com/software/BeautifulSoup/
 [Selenium]: https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white
 [Selenium-url]: https://www.selenium.dev/
-[spaCy]: https://img.shields.io/badge/-Jasmine-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white
+[spaCy]: https://img.shields.io/badge/-spaCy-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white
 [spaCy-url]: https://spacy.io/
