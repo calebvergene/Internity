@@ -1,4 +1,4 @@
-<p align='center'><img src="images/Langing-Page.png" alt="Logo" width="700" height="450"></p>
+<p align='center'><img src="images/Langing-Page.png" alt="Logo"></p>
 <h1 align="center">Internity</h1>
 <h3 align="center">Your personalized job internship provider and hub, all in one.
 </h3>
