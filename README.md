@@ -1,34 +1,49 @@
 <p align='center'><img src="images/Landing-Page.png" alt="Logo" width="700" height="450"></p>
-<h1 align="center">Meet Applyd:</h2>
-<h3 align="center">Your personalized job application & calendar, all in one.
+<h1 align="center">Internity</h1>
+<h3 align="center">Your personalized job internship provider and hub, all in one.
 </h3>
-<p align="center">Created by your 2024 ProDev Chairs at UCI's Management Information Student Society.</p>
+<p align="center"></p>
 
-## About the Project
+---
 
-With the 2025 recruitment season fast approaching, MAISS@UCI's 2024 ProDev Chairs, Maggie and Caleb, searched for existing resources that members could use to simplify and condense the application tracking process.
-However, no platform encompassed their vision.
+# About
 
-On top of your traditional recruitment process tracker, we're working on implementing prodev-focused incentives to make the application process more enjoyable for all, regardless of your field. 
-Utilizing RAG and AI, we hope to launch tailored internship recommendations based on members' fields of interests and current alumni connections. 
+Internify offers over **12,000** internship applications for you to apply for, all in one click. Internify is an open source application hub built to organize and track all of your applications in one place. Internify also offers a **resume screening similarity test**, scanning and comparing your resume to each internship application using AI and NLP through spaCy. This process recommends you to applications that are looking for applicants with *your* skills, increasing your odds at landing an internship. 
+
+# Features
+
+- 🚀**Internship Opprotunities**: Save time by applying to internships from their source website, all in one location
+- 🤖**AI-Powered Recommendations**: Get personalized internship suggestions based on your resume, ranked based off how likely you are to pass their resume screening.
+- 🌱**Application Tracking**: Keep all your internship applications organized in one place, with real-time status updates.
+- 📊**Resume Screening**: Automatically compare your resume to the job description using AI-powered natural language processing (NLP) techniques to assess similarity.
+- 🔍**Custom Sorting & Filtering**: Easily sort, search, or filter internships based on various criteria like application status, company, or similarity score.
+
 
 ## Technologies Used
 
 Built from scratch with:
 
-[![Node][Node.js]][Node-url] [![React][React.js]][React-url] [![Tailwind-CSS][Tailwind]][Tailwind-url] [![Bootstrap][Bootstrap.com]][Bootstrap-url] [![Flask][Flask-Py]][Flask-url] [![Firebase][Fire-base]][Firebase-url]
+[![Python][Python]][Python-url] [![React][React.js]][React-url] [![Tailwind-CSS][Tailwind]][Tailwind-url] [![Next.js][Next]][Next-url] [![Flask][Flask-Py]][Flask-url] [![Firebase][Fire-base]][Firebase-url] [![Docker][Docker]][Docker-url] [![SqlAlchemy][SqlAlchemy]][SqlAlchemy-url] [![BeautifulSoup][BeautifulSoup]][BeautifulSoup-url] [![Selenium][Selenium]][Selenium-url] [![spaCy][spaCy]][spaCy-url]
 
-[Node.js]: https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white
-[Node-url]: https://nextjs.org/](https://nodejs.org/en)
+[Python]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
+[Python-url]: https://docs.python.org/3.13/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
+[Next]: https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+[Next-url]: https://nextjs.org/docs
 [Tailwind]: https://img.shields.io/badge/tailwindcss-dbdbdb?style=for-the-badge&logo=tailwindcss
 [Tailwind-url]: https://tailwindcss.com/
-[Python]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
-[Python-url]: https://www.python.org/
 [Flask-Py]: https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white
 [Flask-url]: https://flask.palletsprojects.com/en/3.0.x/
 [Fire-base]: https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34
 [Firebase-url]: https://firebase.google.com/
+[Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[SqlAlchemy]: https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white
+[SqlAlchemy-url]: https://www.sqlalchemy.org/
+[BeautifulSoup]: https://img.shields.io/badge/AngelList-%23D4D4D4.svg?style=for-the-badge&logo=AngelList&logoColor=black
+[BeautifulSoup-url]: https://www.crummy.com/software/BeautifulSoup/
+[Selenium]: https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white
+[Selenium-url]: https://www.selenium.dev/
+[spaCy]: https://img.shields.io/badge/-Jasmine-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white
+[spaCy-url]: https://spacy.io/

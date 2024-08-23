@@ -168,9 +168,6 @@ def finish_extract():
             print(f"Failed to retrieve apply link for {job['link']}. Error: {e}")
             job['apply_link'] = None
     
-    
-        print(job['apply_link'], job['job_title'], job['name'])
-
     with open('extracted_swe_jobs.json', 'w') as file:
         json.dump(all_jobs, file, indent=4)
 
