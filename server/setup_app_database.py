@@ -1,3 +1,9 @@
+"""
+Code to set up universal application database. Has code to add and modify the database through python. 
+
+Designed to scale for the future, planning to add more applications to this database. 
+"""
+
 import sqlite3
 from flask import Flask, jsonify
 import json

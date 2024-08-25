@@ -33,7 +33,7 @@ def extract_skills(file, skill_set):
             extracted_skills.add(token.text)
         
 
-    # needs more testing, adds bolded words to the skills list
+    # Needs more testing, adds bolded words to the skills list
     doc = fitz.open(stream=file.read(), filetype="pdf")
     for page in doc:
         blocks = page.get_text("dict")["blocks"]

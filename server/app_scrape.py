@@ -33,7 +33,6 @@ def extract_jobs(page_source):
         # Extract the job information (link, location, name)
         job2 = job.find_all('div', class_='dataRow rightPane rowExpansionEnabled rowSelectionEnabled')
         for square in job2:
-            # Retrieves links
             links = square.find('a', class_="link-quiet pointer flex-inline items-center justify-center z1 strong text-decoration-none rounded print-color-exact background-transparent darken2-hover text-blue border-box border-thick border-transparent border-darken2-focus px1")
             href_value = links['href'] if links else None
             
@@ -43,7 +42,6 @@ def extract_jobs(page_source):
                 job4 = x.find('div', class_="truncate")
                 lst.append(job4.get_text(strip=True))
             
-            # Create job info dictionary
             if len(lst) >= 2:
                 job_info = {
                     'link': href_value,
@@ -65,34 +63,29 @@ def extract_base_rows():
     url = "https://airtable.com/app17F0kkWQZhC6HB/shrOTtndhc6HSgnYb/tblp8wxvfYam5sD04?viewControls=on"
     driver.get(url)
 
-    # Allow the page to fully load
     time.sleep(6)  # Wait 6 seconds initially for content to load
 
     # Find the first row to click on
-    first_row = driver.find_element(By.CLASS_NAME, 'dataRow')  # Replace with the correct selector
-    first_row.click()  # Click the row to focus on it
+    first_row = driver.find_element(By.CLASS_NAME, 'dataRow')  
+    first_row.click()  
 
     all_jobs = []
 
     # Simulate arrow key navigation and extract content after each scroll
     actions = ActionChains(driver)
 
-    for _ in range(444):  # Adjust the range as needed to ensure all rows are processed
-        # Extract the page's HTML content
+    for _ in range(444):  
         page_source = driver.page_source
         jobs = extract_jobs(page_source)
 
-        # Add the extracted jobs to the list
         all_jobs.extend(jobs)
 
         # Move down to the next row
         actions.send_keys(Keys.ARROW_DOWN).perform()
-        time.sleep(0.05)  # Adjust the time if needed
+        time.sleep(0.05)  
 
-    # Close the browser
     driver.quit()
 
-    # Optional: Remove duplicates if any
     all_jobs = [dict(t) for t in {frozenset(job.items()) for job in all_jobs}]
     return all_jobs    
 
@@ -108,11 +101,9 @@ def finish_extract():
     for job in all_jobs:
         link = job['link']
 
-        # Send a GET request to the job link
         response = requests.get(link)
         
         if response.status_code == 200:
-            # Parse the page content with BeautifulSoup
             soup = BeautifulSoup(response.text, 'html.parser')
             
             # Find the job title
@@ -126,7 +117,7 @@ def finish_extract():
     
             for skill_container in job_skill_elements:
                 # Extract each skill separately
-                individual_skills = skill_container.find_all('span')  # Adjust the tag as needed based on the structure
+                individual_skills = skill_container.find_all('span') 
                 
                 for skill in individual_skills:
                     job_skill_text = skill.get_text(strip=True) if skill else "No skill found"
@@ -159,7 +150,6 @@ def finish_extract():
             time.sleep(5)
             driver.switch_to.window(driver.window_handles[-1])
             WebDriverWait(driver, 10).until(EC.url_changes(link))
-            # Additional sleep to ensure the page is fully loaded
             
             # Extract the new URL after the click
             new_link = driver.current_url

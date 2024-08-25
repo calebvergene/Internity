@@ -22,7 +22,6 @@ from file_analysis import extract_skills
 from default_apps import skill_set
 
 
-
 load_dotenv()
 
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', 'default-client-id')
@@ -51,7 +50,11 @@ flow = Flow.from_client_secrets_file(
 
 logging.basicConfig(level=logging.DEBUG)
 
+
 def login_is_required(function):
+    """
+    Enforces login state
+    """
     @wraps(function)
     def wrapper(*args, **kwargs):
         if "google_id" not in session:
@@ -61,8 +64,12 @@ def login_is_required(function):
 
     return wrapper
 
+
 @app.route("/login")
 def login():
+    """
+    Allows users to log in
+    """
     authorization_url, state = flow.authorization_url()
     logging.debug(f"Authorization URL: {authorization_url}")
     logging.debug(f"Generated state: {state}")
@@ -70,8 +77,12 @@ def login():
     logging.debug(f"Session state set: {session['state']}")
     return redirect(authorization_url)
 
+
 @app.route("/callback", methods=["GET"])
 def callback():
+    """
+    Google auth page
+    """
     try:
         logging.debug(f"Callback request.args: {request.args}")
         logging.debug(f"Session state set: {session['state']}")
@@ -125,16 +136,25 @@ def callback():
         logging.error(f"Error during callback: {e}")
         return abort(500)
 
+
 @app.route("/logout")
 def logout():
+    """
+    To logout of session/account
+    """
     session.clear()
     return redirect("/login")
+
 
 # This is made to read the applications. If the front end requests
 # to see an application, this is what is sent. 
 @app.route("/application", methods=["GET"])
 @login_is_required
 def get_applications():
+    """
+    Receive applications from database to send to front end
+    Has additional sort features based off front end input
+    """
     google_id = session["google_id"]
     custom_sort = request.args.get("custom_sort", "")
 
@@ -213,14 +233,12 @@ def get_applications():
     return jsonify({"applications": json_applications, "userName": user_name})
 
 
-
-
-
-# This is made to create an application. We recieve json request from the 
-# front end, then create the application on the back end. 
 @app.route("/create_application", methods=["POST"])
 @login_is_required
 def create_applications():
+    """
+    To create an application. We receive json request from the front end, then create the application on the back end. 
+    """
     name = request.json.get("name")
     open = request.json.get("open")
     close = request.json.get("close")
@@ -245,11 +263,12 @@ def create_applications():
     return jsonify({"message": "Application created successfully."}), 201
     
 
-
-# This is to update an application
 @app.route("/update_application/<int:user_id>", methods=["PATCH"])
 @login_is_required
 def update_application(user_id):
+    """
+    Update an existing application and replace the old one with new info in their database
+    """
     application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
 
     # If given a non existant application ID
@@ -270,11 +289,12 @@ def update_application(user_id):
     return jsonify({"message": "Application updated."}), 200
 
 
-
-# This is to delete an application
 @app.route("/delete_application/<int:user_id>", methods=["DELETE"])
 @login_is_required
 def delete_application(user_id):
+    """
+    Deletes an application from their database
+    """
     application = Application.query.filter_by(id=user_id, google_id=session["google_id"]).first()
 
 
@@ -290,6 +310,11 @@ def delete_application(user_id):
 # This is for uploading resume from front end
 @app.route('/upload-resume', methods=['POST'])
 def upload_resume():
+    """
+    Receives resume file from the front end
+    Sends resume to backend to process and analyze file
+    upload_resume() receives parsed text and runs analysis to generate a similarity score
+    """
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     
@@ -321,8 +346,12 @@ def upload_resume():
     return jsonify({'skills': list(resume_skills)}), 200
 
 
-
 def default_applications(google_id):
+    """
+    Starts off the user with the web scraped internships that align with their chosen major. If the user
+    has 0 internships in their table, then this function will run and automatically add applications to their 
+    database and front end table. 
+    """
     try:
         # Add the default applications to the database
         db.session.bulk_save_objects(default_apps(google_id))
