@@ -1,7 +1,7 @@
 # 3. For main, think of all of the features we need. 
 # We need to create, read, update, and delete rows of our tracker.
 from sqlalchemy import case, asc, desc
-from models import Application
+from .models import Application
 from default_apps import default_apps
 from file_analysis import analyze_resume
 
