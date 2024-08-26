@@ -1,5 +1,7 @@
+
 en-core-web-md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.7.1/en_core_web_md-3.7.1-py3-none-any.whl#sha256=6a0f857a2b4d219c6fa17d455f82430b365bf53171a2d919b9376e5dc9be032e
 en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl#sha256=86cc141f63942d4b2c5fcee06630fd6f904788d2f0ab005cce45aadb8fb73889
+
 Flask==3.0.3
 Flask-Cors==4.0.1
 Flask-GoogleAuth==0.4.2
@@ -10,16 +12,23 @@ google-auth==2.31.0
 google-auth-oauthlib==1.2.0
 gunicorn==23.0.0
 oauthlib==3.2.2
-pip>=23.0.1
+
+
+PyMuPDF==1.24.9
+PyMuPDFb==1.24.9
+pyparsing==3.1.2
 PyPDF2==3.0.1
-PyMuPDF==1.21.0
+
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
-setuptools>=65.0.
+
 spacy==3.7.5
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 SQLAlchemy==2.0.31
+
 urllib3==2.2.2
+
 webdriver-manager==4.0.2
 websocket-client==1.8.0
+
