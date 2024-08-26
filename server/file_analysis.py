@@ -4,7 +4,6 @@ import pandas as pd
 import spacy
 from default_apps import skill_set
 import json
-from setup_app_database import get_all_applications
 
 def extract_text_from_pdf(file):
     """
@@ -53,12 +52,22 @@ def analyze_resume(file):
     """
     nlp = spacy.load("en_core_web_md")
     resume_skills = extract_skills(file, skill_set())
-    
-
 
     resume_doc = nlp(" ".join(resume_skills))
-    get_all_applications()
-    all_applications = get_all_applications()
+
+    with open('server/application_data/extracted_swe_jobs.json', 'r') as json_file:
+        applications = json.load(json_file)
+        all_applications = []
+        for application in applications:
+            all_applications.append({
+                'name': application['name'],
+                'location': application['location'],
+                'role': application['job_title'],
+                'skills': application['skills'],
+                'link': application['link'],
+                'apply_link': application['apply_link'],
+                'field': application['field']
+            })
     similarity_results = []
     for application in all_applications:
         job_role_doc = nlp(" ".join(application['skills']))     

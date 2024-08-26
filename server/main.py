@@ -1,13 +1,13 @@
 # 3. For main, think of all of the features we need. 
 # We need to create, read, update, and delete rows of our tracker.
 from sqlalchemy import case, asc, desc
-from config import app, db
 from models import Application
 from default_apps import default_apps
 from file_analysis import analyze_resume
 
 import os
 import pathlib
+import sys
 import logging
 
 import requests
@@ -20,9 +20,21 @@ from pip._vendor import cachecontrol
 from functools import wraps
 from file_analysis import extract_skills
 from default_apps import skill_set
+from config import DevelopmentConfig, ProductionConfig
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from flask_migrate import Migrate
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from server import create_app, db
 
 
 load_dotenv()
+
+
+app = create_app()
+
 
 GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID', 'default-client-id')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET', 'default-client-secret')
@@ -337,7 +349,7 @@ def upload_resume():
                 application.close == sim_app["location"]
             ):
                 if application.link == None:
-                    application.link = 'https://github.com/calebvergene/Internity'
+                    continue
                 application.link = application.link + ' ' + sim_app['similarity']
 
     # Commit the changes to the database if any updates were made
@@ -366,4 +378,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)

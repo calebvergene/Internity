@@ -1,7 +1,5 @@
 from models import Application
 import json
-from setup_app_database import get_all_applications
-
 
 
 
@@ -34,8 +32,22 @@ def default_apps(google_id):
     """
     Returns default applications that a user will have in their table once registering an account. 
     """
-    default_apps = get_all_applications()
+    print('ran')
+    default_apps = []
+    with open('server/application_data/extracted_swe_jobs.json', 'r') as file:
+        all_applications = json.load(file)
+        for application in all_applications:
+            default_apps.append({
+                'name': application['name'],
+                'location': application['location'],
+                'role': application['job_title'],
+                'skills': application['skills'],
+                'link': application['link'],
+                'apply_link': application['apply_link'],
+                'field': application['field']
+            })
     application_list = []
+    print('x')
     for app in default_apps:
         application_list.append(Application(status="Not Applied", name=app['name'], open=app['role'], close=app['location'], link=app['apply_link'], google_id=google_id))
 

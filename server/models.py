@@ -1,7 +1,9 @@
 # 2. database models, knowing what fields and info we need in our db
-
+import sys
+import os
 #this is our db instance, giving us access to SQLAlchemy
-from config import db
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from server import db
 
 # python class that inherits the characteristics of the SQL database
 class Application(db.Model):
@@ -11,7 +13,7 @@ class Application(db.Model):
     name = db.Column(db.String(60), unique = False, nullable = False)
     open = db.Column(db.String(200), unique = False, nullable = True)
     close = db.Column(db.String(60), unique = False, nullable = False)
-    link = db.Column(db.String(400), unique = True, nullable = True)
+    link = db.Column(db.String(400), unique = False, nullable = True)
     google_id = db.Column(db.String(100), nullable=False)
     order = db.Column(db.Integer, nullable=False, default=0)
 
