@@ -10,10 +10,12 @@ google-auth==2.31.0
 google-auth-oauthlib==1.2.0
 gunicorn==23.0.0
 oauthlib==3.2.2
+pip>=23.0.1
 PyPDF2==3.0.1
 PyMuPDF==1.21.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
+setuptools>=65.0.
 spacy==3.7.5
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
