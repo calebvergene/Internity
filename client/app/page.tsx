@@ -12,11 +12,9 @@ export default function Landing() {
 
   useEffect(() => {
     checkLoginStatus();
-    // Disable scrolling
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
-    // Re-enable scrolling on component unmount (optional cleanup)
     return () => {
       document.body.style.overflow = "auto";
       document.documentElement.style.overflow = "auto";

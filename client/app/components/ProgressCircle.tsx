@@ -34,7 +34,7 @@ interface CircleTextProps {
         dominantBaseline="middle"
         textAnchor="middle"
         fontSize={"0.7em"}
-          fill={colour}  // Use the colour prop here
+          fill={colour} 
           className="font-rubik font-medium text-[0.7rem]"
       >
           {percentage.toFixed(0)}
