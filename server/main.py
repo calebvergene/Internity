@@ -2,8 +2,8 @@
 # We need to create, read, update, and delete rows of our tracker.
 from sqlalchemy import case, asc, desc
 from .models import Application
-from default_apps import default_apps
-from file_analysis import analyze_resume
+from .default_apps import default_apps, skill_set
+from .file_analysis import analyze_resume, extract_skills
 
 import os
 import pathlib
@@ -18,13 +18,7 @@ from google_auth_oauthlib.flow import Flow
 import google.auth.transport.requests
 from pip._vendor import cachecontrol
 from functools import wraps
-from file_analysis import extract_skills
-from default_apps import skill_set
-from config import DevelopmentConfig, ProductionConfig
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
-from flask_migrate import Migrate
+
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from server import create_app, db
