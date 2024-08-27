@@ -1,7 +1,7 @@
 import PyPDF2
 import fitz
 import spacy
-from .default_apps import skill_set
+from default_apps import skill_set
 import json
 
 def extract_text_from_pdf(file):

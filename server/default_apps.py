@@ -1,4 +1,4 @@
-from .models import Application
+from models import Application
 import json
 
 

@@ -1,15 +1,18 @@
 # 3. For main, think of all of the features we need. 
 # We need to create, read, update, and delete rows of our tracker.
-from sqlalchemy import case, asc, desc
-from .models import Application
-from .default_apps import default_apps, skill_set
-from .file_analysis import analyze_resume, extract_skills
-
 import os
 import pathlib
 import sys
 import logging
 
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+
+from sqlalchemy import case, asc, desc
+from models import Application
+from default_apps import default_apps, skill_set
+from file_analysis import analyze_resume, extract_skills
 import requests
 from dotenv import load_dotenv
 from flask import session, abort, redirect, request, jsonify
@@ -20,7 +23,6 @@ from pip._vendor import cachecontrol
 from functools import wraps
 
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from server import create_app, db
 
 
@@ -381,4 +383,4 @@ if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
-    app.run(debug=False, port=5001)
+    app.run(debug=True, port=5001)
