@@ -8,7 +8,7 @@
 
 # About
 
-Internify offers over **12,000** internship applications for you to apply for, all in one click. Internify is an open source application hub built to organize and track all of your applications in one place. Internify also offers a **resume screening similarity test**, scanning and comparing your resume to each internship application using AI and NLP through spaCy. This process recommends you to applications that are looking for applicants with *your* skills, increasing your odds at landing an internship. 
+Internity offers over **12,000** internship applications for you to apply for, all in one click. Internity is an open source application hub built to organize and track all of your applications in one place, offering a **resume screening similarity test** that analyzes and compares your resume to each internship application using AI and NLP through spaCy. This process recommends you to applications that are looking for applicants with *your* skills, increasing your odds at landing an internship. 
 
 # Features
 
