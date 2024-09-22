@@ -47,3 +47,7 @@ Built from scratch with:
 [Selenium-url]: https://www.selenium.dev/
 [spaCy]: https://img.shields.io/badge/-spaCy-%238A4182?style=for-the-badge&logo=Jasmine&logoColor=white
 [spaCy-url]: https://spacy.io/
+
+## Video Demo
+
+https://www.youtube.com/watch?v=bCA0JGNsMbw
